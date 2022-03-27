@@ -1,0 +1,31 @@
+.page__main {
+	display: flex;
+	justify-content: space-between;
+	flex: 1 1 auto;
+	padding-top: 1.5%;
+	padding-bottom: 1.5%;
+	// background-color: rgba (255, 255, 255, 0.2);
+	// box-shadow: 0 5px 45px rgba(0, 0, 0, 0.2);
+}
+
+.section__column {
+	background-color: aqua;
+	min-height: 60vh;
+	height: 100%;
+	flex-basis: 32%;
+	box-shadow: 0 5px 45px rgba(0, 0, 0, 0.2);
+}
+
+.section__column:first-child {
+	background-color: rgba(3, 169, 244, 1);
+}
+.section__column:nth-child(2) {
+	background-color: rgba(51, 210, 30, 0.5);
+}
+.section__column:last-child {
+	background-color: rgba(30, 129, 210, 0.5);
+}
+@import "_leftColumn";
+@import "_middleColumn";
+@import "_rightColumn";
+// @import "_forms";

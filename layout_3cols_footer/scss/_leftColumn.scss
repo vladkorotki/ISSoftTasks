@@ -1,0 +1,35 @@
+.page__main {
+	.section__column--left {
+		display: flex;
+		justify-content: center;
+		width: 100%;
+	}
+
+	.form__container--registration {
+		display: flex;
+		flex-direction: column;
+		justify-content: flex-start;
+		align-items: center;
+		max-width: 80%;
+	}
+
+	.fieldset--registration {
+		display: none;
+	}
+
+	.form__selection {
+		display: flex;
+		justify-content: space-between;
+		width: 100%;
+	}
+
+	.btn--login,
+	.btn--registration {
+		padding: 10px 10px;
+	}
+	.btn--enter,
+	.btn--submit {
+		background-color: rgba(3, 169, 244, 1);
+		color: white;
+	}
+}
