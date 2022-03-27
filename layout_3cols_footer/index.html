@@ -12,7 +12,7 @@
 		href="https://fonts.googleapis.com/css2?family=Roboto+Serif:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
 		rel="stylesheet">
 
-	<script src="js/js.js" defer></script>
+	<script src="js/script.js" defer></script>
 </head>
 
 <body>
@@ -27,43 +27,46 @@
 						<button class="btn btn--login">Войти на сайт</button>
 						<button class="btn btn--registration">Регистрация</button>
 					</div>
-					<fieldset class="fieldset fieldset--enter">
-						<legend>Вход на сайт</legend>
-						<p>
-							<input class="input" type="text" name="username" placeholder="Username">
-						</p>
+					<form class="form form--registration" action="#">
+						<fieldset class="fieldset fieldset--enter">
 
-						<p>
-							<input class="input" type="password" name="password" placeholder="Password">
-						</p>
-						<button class="btn--enter btn">Войти</button>
-					</fieldset>
-					<fieldset class="fieldset fieldset--registration">
-						<legend>Регистрация</legend>
-						<p>
-							<input class="input" type="text" name="username" placeholder="Username">
-						</p>
+							<legend>Вход на сайт</legend>
+							<p>
+								<input class="input" type="text" name="username" placeholder="Username">
+							</p>
 
-						<p>
-							<input class="input" type="email" name="email" placeholder="e-mail">
-						</p>
+							<p>
+								<input class="input" type="password" name="password" placeholder="Password">
+							</p>
+							<button class="btn--enter btn">Войти</button>
+						</fieldset>
+						<fieldset class="fieldset fieldset--registration">
+							<legend>Регистрация</legend>
+							<p>
+								<input class="input" type="text" name="username" placeholder="Username">
+							</p>
 
-						<p>
-							<input class="input" type="tel" name="tel" placeholder="phone">
-						</p>
+							<p>
+								<input class="input" type="email" name="email" placeholder="e-mail">
+							</p>
 
-						<p>
-							<input class="input" type="password" name="password" placeholder="Password">
-						</p>
+							<p>
+								<input class="input" type="tel" name="tel" placeholder="phone">
+							</p>
 
-						<p>
-							<input class="input" type="password" name="password" placeholder="repeat password">
-						</p>
+							<p>
+								<input class="input" type="password" name="password" placeholder="Password">
+							</p>
 
-						<p>
-							<button class="btn btn--submit">Отправить</button>
-						</p>
-					</fieldset>
+							<p>
+								<input class="input" type="password" name="password" placeholder="repeat password">
+							</p>
+
+							<p>
+								<button class="btn btn--submit">Отправить</button>
+							</p>
+						</fieldset>
+					</form>
 				</div>
 			</section>
 			<section class="section__column section__column--middle">

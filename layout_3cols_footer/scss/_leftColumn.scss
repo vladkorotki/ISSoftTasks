@@ -11,6 +11,22 @@
 		justify-content: flex-start;
 		align-items: center;
 		max-width: 80%;
+		height: 100%;
+	}
+
+	.form--registration {
+		width: 100%;
+		height: 35vh;
+		position: relative;
+	}
+
+	.fieldset--enter,
+	.fieldset--registration {
+		width: 100%;
+		height: 100%;
+		position: absolute;
+		top: 0;
+		left: 0;
 	}
 
 	.fieldset--registration {
