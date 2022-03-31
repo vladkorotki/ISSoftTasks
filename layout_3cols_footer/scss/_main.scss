@@ -9,7 +9,7 @@
 .section__column {
 	background-color: aqua;
 	min-height: 60vh;
-	height: 100%;
+	// height: 100%;
 	flex-basis: 32%;
 	box-shadow: 0 5px 45px rgba(0, 0, 0, 0.2);
 }
@@ -26,4 +26,3 @@
 @import "_leftColumn";
 @import "_middleColumn";
 @import "_rightColumn";
-// @import "_forms";

@@ -1,17 +1,16 @@
 .form__container {
-	position: relative;
 	background-color: rgba(255, 255, 255, 0.2);
 	box-shadow: 0 5px 45px rgba(0, 0, 0, 0.2);
 	padding: 4%;
 	width: 100%;
-	position: relative;
+	height: 60vh;
 }
 
 .fieldset {
 	background-color: #fff;
 	border: none;
 	width: 100%;
-	position: relative;
+
 	legend {
 		font-size: 1.5rem;
 		color: #333;
