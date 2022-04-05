@@ -1,4 +1,4 @@
-/* Сетка на инлайн-блоках */
+/* Сетка на флотах */
 
 * {
 	box-sizing: border-box;
@@ -8,14 +8,16 @@ html {
 	height: 100%;
 }
 body {
-	background-color: rgba(255, 127, 80, 0.3);
+	background-color: rgba(255, 127, 80, 0.2);
 	height: 100%;
+	
 }
 .page {
 	width: 100%;
 	max-width: 1280px;
 	margin: 0 auto;
 	min-height: 100%;
+	padding: 0;
 }
 .page__header {
 	min-height: 15vh;
@@ -24,19 +26,30 @@ body {
 }
 
 .page__main {
-	padding-top: 1.5%;
-	padding-bottom: 1.5%;
-	font-size: 0;
+	overflow: hidden;
 	min-height: calc(100vh - 25vh);
+	padding-top: 1.5%;
+	margin-bottom: 1.5%;
+}
+
+.clearfix::after {
+	content: "";
+	display: table;
+	clear: both;
 }
 .section__column {
 	background-color: aqua;
 	min-height: 50vh;
 	height: 100%;
-	display: inline-block;
 	width: 32%;
-	font-size: 12px;
-	vertical-align: top;
+	padding-bottom: 99999px;
+	margin-bottom: -99999px;
+}
+
+.column__content{
+	min-height: 50vh;
+	height: 100%;
+	padding: 0 10px 0 10px;
 }
 
 .section__column:not(:last-child) {
@@ -45,16 +58,23 @@ body {
 
 .section__column:first-child {
 	background-color: rgba(210, 105, 30, 0.5);
+	float: left;
 }
 .section__column:nth-child(2) {
 	background-color: rgba(51, 210, 30, 0.5);
+	float: left;
 }
 .section__column:last-child {
 	background-color: rgb(30, 129, 210, 0.5);
+	float: right;
 }
 
 .page__footer {
 	min-height: 10vh;
-	max-height: 100%;
+	height: 100%;
 	background-color: mediumpurple;
+	
 }
+
+
+

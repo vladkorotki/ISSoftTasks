@@ -9,7 +9,6 @@ html {
 }
 body {
 	height: 100%;
-
 	background-color: rgba(255, 127, 80, 0.2);
 }
 .page {
@@ -36,11 +35,14 @@ body {
 
 .section__column {
 	background-color: aqua;
-	min-height: 50vh;
-	height: 100%;
 	flex-basis: 32%;
 }
 
+.column__content{
+	min-height: 50vh;
+	height: 100%;
+	padding: 0 10px 0 10px;
+}
 .section__column:first-child {
 	background-color: rgba(210, 105, 30, 0.5);
 }
@@ -55,5 +57,4 @@ body {
 	min-height: 10vh;
 	height: 100%;
 	background-color: mediumpurple;
-	/* position: sticky; */
 }

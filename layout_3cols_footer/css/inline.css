@@ -1,4 +1,4 @@
-/* Сетка на флотах */
+/* Сетка на инлайн-блоках */
 
 * {
 	box-sizing: border-box;
@@ -8,7 +8,7 @@ html {
 	height: 100%;
 }
 body {
-	background-color: rgba(255, 127, 80, 0.2);
+	background-color: rgba(255, 127, 80, 0.3);
 	height: 100%;
 }
 .page {
@@ -24,20 +24,28 @@ body {
 }
 
 .page__main {
-	padding-top: 1.5%;
+	font-size: 0;
 	min-height: calc(100vh - 25vh);
-}
-
-.clearfix::after {
-	content: "";
-	display: table;
-	clear: both;
+	overflow: hidden;
+	padding-top: 1.5%;
+	margin-bottom: 1.5%;
 }
 .section__column {
-	background-color: aqua;
 	min-height: 50vh;
 	height: 100%;
+	background-color: aqua;
+	display: inline-block;
 	width: 32%;
+	font-size: 12px;
+	vertical-align: top;
+	padding-bottom: 99999px;
+	margin-bottom: -99999px;
+}
+.column__content{
+	min-height: 50vh;
+	height: 100%;
+	padding: 0 10px 0 10px;
+	font-size: 1rem;
 }
 
 .section__column:not(:last-child) {
@@ -46,15 +54,12 @@ body {
 
 .section__column:first-child {
 	background-color: rgba(210, 105, 30, 0.5);
-	float: left;
 }
 .section__column:nth-child(2) {
 	background-color: rgba(51, 210, 30, 0.5);
-	float: left;
 }
 .section__column:last-child {
 	background-color: rgb(30, 129, 210, 0.5);
-	float: right;
 }
 
 .page__footer {
