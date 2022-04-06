@@ -5,8 +5,13 @@
 }
 
 html {
-	height: 100%;
+	/* max-height: 100%; */
+	font-size: 0;
+	/* line-height: 0%;
+	margin: 0;
+	padding: 0; */
 }
+
 body {
 	background-color: rgba(255, 127, 80, 0.2);
 	height: 100%;
@@ -23,14 +28,13 @@ body {
 	min-height: 15vh;
 	height: 100%;
 	background-color: darkorchid;
-	margin-top: -2.8%;
+	
 }
 
 .page__main {
 	overflow: hidden;
 	min-height: calc(100vh - 25vh);
-	padding-top: 1.5%;
-	margin-bottom: 1.5%;
+	
 }
 
 .clearfix::after {
@@ -42,7 +46,7 @@ body {
 	background-color: aqua;
 	min-height: 50vh;
 	height: 100%;
-	width: 32%;
+	width: calc(100% / 3);
 	padding-bottom: 99999px;
 	margin-bottom: -99999px;
 }
@@ -54,7 +58,7 @@ body {
 }
 
 .section__column:not(:last-child) {
-	margin-right: 2%;
+	/* margin-right: 2%; */
 }
 
 .section__column:first-child {
