@@ -1,0 +1,61 @@
+/* Сетка на флексах */
+
+* {
+	box-sizing: border-box;
+}
+
+html {
+	height: 100%;
+}
+body {
+	height: 100%;
+	background-color: rgba(255, 127, 80, 0.2);
+}
+.page {
+	display: flex;
+	flex-direction: column;
+	width: 100%;
+	max-width: 1280px;
+	margin: 0 auto;
+	min-height: 100%;
+}
+.page__header {
+	min-height: 15vh;
+	height: 100%;
+	background-color: darkorchid;
+}
+
+.page__main {
+	display: flex;
+	justify-content: space-between;
+	flex: 1 1 auto;
+	/* padding-top: 1.5%; */
+	/* padding-bottom: 1.5%; */
+}
+
+.section__column {
+	background-color: aqua;
+	flex-basis: 32%;
+	flex-grow: 1;
+}
+
+.column__content{
+	min-height: 50vh;
+	height: 100%;
+	padding: 0 10px 0 10px;
+}
+.section__column:first-child {
+	background-color: rgba(210, 105, 30, 0.5);
+}
+.section__column:nth-child(2) {
+	background-color: rgba(51, 210, 30, 0.5);
+}
+.section__column:last-child {
+	background-color: rgb(30, 129, 210, 0.5);
+}
+
+.page__footer {
+	min-height: 10vh;
+	height: 100%;
+	background-color: mediumpurple;
+}
