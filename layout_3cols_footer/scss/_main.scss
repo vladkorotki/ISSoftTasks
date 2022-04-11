@@ -23,6 +23,13 @@
 .section__column:last-child {
 	background-color: rgba(30, 129, 210, 0.5);
 }
+
+.invalid__input{
+	border-color: red;
+	color: red;
+}
+
+
 @import "_leftColumn";
 @import "_middleColumn";
 @import "_rightColumn";

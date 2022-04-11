@@ -371,12 +371,12 @@ body {
 }
 
 .form__container {
-  background-color: rgba(255, 255, 255, 0.2);
+  background-color: #03a9f4;
   -webkit-box-shadow: 0 5px 45px rgba(0, 0, 0, 0.2);
           box-shadow: 0 5px 45px rgba(0, 0, 0, 0.2);
-  padding: 4%;
+  padding: 2%;
   width: 100%;
-  height: 60vh;
+  height: 50;
 }
 
 .fieldset {
@@ -407,6 +407,178 @@ body {
   width: 100%;
   padding: 10px;
   border: 1px solid #333;
+}
+
+.form__selection {
+  width: 100%;
+  position: relative;
+  height: 50px;
+  overflow: hidden;
+}
+
+.form__selection .btn {
+  position: absolute;
+  z-index: 2;
+  height: 40px;
+  left: -101%;
+  top: 0;
+  -webkit-transition: 0.5s ease-in-out;
+  transition: 0.5s ease-in-out;
+}
+
+.form__selection .btn--active {
+  top: 0;
+  left: 0;
+}
+
+.pop__up {
+  display: none;
+}
+
+.pop__up--active {
+  display: block;
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background-color: rgba(0, 0, 0, 0.7);
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.pop__up--close {
+  position: absolute;
+  width: 30px;
+  height: 30px;
+  background-color: white;
+  top: -10px;
+  right: -10px;
+  font-size: 30px;
+  font-weight: bold;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  border: 1px solid black;
+}
+
+.initial__popup {
+  font-size: 18px;
+  color: white;
+}
+
+.initial__popup span {
+  text-decoration: underline;
+  font-weight: bold;
+}
+
+.initial__popup span:hover {
+  color: goldenrod;
+  cursor: pointer;
+}
+
+.form__container--registration {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  width: 540px;
+  position: relative;
+}
+
+.form__wrapper {
+  width: 100%;
+  min-height: 600px;
+  position: relative;
+  z-index: 3;
+  overflow: hidden;
+}
+
+.form--enter {
+  min-height: 280px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+.form--registration {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  min-height: 500px;
+}
+
+.form--enter,
+.form--registration {
+  -webkit-transition: 0.5s ease-in-out;
+  transition: 0.5s ease-in-out;
+  width: 100%;
+  position: absolute;
+  top: 0;
+  left: -101%;
+}
+
+.form--active {
+  top: 0;
+  left: 0;
+}
+
+.btn--login,
+.btn--registration {
+  padding: 10px 10px;
+}
+
+.btn--enter,
+.btn--submit {
+  background-color: #03a9f4;
+  color: white;
+}
+
+.form .fieldset p {
+  position: relative;
+  z-index: 13;
+}
+
+.input__error {
+  color: red;
+  padding: 10px;
+  font-size: 12px;
+  visibility: hidden;
+  display: block;
+}
+
+.input__error--active {
+  visibility: visible;
 }
 
 .page__header {
@@ -450,6 +622,11 @@ body {
   background-color: rgba(30, 129, 210, 0.5);
 }
 
+.invalid__input {
+  border-color: red;
+  color: red;
+}
+
 .page__main .section__column--left {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -458,88 +635,6 @@ body {
       -ms-flex-pack: center;
           justify-content: center;
   width: 100%;
-}
-
-.page__main .form__selection {
-  width: 100%;
-  position: relative;
-  height: 50px;
-  overflow: hidden;
-}
-
-.page__main .form__selection .btn {
-  position: absolute;
-  z-index: 2;
-  height: 40px;
-  left: -101%;
-  top: 0;
-  -webkit-transition: 0.5s ease-in-out;
-  transition: 0.5s ease-in-out;
-}
-
-.page__main .form__selection .btn--active {
-  top: 0;
-  left: 0;
-}
-
-.page__main .form__container--registration {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
-  -webkit-box-pack: start;
-      -ms-flex-pack: start;
-          justify-content: flex-start;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  max-width: 80%;
-  height: 500px;
-}
-
-.page__main .form--registration {
-  width: 100%;
-  height: 100%;
-  position: relative;
-  z-index: 3;
-  overflow: hidden;
-}
-
-.page__main .fieldset--enter {
-  height: 280px;
-}
-
-.page__main .fieldset--registration {
-  height: 420px;
-}
-
-.page__main .fieldset--enter,
-.page__main .fieldset--registration {
-  -webkit-transition: 0.5s ease-in-out;
-  transition: 0.5s ease-in-out;
-  width: 100%;
-  position: absolute;
-  top: 0;
-  left: -101%;
-}
-
-.page__main .fieldset--active {
-  top: 0;
-  left: 0;
-}
-
-.page__main .btn--login,
-.page__main .btn--registration {
-  padding: 10px 10px;
-}
-
-.page__main .btn--enter,
-.page__main .btn--submit {
-  background-color: #03a9f4;
-  color: white;
 }
 
 .page__footer {
