@@ -24,18 +24,25 @@
 		<main class="page__main">
 			<section class="section__column section__column--left">
 				<div class="initial__popup">
-					<p>Здравствуйте! Пожалуйста <span class="registration__fieldset">зарегистрируйтесь</span>
-						<br><br>или <span class="enter__fieldset">войдите на сайт</span>
+					<p class="initial__form initial__form--active">Здравствуйте! Пожалуйста <span
+							class="registration__fieldset popup--open">зарегистрируйтесь</span>
+						<br><br>или <span class="enter__fieldset popup--open">войдите на сайт</span>
 					</p>
+					<div class="user__panel">
+						<p>Добро пожаловать</p>
+						<button class="btn btn--exit">Выйти</button>
+					</div>
 				</div>
-				<div class="pop__up">
 
-					<div class="form__container form__container--registration">
-						<div class="pop__up--close">X</div>
+				<div class="pop__up" id="popUp">
+
+					<div class="form__container form__container--registration" id="formContainer">
+						<div class="popup--close hide--forms close__popup">X</div>
 						<div class="form__selection">
-							<button class="btn btn--login ">Войти на сайт</button>
-							<button class="btn btn--registration ">Регистрация</button>
+							<button class="btn btn--change btn--login ">Войти на сайт</button>
+							<button class="btn btn--change btn--registration ">Регистрация</button>
 						</div>
+
 
 
 						<div class=" form__wrapper">
@@ -49,13 +56,13 @@
 											почты</span>
 									</p>
 									<p>
-										<input class="input" type="password" name="Password" placeholder="Password"
+										<input class="input" type="password" name="password" placeholder="Password"
 											data-validators="requiered(), min-length(5), max-length(20), password()"
 											data-i="1">
 										<span class="input__error">Поле обязательно, должно содержать цифры и буквы в
 											разных регистрах, введите 5-10 символов</span>
 									</p>
-									<p><button class="btn--enter btn" type="submit">Войти</button></p>
+									<p><button class="btn--enter btn hide--forms " type="submit">Войти</button></p>
 								</fieldset>
 
 							</form>
@@ -63,7 +70,7 @@
 								<fieldset class="fieldset fieldset--registration">
 									<legend>Регистрация</legend>
 									<p>
-										<input class="input" type="text" name="Username" placeholder="Username"
+										<input class="input" type="text" name="username" placeholder="Username"
 											data-validators="requiered(), min-length(3)" data-i="0">
 										<span class="input__error">Поле обязательно, введите от 3 до 10 символов</span>
 									</p>
@@ -80,7 +87,7 @@
 											цифр</span>
 									</p>
 									<p>
-										<input class="input input-password" id="pass" type="password" name="Password"
+										<input class="input input-password" id="pass" type="password" name="password"
 											placeholder="Password"
 											data-validators="requiered(), min-length(5), max-length(20), password()"
 											data-i="3">
@@ -88,72 +95,23 @@
 											разных регистрах, введите 5-20 символов</span>
 									</p>
 									<p>
-										<input class="input" id="repeat-password" type="password" name="Repeat password"
+										<input class="input" id="repeat-password" type="password" name="repeat-password"
 											placeholder="Repeat password"
 											data-validators="requiered(), min-length(5), max-length(20), password(), repeat-password(pass)"
 											data-i="4">
 										<span class="input__error">не верно введен пароль, поля не совпадают</span>
 									</p>
 									<p>
-										<button class="btn btn--submit" type="submit">Отправить</button>
+										<button class="btn btn--submit hide--forms btn--change"
+											type="submit">Отправить</button>
 									</p>
 								</fieldset>
 							</form>
 						</div>
 					</div>
+
 				</div>
-				<!-- <div class="form__container form__container--registration">
-					<div class="form__selection">
-						<button class="btn btn--login ">Войти на сайт</button>
-						<button class="btn btn--registration btn--active">Регистрация</button>
-					</div>
-					<form class="form form--registration" action="#">
 
-						<fieldset class="fieldset fieldset--enter fieldset--active">
-
-							<legend>Вход на сайт</legend>
-							<p>
-								<input class="input" type="text" name="username" placeholder="Username">
-							</p>
-
-							<p>
-								<input class="input" type="password" name="password" placeholder="Password">
-							</p>
-							<p><button class="btn--enter btn">Войти</button></p>
-
-						</fieldset>
-
-						<fieldset class="fieldset fieldset--registration">
-
-							<legend>Регистрация</legend>
-							<p>
-								<input class="input" type="text" name="username" placeholder="Username">
-							</p>
-
-							<p>
-								<input class="input" type="email" name="email" placeholder="e-mail">
-							</p>
-
-							<p>
-								<input class="input" type="tel" name="tel" placeholder="phone">
-							</p>
-
-							<p>
-								<input class="input" type="password" name="password" placeholder="Password">
-							</p>
-
-							<p>
-								<input class="input" type="password" name="password" placeholder="repeat password">
-							</p>
-
-							<p>
-								<button class="btn btn--submit">Отправить</button>
-							</p>
-
-							
-						</fieldset>
-					</form>
-				</div> -->
 
 			</section>
 			<section class="section__column section__column--middle">

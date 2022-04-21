@@ -19,7 +19,6 @@ export class FormValidtor {
 		this['min-length'] = options['min-length'];
 		this['max-length'] = options['max-length'];
 		this['has-dog'] = options['has-dog'];
-
 	}
 	createInputValidators(input) {
 		let validators = [];
@@ -47,10 +46,7 @@ export class FormValidtor {
 			// }
 			return validator;
 		});
-		console.log(validators);
+		
 		return validators;
 	}
-
-
-
 }

@@ -454,7 +454,7 @@ body {
           align-items: center;
 }
 
-.pop__up--close {
+.popup--close {
   position: absolute;
   width: 30px;
   height: 30px;
@@ -488,6 +488,22 @@ body {
 .initial__popup span:hover {
   color: goldenrod;
   cursor: pointer;
+}
+
+.user__panel {
+  display: none;
+}
+
+.initial__form {
+  display: none;
+}
+
+.initial__form--active {
+  display: block;
+}
+
+.user__panel--active {
+  display: block;
 }
 
 .form__container--registration {

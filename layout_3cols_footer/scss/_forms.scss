@@ -74,7 +74,7 @@
 	align-items: center;
 }
 
-.pop__up--close{
+.popup--close{
 	position: absolute;
 	width: 30px;
 	height: 30px;
@@ -89,6 +89,8 @@
 	border: 1px solid black;
 	
 }
+
+
 .initial__popup{
 	font-size: 18px;
 	color: white;
@@ -102,6 +104,22 @@
 	color: goldenrod;
 	cursor: pointer;
 }
+
+.user__panel{
+	display: none;
+}
+.initial__form{
+	display: none;
+}
+
+.initial__form--active{
+	display: block;
+}
+
+.user__panel--active{
+	display: block;
+}
+
 
 .form__container--registration {
 	display: flex;
