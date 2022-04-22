@@ -6,8 +6,8 @@ export class Form {
 		this.errorMessage = this.form.querySelectorAll('.input__error');
 		this.inputs = this.form.querySelectorAll(".input");
 
-		this.form.addEventListener('submit', (e) => { this.onFormSubmit(e) });
-		this.form.addEventListener('focusin', (e) => { this.focusOnInput(e) });
+		this.form.addEventListener('submit', (event) => { this.onFormSubmit(event) });
+		this.form.addEventListener('focusin', (event) => { this.focusOnInput(event) });
 
 		this.validator = new FormValidtor(
 			{
@@ -26,22 +26,17 @@ export class Form {
 
 	}
 
-	focusOnInput(e) {
-		if (e.target.closest('.input')) {
-			e.target.classList.remove("invalid__input");
-			this.errorMessage[+(e.target.dataset.i)].classList.remove("input__error--active");
+	focusOnInput(event) {
+		if (event.target.closest('.input')) {
+			event.target.classList.remove("invalid__input");
+			this.errorMessage[+(event.target.dataset.i)].classList.remove("input__error--active");
 		}
 	}
 
-	onFormSubmit(e) {
-		e.preventDefault();
-		const form = e.target;
+	onFormSubmit(event) {
+		event.preventDefault();
+		const form = event.target;
 		const isFormValid = this.checkFormValid(form);
-		if (isFormValid) {
-			console.log('form is valid');
-		} else {
-			console.log('form is Not valid');
-		}
 		return isFormValid;
 	}
 

@@ -9,12 +9,12 @@ export class FormRegistration extends Form {
 		super(id);
 	}
 
-	onFormSubmit(e) {
-		const submited = super.onFormSubmit(e);
+	onFormSubmit(event) {
+		const submited = super.onFormSubmit(event);
 		if (submited) {
 			this.createUser();
 			usersDataLayer.add(this.createUser(), 'e-mail');
-			formContainer.changingForm(e);
+			formContainer.changingForm(event);
 		}
 	}
 

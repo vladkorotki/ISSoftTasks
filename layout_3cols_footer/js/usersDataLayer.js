@@ -7,7 +7,7 @@ export class UsersDataLayer extends DataLayer {
 	}
 
 	add(userObject, keyProperty) {
-		return super.add(this.dataTableName, userObject, keyProperty);
+		super.add(this.dataTableName, userObject, keyProperty);
 	}
 
 	compareUsers(userMail, userPassword) {

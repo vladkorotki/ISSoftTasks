@@ -74,9 +74,9 @@ let buttonExit = document.querySelector('.btn--exit');
 let initialForm = document.querySelector('.initial__form');
 let userCabinet = document.querySelector('.user__panel')
 
-function userPanelExit(e) {
-	e.preventDefault(e);
-	console.log('ei');
+function userPanelExit(event) {
+	event.preventDefault(event);
+
 	initialForm.classList.toggle('initial__form--active');
 	userCabinet.classList.toggle('user__panel--active');
 

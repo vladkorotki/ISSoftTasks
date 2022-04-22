@@ -1,6 +1,11 @@
 
 export class DataLayer {
 	constructor() {
+		if (typeof DataLayer.instance === 'object') {
+			return DataLayer.instance;
+		}
+		DataLayer.instance = this;
+		return this;
 	}
 
 	addTable(dataTableName) {

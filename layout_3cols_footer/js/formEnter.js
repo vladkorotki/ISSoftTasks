@@ -11,23 +11,23 @@ export class FormSignIn extends Form {
 		this.exitUserPanel = document.querySelector(options.exitUserPanel);
 	}
 
-	signIn(e) {
+	signIn(event) {
 		const compare = usersDataLayer.compareUsers(this.userData()['e-mail'], this.userData().password);
 		if (compare) {
 			alert('hi')
 			this.starterForm.classList.remove('initial__form--active');
 			this.userPanel.classList.add('user__panel--active');
-			popup.closePopup(e)
+			popup.close(event)
 		} else {
 			alert('Не верный e-mail или пароль')
 		}
 	}
 
-	onFormSubmit(e) {
-		const submited = super.onFormSubmit(e);
+	onFormSubmit(event) {
+		const submited = super.onFormSubmit(event);
 		if (submited) {
 			this.userData();
-			this.signIn(e);
+			this.signIn(event);
 		}
 	}
 

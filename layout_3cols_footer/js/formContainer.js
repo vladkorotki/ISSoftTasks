@@ -11,15 +11,15 @@ export class FormContainer {
 		this.eventType = options.eventType;
 		this.registrationFieldset = options.registrationFieldset;
 		this.enterFiledset = options.enterFiledset;
-		this.container.addEventListener(this.eventType, (e) => { this.changingForm(e) });
-		document.addEventListener(this.eventType, (e) => { this.showForm(e) });
+		this.container.addEventListener(this.eventType, (event) => { this.changingForm(event) });
+		document.addEventListener(this.eventType, (event) => { this.showForm(event) });
 
 
 	}
 
-	changingForm(e) {
-		if (Array.from(this.container.buttons).includes(e.target.closest(this.changeClass))) {
-			console.log(this.container.buttons);
+	changingForm(event) {
+		if (Array.from(this.container.buttons).includes(event.target.closest(this.changeClass))) {
+
 			this.container.forms.forEach(item => {
 				item.classList.toggle(this.classes[1]);
 			})
@@ -29,26 +29,26 @@ export class FormContainer {
 		}
 
 	}
-	showForm(e) {
-		if ((e.target.closest(this.registrationFieldset))) {
+	showForm(event) {
+		if ((event.target.closest(this.registrationFieldset))) {
 			this.container.forms[1].classList.toggle(this.classes[1]);
 			this.container.buttons[0].classList.toggle(this.classes[0]);
-			popup.openPopup(e);
-		} else if ((e.target.closest(this.enterFiledset))) {
+			popup.open(event);
+		} else if ((event.target.closest(this.enterFiledset))) {
 			this.container.forms[0].classList.toggle(this.classes[1]);
 			this.container.buttons[1].classList.toggle(this.classes[0]);
-			popup.openPopup(e);
+			popup.open(event);
 		}
 	}
 
-	hideForm(e) {
+	hideForm() {
 		this.container.forms.forEach(item => {
 			item.classList.remove(this.classes[1]);
 		});
 		this.container.buttons.forEach(item => {
 			item.classList.remove(this.classes[0]);
 		})
-		console.log(e.target);
+
 	}
 }
 

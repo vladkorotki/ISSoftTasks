@@ -8,27 +8,32 @@ export class Popup {
 		this.eventType = options.eventType;
 		this.classForActivePopup = options.classForActivePopup;
 		this.popUp.close = document.querySelector(options.popUpClose);
-		document.addEventListener(this.eventType, (e) => { this.openPopup(e) });
-		this.popUp.close.addEventListener(this.eventType, (e) => { this.closePopup(e) });
+		document.addEventListener(this.eventType, (event) => { this.open(event) });
+		this.popUp.close.addEventListener(this.eventType, (event) => { this.close(event) });
+		if (typeof Popup.instance === 'object') {
+			return Popup.instance;
+		}
+		Popup.instance = this;
+		return this;
 	}
 
 
 
-	closePopup(e) {
-		if (e.target.closest(this.popUpClose)) {
+	close(event) {
+		if (event.target.closest(this.popUpClose)) {
 			this.popUp.classList.remove(this.classForActivePopup);
-			formContainer.hideForm(e);
+			formContainer.hideForm(event);
 		} else {
 			this.popUp.classList.remove(this.classForActivePopup);
-			formContainer.hideForm(e);
+			formContainer.hideForm(event);
 		}
 
 
 
 	}
 
-	openPopup(e) {
-		if (e.target.closest(this.popUpOpen)) {
+	open(event) {
+		if (event.target.closest(this.popUpOpen)) {
 			this.popUp.classList.add(this.classForActivePopup);
 		}
 	}
