@@ -1,0 +1,194 @@
+.form__container {
+	// background-color: rgba(255, 255, 255, .6);
+	background-color: rgba(3, 169, 244, 1);
+	box-shadow: 0 5px 45px rgba(0, 0, 0, 0.2);
+	padding: 2% ;
+	width: 100%;
+	height: 50;
+}
+
+.fieldset {
+	background-color: #fff;
+	border: none;
+	width: 100%;
+	
+
+	legend {
+		font-size: 1.5rem;
+		color: #333;
+		padding-top: 40px;
+	}
+}
+
+.btn {
+	border: none;
+	padding: 10px 50px;
+	color: #333;
+	background-color: #fff;
+	font-family: "Roboto", sans-serif;
+	font-size: 1rem;
+	font-weight: 500;
+	cursor: pointer;
+}
+
+.input {
+	font-size: 1rem;
+	width: 100%;
+	padding: 10px;
+	border: 1px solid #333;
+}
+
+.form__selection {
+	width: 100%;
+	position: relative;
+	height: 50px;
+	overflow: hidden;
+	.btn {
+		position: absolute;
+		z-index: 2;
+		height: 40px;
+		left: -101%;
+		top: 0;
+		transition: 0.5s ease-in-out;
+	}
+	.btn--active {
+		top: 0;
+		left: 0;
+	}
+}
+
+.pop__up{
+	display: none;
+}
+
+.pop__up--active{
+	display: block;
+	width: 100%;
+	height: 100%;
+	position: fixed;
+	top:0;
+	left: 0;
+	background-color: rgba(0, 0, 0, 0.7);
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.popup--close{
+	position: absolute;
+	width: 30px;
+	height: 30px;
+	background-color: white;
+	top: -10px;
+	right: -10px;
+	font-size: 30px;
+	font-weight: bold;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	border: 1px solid black;
+	
+}
+
+
+.initial__popup{
+	font-size: 18px;
+	color: white;
+}
+.initial__popup span{
+	text-decoration: underline;
+	font-weight: bold;
+}
+
+.initial__popup span:hover{
+	color: goldenrod;
+	cursor: pointer;
+}
+
+.user__panel{
+	display: none;
+}
+.initial__form{
+	display: none;
+}
+
+.initial__form--active{
+	display: block;
+}
+
+.user__panel--active{
+	display: block;
+}
+
+
+.form__container--registration {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	width: 540px;
+	position: relative;
+	
+}
+
+.form__wrapper {
+	width: 100%;
+	min-height: 600px;
+	position: relative;
+	z-index: 3;
+	overflow: hidden;
+}
+
+.form--enter {
+	min-height: 280px;
+	display: flex;
+	flex-direction: column;
+}
+.form--registration {
+	display: flex;
+	flex-direction: column;
+	min-height: 500px;
+}
+
+.form--enter,
+.form--registration {
+	transition: 0.5s ease-in-out;
+	width: 100%;
+	position: absolute;
+	top: 0;
+	left: -101%;
+}
+
+.form--active {
+	top: 0;
+	left: 0;
+}
+
+.btn--login,
+.btn--registration {
+	padding: 10px 10px;
+}
+.btn--enter,
+.btn--submit {
+	background-color: rgba(3, 169, 244, 1);
+	color: white;
+}
+
+.form .fieldset p {
+	position: relative;
+	z-index: 13;
+}
+
+.input__error{
+	color: red;
+	padding: 10px;
+	font-size: 12px;
+	visibility: hidden;
+	display: block;
+}
+
+.input__error--active{
+	visibility: visible;
+}
+
+
