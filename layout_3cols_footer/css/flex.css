@@ -626,6 +626,11 @@ body {
           box-shadow: 0 5px 45px rgba(0, 0, 0, 0.2);
 }
 
+.column__content{
+	min-height: 50vh;
+	height: 100%;
+	padding: 0 10px 0 10px;
+}
 .section__column:first-child {
   background-color: #03a9f4;
 }
