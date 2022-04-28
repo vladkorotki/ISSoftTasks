@@ -603,7 +603,7 @@ body {
   background-color: darkorchid;
 }
 
-.page__main {
+.main__content {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;

@@ -16,7 +16,8 @@ export class DataLayer {
 
 	add(dataTableName, userObject, keyProperty) {
 		this.addTable(dataTableName);
-		let allUsers = JSON.parse(localStorage.getItem(dataTableName));
+		// let allUsers = JSON.parse(localStorage.getItem(dataTableName));
+		let allUsers = this.getUsers(dataTableName);
 		const mail = userObject[keyProperty];
 		if (allUsers.hasOwnProperty(mail)) {
 			alert('Пользователь с таким e-mail уже существует');
@@ -40,6 +41,11 @@ export class DataLayer {
 			isCompareUsers = false;
 		}
 		return isCompareUsers;
+	}
+
+	getUsers(dataTableName) {
+		let users = JSON.parse(localStorage.getItem(dataTableName));
+		return users;
 	}
 
 }
