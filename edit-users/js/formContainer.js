@@ -25,7 +25,7 @@ export class FormContainer {
 			})
 			this.container.buttons.forEach(item => {
 				item.classList.toggle(this.classes[0]);
-			})
+			});
 		}
 
 	}
@@ -47,7 +47,7 @@ export class FormContainer {
 		});
 		this.container.buttons.forEach(item => {
 			item.classList.remove(this.classes[0]);
-		})
+		});
 
 	}
 }

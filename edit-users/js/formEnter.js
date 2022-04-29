@@ -26,6 +26,7 @@ export class FormSignIn extends Form {
 	onFormSubmit(event) {
 		const submited = super.onFormSubmit(event);
 		if (submited) {
+			usersDataLayer.addTable(this.dataTableName);
 			this.userData();
 			this.signIn(event);
 		}

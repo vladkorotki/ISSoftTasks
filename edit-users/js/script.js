@@ -1,5 +1,6 @@
 import { FormSignIn } from './formEnter.js';
 import { FormRegistration } from './formRegistration.js';
+import { UserCard } from './userCard.js'
 // import { FormContainer } from './formContainer.js';
 // import { Popup } from './popUp.js';
 
@@ -13,6 +14,10 @@ const formEnter = new FormSignIn({
 	userPanel: '.user__panel',
 	exitUserPanel: '.btn--exit',
 });
+
+const user = new UserCard();
+console.log(user.createUserCard());
+
 
 
 // let formContainer = new FormContainer({

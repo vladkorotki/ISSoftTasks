@@ -1,6 +1,6 @@
 import { usersDataLayer } from './usersDataLayer.js';
 
-class UserCard {
+export class UserCard {
 	constructor(options) {
 		// this.avatarURL = options.avatarURL;
 		// this.name = options.name;
@@ -70,17 +70,10 @@ class UserCard {
 		user.append(userAvatar);
 		user.append(userData);
 		user.append(userControls);
-		console.log(user);
 		return user;
-
-		// users.append(user);
-		// let user2 = user.cloneNode(true);
-		// users.append(user2);
-		// this.main.append(users);
 	}
 
 
 }
 
-const user = new UserCard();
-user.createUserCard();
+

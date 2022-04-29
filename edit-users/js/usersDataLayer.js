@@ -6,6 +6,10 @@ export class UsersDataLayer extends DataLayer {
 		this.dataTableName = options.dataTableName;
 	}
 
+	addTable() {
+		super.addTable(this.dataTableName);
+	}
+
 	add(userObject, keyProperty) {
 		super.add(this.dataTableName, userObject, keyProperty);
 	}
