@@ -1,6 +1,6 @@
 import { FormSignIn } from './formEnter.js';
 import { FormRegistration } from './formRegistration.js';
-import { UserCard } from './userCard.js'
+// import { UserCard } from './userCard.js'
 // import { FormContainer } from './formContainer.js';
 // import { Popup } from './popUp.js';
 
@@ -15,8 +15,39 @@ const formEnter = new FormSignIn({
 	exitUserPanel: '.btn--exit',
 });
 
-const user = new UserCard();
-console.log(user.createUserCard());
+const user = new UserCard({
+	classUser: 'users__user',
+
+
+	avarar: {
+		classBlock: 'user__avatar',
+		classImg: 'avatar',
+		srcAttribute: '#url',
+		altAttribute: 'avatar',
+	},
+
+	userData: {
+		classUserData: 'user__data',
+
+		classUserName: 'user__name',
+		classUserPhone: 'user__phone',
+		classUserEmail: 'user__email',
+		classUserAddress: 'user__address',
+		classUserGender: 'user__gender',
+	},
+
+	userControls: {
+		classUserControls: 'user__controls',
+
+		classUserBtn: 'btn',
+		clasUserBtnEdit: 'btn__controls--edit',
+		classUserBtnDelete: 'btn__controls--delete',
+		textContentEdit: 'edit',
+		textContentDelete: 'delete',
+	},
+
+});
+
 
 
 

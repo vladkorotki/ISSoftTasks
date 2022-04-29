@@ -1,10 +1,16 @@
-import { usersDataLayer } from './usersDataLayer.js';
+// import { usersDataLayer } from './usersDataLayer.js';
 
-export class UserCard {
+class UserCard {
 	constructor(options) {
-		// this.avatarURL = options.avatarURL;
-		// this.name = options.name;
-		// this.phone = options.phone;
+		this.classUser = options.classUser;
+
+		this.avatarClasssBlock = options.avatar.classBlock;
+		this.avatarClassImg = options.avatar.classImg;
+		this.avatarSrcAttribute = options.avatar.srcAttribute;
+		this.avatarAltAttribute = options.avatar.altAttribute;
+
+		this.userDataClass = options.userData.classUserData;
+
 		this.main = document.querySelector('main');
 	}
 
@@ -18,7 +24,7 @@ export class UserCard {
 		users.classList.add('users');
 
 		let user = div.cloneNode();
-		user.classList.add('users__user');
+		user.classList.add();
 
 		let userAvatar = div.cloneNode();
 		userAvatar.classList.add('user__avatar');
@@ -70,10 +76,53 @@ export class UserCard {
 		user.append(userAvatar);
 		user.append(userData);
 		user.append(userControls);
-		return user;
+		// return user;
+
+		users.append(user);
+		console.log(this.main);
+		this.main.append(users)
+
+
 	}
 
 
 }
+
+const user = new UserCard({
+	classUser: 'users__user',
+
+
+	avatar: {
+		classBlock: 'user__avatar',
+		classImg: 'avatar',
+		srcAttribute: '#url',
+		altAttribute: 'avatar',
+	},
+
+	userData: {
+		classUserData: 'user__data',
+
+		classUserName: 'user__name',
+		classUserPhone: 'user__phone',
+		classUserEmail: 'user__email',
+		classUserAddress: 'user__address',
+		classUserGender: 'user__gender',
+	},
+
+	userControls: {
+		classUserControls: 'user__controls',
+
+		classUserBtn: 'btn',
+		clasUserBtnEdit: 'btn__controls--edit',
+		classUserBtnDelete: 'btn__controls--delete',
+		textContentEdit: 'edit',
+		textContentDelete: 'delete',
+	},
+
+});
+
+// let userCard = new UserCard()
+user.createUserCard()
+// userCard.createUserCard()
 
 
