@@ -70,16 +70,16 @@
 // registrationContainer.addEventListener('click', changingForm);
 
 
-let buttonExit = document.querySelector('.btn--exit');
-let initialForm = document.querySelector('.initial__form');
-let userCabinet = document.querySelector('.user__panel')
+// let buttonExit = document.querySelector('.btn--exit');
+// let initialForm = document.querySelector('.initial__form');
+// let userCabinet = document.querySelector('.user__panel')
 
-function userPanelExit(event) {
-	event.preventDefault(event);
+// function userPanelExit(event) {
+// 	event.preventDefault(event);
 
-	initialForm.classList.toggle('initial__form--active');
-	userCabinet.classList.toggle('user__panel--active');
+// 	initialForm.classList.toggle('initial__form--active');
+// 	userCabinet.classList.toggle('user__panel--active');
 
-}
+// }
 
-buttonExit.addEventListener('click', userPanelExit);
+// buttonExit.addEventListener('click', userPanelExit);
