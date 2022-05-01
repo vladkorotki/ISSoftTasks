@@ -1,4 +1,4 @@
-// import { usersDataLayer } from './usersDataLayer.js';
+import { usersDataLayer } from './usersDataLayer.js';
 
 class UserCard {
 	constructor(options) {
@@ -10,6 +10,22 @@ class UserCard {
 		this.avatarAltAttribute = options.avatar.altAttribute;
 
 		this.userDataClass = options.userData.classUserData;
+
+		this.userUserName = options.userData.classUserName;
+		this.userUserPhone = options.userData.classUserPhone;
+		this.userUserEmail = options.userData.classUserEmail;
+		this.userUserAddress = options.userData.classUserAddress;
+		this.userUserGender = options.userData.classUserGender;
+
+		this.userUserControls = options.userControls.classUserControls;
+
+		this.userUserBtn = options.userControls.classUserBtn;
+		this.userUserBtnEdit = options.userControls.classUserBtnEdit;
+		this.userUserBtnDelete = options.userControls.classUserBtnDelete;
+
+		this.btnTextEdit = options.userControls.btnTextEdit;
+		this.btnTextDelete = options.userControls.btnTextDelete;
+
 
 		this.main = document.querySelector('main');
 	}
@@ -24,35 +40,35 @@ class UserCard {
 		users.classList.add('users');
 
 		let user = div.cloneNode();
-		user.classList.add();
+		user.classList.add(this.classUser);
 
 		let userAvatar = div.cloneNode();
-		userAvatar.classList.add('user__avatar');
+		userAvatar.classList.add(this.avatarClasssBlock);
 
 
 		let avatar = img.cloneNode()
-		avatar.classList.add('avatar');
-		avatar.setAttribute('alt', 'avatar');
-		avatar.setAttribute('src', '#')
+		avatar.classList.add(this.avatarClassImg);
+		avatar.setAttribute('alt', this.avatarAltAttribute);
+		avatar.setAttribute('src', this.avatarSrcAttribute)
 		userAvatar.append(avatar);
 
 		let userData = div.cloneNode();
-		userData.classList.add('user__data');
+		userData.classList.add(this.userDataClass);
 
 		let userName = span.cloneNode();
-		userName.classList.add('user__name');
+		userName.classList.add(this.userUserName);
 
 		let userEmail = span.cloneNode();
-		userEmail.classList.add('user__email');
+		userEmail.classList.add(this.userUserEmail);
 
 		let userPhone = span.cloneNode();
-		userPhone.classList.add('user__phone');
+		userPhone.classList.add(this.userUserPhone);
 
 		let userAddress = span.cloneNode();
-		userAddress.classList.add('user__address');
+		userAddress.classList.add(this.userUserAddress);
 
 		let userGender = span.cloneNode();
-		userGender.classList.add('user__gender');
+		userGender.classList.add(this.userUserGender);
 		userData.append(userName);
 		userData.append(userEmail);
 		userData.append(userPhone);
@@ -61,15 +77,15 @@ class UserCard {
 
 
 		let userControls = div.cloneNode();
-		userControls.classList.add('user__controls');
+		userControls.classList.add(this.userUserControls);
 
 		let btnControlsEdit = button.cloneNode();
-		btnControlsEdit.classList.add('btn', 'btn__controls--edit');
-		btnControlsEdit.textContent = 'edit';
+		btnControlsEdit.classList.add(this.userUserBtn, this.userUserBtnEdit);
+		btnControlsEdit.textContent = this.btnTextEdit;
 
 		let btnControlsDelete = button.cloneNode();
-		btnControlsDelete.classList.add('btn', 'btn__controls--delete');
-		btnControlsDelete.textContent = 'delete';
+		btnControlsDelete.classList.add(this.userUserBtn, this.userUserBtnDelete);
+		btnControlsDelete.textContent = this.btnTextDelete;
 		userControls.append(btnControlsEdit);
 		userControls.append(btnControlsDelete);
 
@@ -115,8 +131,8 @@ const user = new UserCard({
 		classUserBtn: 'btn',
 		clasUserBtnEdit: 'btn__controls--edit',
 		classUserBtnDelete: 'btn__controls--delete',
-		textContentEdit: 'edit',
-		textContentDelete: 'delete',
+		btnTextEdit: 'edit',
+		btnTextDelete: 'delete',
 	},
 
 });
