@@ -1,9 +1,17 @@
 import { UserCard } from './userCard.js';
+import { UsersDataLayer } from './usersDataLayer.js';
 export class UsersCards {
 	constructor(options) {
 		this.main = document.querySelector(options.main);
 		this.usersClass = options.users;
-		this.user = new UserCard({
+
+		this.usersStrorage = new UsersDataLayer({
+			dataTableName: 'Users'
+		});
+
+		this.usersData = this.usersStrorage.allUsers();
+
+		this.userCard = new UserCard({
 			classUser: 'users__user',
 
 
@@ -39,13 +47,36 @@ export class UsersCards {
 
 	showUsers() {
 		let div = document.createElement('div');
-
 		let users = div.cloneNode();
 		users.classList.add(this.usersClass);
-
-		users.append(this.user.createUserCard());
+		users.append(this.userCard.createUserCard());
+		console.log(this.usersData);
 		return users;
-		// this.main.append(users);
+	}
+
+	currentUser(mail) {
+		let currentCard = this.userCard.createUserCard();
+		let currentCardInputs = currentCard.querySelectorAll('span');
+
+		let currentUserData = this.usersData[mail];
+
+		currentCardInputs.forEach(item => {
+			if (currentUserData[item.dataset.field]) {
+				item.textContent = `${item.dataset.field}: ${currentUserData[item.dataset.field]}`
+			} else {
+				item.textContent = `${item.dataset.field}: --`
+			}
+		});
+
+		return currentCard;
+
+		// console.log(mail);
+		// console.log(this.usersData);
+		// // console.log(currentCardInputs);
+		// console.log(currentUserData);
+		// console.log(currentUserData['e-mail']);
+		// console.log(['e-mail']);
+		// console.log(currentCard);
 	}
 
 }

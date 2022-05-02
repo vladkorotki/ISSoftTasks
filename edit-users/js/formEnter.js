@@ -1,22 +1,31 @@
 import { Form } from './form.js';
 import { popup } from './popUp.js';
 import { usersDataLayer } from './usersDataLayer.js';
+import { UserPanel } from './userPanel.js';
 
 
 export class FormSignIn extends Form {
 	constructor(options) {
 		super(options.id);
 		this.starterForm = document.querySelector(options.starterForm);
-		this.userPanel = document.querySelector(options.userPanel)
-		this.exitUserPanel = document.querySelector(options.exitUserPanel);
+		this.userPanel = new UserPanel({
+			userPanel: '.user__panel',
+			initialForm: '.initial__form',
+			btnExit: '.btn--exit',
+			btnEdit: '.btn--edit',
+
+			initialFormActiveClass: 'initial__form--active',
+			userPanelActiveCLass: 'user__panel--active',
+			eventType: 'click',
+		});
+
 	}
 
 	signIn(event) {
 		const compare = usersDataLayer.compareUsers(this.userData()['e-mail'], this.userData().password);
 		if (compare) {
-			alert('hi')
-			this.starterForm.classList.remove('initial__form--active');
-			this.userPanel.classList.add('user__panel--active');
+			alert('hi');
+			this.userPanel.showPanel(this.userData()['e-mail']);
 			popup.close(event)
 		} else {
 			alert('Не верный e-mail или пароль')

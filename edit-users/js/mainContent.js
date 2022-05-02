@@ -8,16 +8,23 @@ export class MainContent {
 		this.columnHideClass = options.columnHideClass;
 	}
 
+
 	leftMiddle(content) {
 		this.rightColumn.classList.add(this.columnHideClass);
 		this.middleColumn.style.flexGrow = '2';
 		this.middleColumn.append(content);
+		
 	}
 
-	standart() {
+	standart(usersClass, userClass) {
 		console.log(this.cols);
-		let content = document.querySelector('.users');
-		content.remove();
+		let users = document.querySelector(`.${usersClass}`);
+		let currentUser = this.leftColumn.querySelector(`.${userClass}`);
+		if (users) {
+			users.remove();
+		}
+		currentUser.remove();
+
 		this.cols.forEach(item => {
 			item.classList.remove(this.columnHideClass);
 		});

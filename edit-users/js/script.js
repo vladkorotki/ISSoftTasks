@@ -1,6 +1,6 @@
 import { FormSignIn } from './formEnter.js';
 import { FormRegistration } from './formRegistration.js';
-import { UserPanel } from './userPanel.js';
+// import { UserPanel } from './userPanel.js';
 // import { UserCard } from './userCard.js'
 // import { FormContainer } from './formContainer.js';
 // import { Popup } from './popUp.js';
@@ -50,16 +50,16 @@ const formEnter = new FormSignIn({
 
 // });
 
-let userPanel = new UserPanel({
-	userPanel: '.user__panel',
-	initialForm: '.initial__form',
-	btnExit: '.btn--exit',
-	btnEdit: '.btn--edit',
+// let userPanel = new UserPanel({
+// 	userPanel: '.user__panel',
+// 	initialForm: '.initial__form',
+// 	btnExit: '.btn--exit',
+// 	btnEdit: '.btn--edit',
 
-	initialFormActiveClass: 'initial__form--active',
-	userPanelActiveCLass: 'user__panel--active',
-	eventType: 'click',
-});
+// 	initialFormActiveClass: 'initial__form--active',
+// 	userPanelActiveCLass: 'user__panel--active',
+// 	eventType: 'click',
+// });
 
 
 

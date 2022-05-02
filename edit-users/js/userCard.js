@@ -1,4 +1,3 @@
-import { usersDataLayer } from './usersDataLayer.js';
 
 export class UserCard {
 	constructor(options) {
@@ -56,18 +55,25 @@ export class UserCard {
 
 		let userName = span.cloneNode();
 		userName.classList.add(this.userUserName);
+		userName.setAttribute('data-field', 'username');
+
 
 		let userEmail = span.cloneNode();
 		userEmail.classList.add(this.userUserEmail);
+		userEmail.setAttribute('data-field', 'e-mail');
 
 		let userPhone = span.cloneNode();
 		userPhone.classList.add(this.userUserPhone);
+		userPhone.setAttribute('data-field', 'phone');
 
 		let userAddress = span.cloneNode();
 		userAddress.classList.add(this.userUserAddress);
+		userAddress.setAttribute('data-field', 'address');
 
 		let userGender = span.cloneNode();
 		userGender.classList.add(this.userUserGender);
+		userGender.setAttribute('data-field', 'gender');
+
 		userData.append(userName);
 		userData.append(userEmail);
 		userData.append(userPhone);
@@ -92,82 +98,7 @@ export class UserCard {
 		user.append(userData);
 		user.append(userControls);
 		return user;
-
-
 	}
-
-	// createUserCard() {
-	// 	let div = document.createElement('div');
-	// 	let span = document.createElement('span');
-	// 	let img = document.createElement('img');
-	// 	let button = document.createElement('button');
-
-	// 	let users = div.cloneNode();
-	// 	users.classList.add('users');
-
-	// 	let user = div.cloneNode();
-	// 	user.classList.add(this.classUser);
-
-	// 	let userAvatar = div.cloneNode();
-	// 	userAvatar.classList.add(this.avatarClasssBlock);
-
-
-	// 	let avatar = img.cloneNode()
-	// 	avatar.classList.add(this.avatarClassImg);
-	// 	avatar.setAttribute('alt', this.avatarAltAttribute);
-	// 	avatar.setAttribute('src', this.avatarSrcAttribute)
-	// 	userAvatar.append(avatar);
-
-	// 	let userData = div.cloneNode();
-	// 	userData.classList.add(this.userDataClass);
-
-	// 	let userName = span.cloneNode();
-	// 	userName.classList.add(this.userUserName);
-
-	// 	let userEmail = span.cloneNode();
-	// 	userEmail.classList.add(this.userUserEmail);
-
-	// 	let userPhone = span.cloneNode();
-	// 	userPhone.classList.add(this.userUserPhone);
-
-	// 	let userAddress = span.cloneNode();
-	// 	userAddress.classList.add(this.userUserAddress);
-
-	// 	let userGender = span.cloneNode();
-	// 	userGender.classList.add(this.userUserGender);
-	// 	userData.append(userName);
-	// 	userData.append(userEmail);
-	// 	userData.append(userPhone);
-	// 	userData.append(userAddress);
-	// 	userData.append(userGender);
-
-
-	// 	let userControls = div.cloneNode();
-	// 	userControls.classList.add(this.userUserControls);
-
-	// 	let btnControlsEdit = button.cloneNode();
-	// 	btnControlsEdit.classList.add(this.userUserBtn, this.userUserBtnEdit);
-	// 	btnControlsEdit.textContent = this.btnTextEdit;
-
-	// 	let btnControlsDelete = button.cloneNode();
-	// 	btnControlsDelete.classList.add(this.userUserBtn, this.userUserBtnDelete);
-	// 	btnControlsDelete.textContent = this.btnTextDelete;
-	// 	userControls.append(btnControlsEdit);
-	// 	userControls.append(btnControlsDelete);
-
-	// 	user.append(userAvatar);
-	// 	user.append(userData);
-	// 	user.append(userControls);
-	// 	// return user;
-
-	// 	users.append(user);
-	// 	console.log(this.main);
-	// 	this.main.append(users)
-
-
-	// }
-
-
 }
 
 // const user = new UserCard({

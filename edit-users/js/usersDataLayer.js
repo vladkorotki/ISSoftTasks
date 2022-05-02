@@ -17,6 +17,11 @@ export class UsersDataLayer extends DataLayer {
 	compareUsers(userMail, userPassword) {
 		return super.compareUsers(this.dataTableName, userMail, userPassword);
 	}
+
+	allUsers() {
+		return super.getUsers(this.dataTableName);
+	}
+
 }
 
 export const usersDataLayer = new UsersDataLayer({

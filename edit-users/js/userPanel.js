@@ -31,11 +31,19 @@ export class UserPanel {
 		this.userPanel.addEventListener(this.eventType, (event) => { this.edit(event) });
 	}
 
+	showPanel(mail) {
+		this.initialForm.classList.remove(this.initialFormActiveClass);
+		this.userPanel.classList.add(this.userPanelActiveCLass);
+		// this.userPanel.prepend(this.usersCards.userCard.createUserCard());
+		this.userPanel.prepend(this.usersCards.currentUser(mail));
+		// this.usersCards.currentUser(mail);
+	}
+
 	exit(event) {
 		if (event.target === this.btnExit) {
 			this.initialForm.classList.toggle(this.initialFormActiveClass);
 			this.userPanel.classList.toggle(this.userPanelActiveCLass);
-			this.mainContent.standart();
+			this.mainContent.standart(this.usersCards.usersClass, this.usersCards.userCard.classUser);
 		}
 	}
 
