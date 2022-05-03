@@ -5,11 +5,7 @@ export class UsersCards {
 		this.main = document.querySelector(options.main);
 		this.usersClass = options.users;
 
-		this.usersStrorage = new UsersDataLayer({
-			dataTableName: 'Users'
-		});
 
-		this.usersData = this.usersStrorage.allUsers();
 
 		this.userCard = new UserCard({
 			classUser: 'users__user',
@@ -57,8 +53,12 @@ export class UsersCards {
 	currentUser(mail) {
 		let currentCard = this.userCard.createUserCard();
 		let currentCardInputs = currentCard.querySelectorAll('span');
+		let usersStrorage = new UsersDataLayer({
+			dataTableName: 'Users'
+		});
 
-		let currentUserData = this.usersData[mail];
+		let usersData = usersStrorage.allUsers();
+		let currentUserData = usersData[mail];
 
 		currentCardInputs.forEach(item => {
 			if (currentUserData[item.dataset.field]) {
@@ -70,13 +70,6 @@ export class UsersCards {
 
 		return currentCard;
 
-		// console.log(mail);
-		// console.log(this.usersData);
-		// // console.log(currentCardInputs);
-		// console.log(currentUserData);
-		// console.log(currentUserData['e-mail']);
-		// console.log(['e-mail']);
-		// console.log(currentCard);
 	}
 
 }
