@@ -45,10 +45,48 @@ export class UsersCards {
 		let div = document.createElement('div');
 		let users = div.cloneNode();
 		users.classList.add(this.usersClass);
-		users.append(this.userCard.createUserCard());
-		console.log(this.usersData);
+		// users.append(this.userCard.createUserCard());
+		// console.log(this.usersData);
+		// return users;
+
+
+		let currentCard;
+		let usersStrorage = new UsersDataLayer({
+			dataTableName: 'Users'
+		});
+
+		let usersData = usersStrorage.allUsers();
+
+		usersData = Object.entries(usersData);
+		// console.log(usersData);
+		// console.log(usersData[0]);
+
+
+		for (let i = 0; i < usersData.length; i++) {
+			currentCard = this.userCard.createUserCard();
+			let currentCardInputs = currentCard.querySelectorAll('span');
+			let currentUserData = usersData[i];
+			console.log(currentUserData);
+			console.log(currentUserData[0]);
+
+
+
+			currentCardInputs.forEach(item => {
+				if (currentUserData[1][item.dataset.field]) {
+					item.textContent = `${item.dataset.field}: ${currentUserData[1][item.dataset.field]}`
+				} else {
+					item.textContent = `${item.dataset.field}: --`
+				}
+			});
+			users.appendChild(currentCard);
+		}
+
+
 		return users;
+
 	}
+
+
 
 	currentUser(mail) {
 		let currentCard = this.userCard.createUserCard();
