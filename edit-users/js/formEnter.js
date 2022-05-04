@@ -13,7 +13,8 @@ export class FormSignIn extends Form {
 			initialForm: '.initial__form',
 			btnExit: '.btn--exit',
 			btnEdit: '.btn--edit',
-
+			btnBack: '.btn--back',
+			btnHideClass: 'btn--hide',
 			initialFormActiveClass: 'initial__form--active',
 			userPanelActiveCLass: 'user__panel--active',
 			eventType: 'click',

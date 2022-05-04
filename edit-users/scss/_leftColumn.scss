@@ -9,6 +9,26 @@
 		display: none;
 	}
 
+	.panel__btns{
+		display: flex;
+		justify-content: flex-start;
+		padding: 0 10px 0 10px;
+		.btn{
+			max-width: 80px;
+			font-size: .8rem;
+			font-weight: bold;
+			height: 30px;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			margin-right: 10px;
+		}
+		.btn--hide{
+			display: none;
+		}
+		
+	}
+
 	// .form__selection {
 	// 	// display: flex;
 	// 	// justify-content: space-between;
