@@ -21,12 +21,13 @@ export class DataLayer {
 		const mail = userObject[keyProperty];
 		if (allUsers.hasOwnProperty(mail)) {
 			alert('Пользователь с таким e-mail уже существует');
-			return;
+			return false;
 
 		} else {
 			allUsers[mail] = userObject;
 			alert('Поздравляем вы успешно зарегистрировались')
-			return localStorage.setItem(dataTableName, JSON.stringify(allUsers));
+			localStorage.setItem(dataTableName, JSON.stringify(allUsers));
+			return true;
 		}
 	}
 

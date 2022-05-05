@@ -569,6 +569,10 @@ body {
   left: 0;
 }
 
+.form--hide {
+  display: none;
+}
+
 .btn--login,
 .btn--registration {
   padding: 10px 10px;

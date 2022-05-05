@@ -15,7 +15,7 @@ export class Form {
 				'password': (value, param) => !(param.test(value)),
 				// 'repeat-password': (value, param) => (value !== param),
 				'repeat-password': (value, param) => {
-					let repeatValue = document.getElementById(param).value;
+					let repeatValue = document.querySelector(`.${param}`).value;
 					return value !== repeatValue
 				},
 				'min-length': (value, param) => (value.length < param),
@@ -76,7 +76,7 @@ export class Form {
 		let isValid = true;
 		const inputs = this.inputs;
 		inputs.forEach(item => {
-			// console.log(item.name);
+
 			const isInputValid = this.checkInputValid(item);
 			if (!isInputValid) {
 				isValid = false;

@@ -28,8 +28,6 @@ export class Popup {
 			formContainer.hideForm(event);
 		}
 
-
-
 	}
 
 	open(event) {
@@ -38,10 +36,6 @@ export class Popup {
 		}
 	}
 
-
-	// popupContent(e) {
-
-	// }
 }
 
 export const popup = new Popup({

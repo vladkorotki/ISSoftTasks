@@ -1,4 +1,4 @@
-
+import { formContainer } from "./formContainer.js";
 export class UserCard {
 	constructor(options) {
 		this.classUser = options.classUser;
@@ -21,12 +21,12 @@ export class UserCard {
 		this.userUserBtn = options.userControls.classUserBtn;
 		this.userUserBtnEdit = options.userControls.classUserBtnEdit;
 		this.userUserBtnDelete = options.userControls.classUserBtnDelete;
+		this.popupOpen = options.popupOpen;
 
 		this.btnTextEdit = options.userControls.btnTextEdit;
 		this.btnTextDelete = options.userControls.btnTextDelete;
 
-
-		// this.main = document.querySelector('main');
+		this.calback = options.calback;
 	}
 
 	createUserCard() {
@@ -85,12 +85,14 @@ export class UserCard {
 		userControls.classList.add(this.userUserControls);
 
 		let btnControlsEdit = button.cloneNode();
-		btnControlsEdit.classList.add(this.userUserBtn, this.userUserBtnEdit);
+		btnControlsEdit.classList.add(this.userUserBtn, this.userUserBtnEdit, this.popupOpen);
 		btnControlsEdit.textContent = this.btnTextEdit;
+		btnControlsEdit.addEventListener('click', this.calback);
 
 		let btnControlsDelete = button.cloneNode();
 		btnControlsDelete.classList.add(this.userUserBtn, this.userUserBtnDelete);
 		btnControlsDelete.textContent = this.btnTextDelete;
+		btnControlsDelete.addEventListener('click', this.calback);
 		userControls.append(btnControlsEdit);
 		userControls.append(btnControlsDelete);
 
@@ -99,43 +101,9 @@ export class UserCard {
 		user.append(userControls);
 		return user;
 	}
+
+	
 }
 
-// const user = new UserCard({
-// 	classUser: 'users__user',
-
-
-// 	avatar: {
-// 		classBlock: 'user__avatar',
-// 		classImg: 'avatar',
-// 		srcAttribute: '#url',
-// 		altAttribute: 'avatar',
-// 	},
-
-// 	userData: {
-// 		classUserData: 'user__data',
-
-// 		classUserName: 'user__name',
-// 		classUserPhone: 'user__phone',
-// 		classUserEmail: 'user__email',
-// 		classUserAddress: 'user__address',
-// 		classUserGender: 'user__gender',
-// 	},
-
-// 	userControls: {
-// 		classUserControls: 'user__controls',
-
-// 		classUserBtn: 'btn',
-// 		clasUserBtnEdit: 'btn__controls--edit',
-// 		classUserBtnDelete: 'btn__controls--delete',
-// 		btnTextEdit: 'edit',
-// 		btnTextDelete: 'delete',
-// 	},
-
-// });
-
-// let userCard = new UserCard()
-// user.createUserCard()
-// userCard.createUserCard()
 
 

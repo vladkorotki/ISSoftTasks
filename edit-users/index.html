@@ -92,8 +92,8 @@
 												цифр</span>
 										</p>
 										<p>
-											<input class="input input-password" id="pass" type="password"
-												name="password" placeholder="Password"
+											<input class="input input-password pass" type="password" name="password"
+												placeholder="Password"
 												data-validators="requiered(), min-length(5), max-length(20), password()"
 												data-i="3">
 											<span class="input__error">Поле обязательно, должно содержать цифры и буквы
@@ -101,8 +101,52 @@
 												разных регистрах, введите 5-20 символов</span>
 										</p>
 										<p>
-											<input class="input" id="repeat-password" type="password"
-												name="repeat-password" placeholder="Repeat password"
+											<input class="input" type="password" name="repeat-password"
+												placeholder="Repeat password"
+												data-validators="requiered(), min-length(5), max-length(20), password(), repeat-password(pass)"
+												data-i="4">
+											<span class="input__error">не верно введен пароль, поля не совпадают</span>
+										</p>
+										<p>
+											<button class="btn btn--submit hide--forms btn--change"
+												type="submit">Отправить</button>
+										</p>
+									</fieldset>
+								</form>
+
+								<form class="form form--edit form--hide" action="#" id="editForm" novalidate>
+									<fieldset class="fieldset fieldset--registration">
+										<legend>Регистрация</legend>
+										<p>
+											<input class="input" type="text" name="username" placeholder="Username"
+												data-validators="requiered(), min-length(3)" data-i="0">
+											<span class="input__error">Поле обязательно, введите от 3 до 10
+												символов</span>
+										</p>
+										<p>
+											<input class="input" type="email" name="e-mail" placeholder="e-mail"
+												data-validators="requiered(), min-length(3), has-dog()" data-i="1">
+											<span class="input__error">Поле обязательно, введите адрес электронной
+												почты</span>
+										</p>
+										<p>
+											<input class="input" type="tel" name="phone" placeholder="phone"
+												data-validators="requiered(), min-length(5), max-length(20)" data-i="2">
+											<span class="input__error">Поле обязательно, номер должен содержать 5 - 20
+												цифр</span>
+										</p>
+										<p>
+											<input class="input input-password pass" type="password" name="password"
+												placeholder="Password"
+												data-validators="requiered(), min-length(5), max-length(20), password()"
+												data-i="3">
+											<span class="input__error">Поле обязательно, должно содержать цифры и буквы
+												в
+												разных регистрах, введите 5-20 символов</span>
+										</p>
+										<p>
+											<input class="input" type="password" name="repeat-password"
+												placeholder="Repeat password"
 												data-validators="requiered(), min-length(5), max-length(20), password(), repeat-password(pass)"
 												data-i="4">
 											<span class="input__error">не верно введен пароль, поля не совпадают</span>

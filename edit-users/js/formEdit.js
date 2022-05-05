@@ -1,10 +1,7 @@
 import { Form } from './form.js';
 import { usersDataLayer } from './usersDataLayer.js';
 import { formContainer } from './formContainer.js';
-
-
-
-export class FormRegistration extends Form {
+export class FormEdit extends Form {
 	constructor(id) {
 		super(id);
 	}
@@ -32,4 +29,3 @@ export class FormRegistration extends Form {
 	}
 
 }
-

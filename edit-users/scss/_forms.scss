@@ -157,11 +157,16 @@
 	position: absolute;
 	top: 0;
 	left: -101%;
+	
 }
 
 .form--active {
 	top: 0;
 	left: 0;
+}
+
+.form--hide{
+	display:none;
 }
 
 .btn--login,
@@ -190,5 +195,7 @@
 .input__error--active{
 	visibility: visible;
 }
+
+
 
 

@@ -1,3 +1,4 @@
+import { formContainer } from './formContainer.js';
 import { UserCard } from './userCard.js';
 import { UsersDataLayer } from './usersDataLayer.js';
 export class UsersCards {
@@ -32,12 +33,13 @@ export class UsersCards {
 				classUserControls: 'user__controls',
 
 				classUserBtn: 'btn',
-				clasUserBtnEdit: 'btn__controls--edit',
+				classUserBtnEdit: 'btn__controls--edit',
 				classUserBtnDelete: 'btn__controls--delete',
 				btnTextEdit: 'edit',
 				btnTextDelete: 'delete',
 			},
-
+			popupOpen: 'popup--open',
+			calback: formContainer.showForm,
 		});
 	}
 
