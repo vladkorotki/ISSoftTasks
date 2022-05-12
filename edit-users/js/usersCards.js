@@ -3,6 +3,7 @@ import { UserCard } from './userCard.js';
 import { UsersDataLayer } from './usersDataLayer.js';
 export class UsersCards {
 	constructor(options) {
+
 		this.main = document.querySelector(options.main);
 		this.usersClass = options.users;
 
@@ -39,8 +40,28 @@ export class UsersCards {
 				btnTextDelete: 'delete',
 			},
 			popupOpen: 'popup--open',
-			calback: formContainer.showForm,
+			// calback: formContainer.showForm,
+			calback: this.userKey,
 		});
+
+		if (typeof UsersCards.instance === 'object') {
+			return UsersCards.instance;
+		}
+		UsersCards.instance = this;
+		return this;
+	}
+
+
+	userKey(event) {
+		console.log(event.target.dataset.key);
+		return event.target.dataset.key;
+	}
+
+	getKey(event) {
+		if (event.target.closest(this.userCard.userUserBtnEdit)) {
+			console.log(event.target.dataset.key);
+			return event.target.dataset.key;
+		}
 	}
 
 	showUsers() {
@@ -55,27 +76,26 @@ export class UsersCards {
 
 		let usersData = usersStrorage.allUsers();
 
-		usersData = Object.entries(usersData);
-
-
-		for (let i = 0; i < usersData.length; i++) {
+		for (let [key, value] of Object.entries(usersData)) {
 			currentCard = this.userCard.createUserCard();
 			let currentCardInputs = currentCard.querySelectorAll('span');
-			let currentUserData = usersData[i];
+			let buttonEdit = currentCard.querySelector(`.${this.userCard.userUserBtnEdit}`)
 
 			currentCardInputs.forEach(item => {
-				if (currentUserData[1][item.dataset.field]) {
-					item.textContent = `${item.dataset.field}: ${currentUserData[1][item.dataset.field]}`
+				if (value[item.dataset.field]) {
+					item.textContent = `${item.dataset.field}: ${value[item.dataset.field]}`;
+					if (item.dataset.field == 'e-mail') {
+						item.setAttribute('data-key', key);
+						currentCard.setAttribute('data-key', key);
+						buttonEdit.setAttribute('data-key', key);
+					}
 				} else {
-					item.textContent = `${item.dataset.field}: --`
+					item.textContent = `${item.dataset.field}: --`;
 				}
 			});
 			users.appendChild(currentCard);
 		}
-
-
 		return users;
-
 	}
 
 
@@ -83,6 +103,7 @@ export class UsersCards {
 	currentUser(mail) {
 		let currentCard = this.userCard.createUserCard();
 		let currentCardInputs = currentCard.querySelectorAll('span');
+		let buttonEdit = currentCard.querySelector(`.${this.userCard.userUserBtnEdit}`)
 		let usersStrorage = new UsersDataLayer({
 			dataTableName: 'Users'
 		});
@@ -92,7 +113,13 @@ export class UsersCards {
 
 		currentCardInputs.forEach(item => {
 			if (currentUserData[item.dataset.field]) {
-				item.textContent = `${item.dataset.field}: ${currentUserData[item.dataset.field]}`
+				item.textContent = `${item.dataset.field}: ${currentUserData[item.dataset.field]}`;
+				if (item.dataset.field == 'e-mail') {
+					item.setAttribute('data-key', currentUserData[item.dataset.field]);
+					currentCard.setAttribute('data-key', currentUserData[item.dataset.field]);
+					buttonEdit.setAttribute('data-key', currentUserData[item.dataset.field]);
+				}
+
 			} else {
 				item.textContent = `${item.dataset.field}: --`
 			}
@@ -102,7 +129,27 @@ export class UsersCards {
 
 	}
 
+
+
+	// usersData = Object.entries(usersData);
+	// for (let i = 0; i < usersData.length; i++) {
+	// 	currentCard = this.userCard.createUserCard();
+	// 	let currentCardInputs = currentCard.querySelectorAll('span');
+	// 	let currentUserData = usersData[i];
+	// 	currentCardInputs.forEach(item => {
+	// 		if (currentUserData[1][item.dataset.field]) {
+	// 			item.textContent = `${item.dataset.field}: ${currentUserData[1][item.dataset.field]}`
+	// 		} else {
+	// 			item.textContent = `${item.dataset.field}: --`
+	// 		}
+	// 	});
+	// 	users.appendChild(currentCard);
+	// }
 }
 
 
 
+export const usersCards = new UsersCards({
+	main: '.page__main',
+	users: 'users',
+});

@@ -14,12 +14,13 @@ export class FormRegistration extends Form {
 		if (submited) {
 			this.createUser();
 			const dataLayer = usersDataLayer.add(this.createUser(), 'e-mail');
-			console.log(dataLayer);
+
 			if (dataLayer) {
 				formContainer.changeForm();
 			}
 		}
 	}
+
 
 	createUser() {
 		const user = {};

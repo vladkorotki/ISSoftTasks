@@ -376,7 +376,6 @@ body {
           box-shadow: 0 5px 45px rgba(0, 0, 0, 0.2);
   padding: 2%;
   width: 100%;
-  height: 50;
 }
 
 .fieldset {
@@ -554,6 +553,17 @@ body {
   min-height: 500px;
 }
 
+.form--edit {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  min-height: 500px;
+}
+
 .form--enter,
 .form--registration {
   -webkit-transition: 0.5s ease-in-out;
@@ -599,6 +609,37 @@ body {
 
 .input__error--active {
   visibility: visible;
+}
+
+.form__edit--male {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+  border: 2px solid gray;
+}
+
+.form__edit--male input {
+  width: 30px;
+  height: 30px;
+  margin-right: 10px;
+}
+
+.form__edit--male legend {
+  padding-top: 10px;
+}
+
+.form__edit--male label {
+  font-size: 1.3rem;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  margin-right: 20px;
 }
 
 .page__header {

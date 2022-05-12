@@ -1,5 +1,6 @@
 import { FormSignIn } from './formEnter.js';
 import { FormRegistration } from './formRegistration.js';
+// import { FormEdit } from './formEdit.js';
 // import { UserPanel } from './userPanel.js';
 // import { UserCard } from './userCard.js'
 // import { FormContainer } from './formContainer.js';
@@ -15,6 +16,10 @@ const formEnter = new FormSignIn({
 	userPanel: '.user__panel',
 	exitUserPanel: '.btn--exit',
 });
+
+// const formEdit = new FormEdit({
+// 	id: 'editForm',
+// });
 
 
 // const user = new UserCard({

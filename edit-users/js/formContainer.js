@@ -12,6 +12,7 @@ export class FormContainer {
 		this.registrationFieldset = options.registrationFieldset;
 		this.enterFiledset = options.enterFiledset;
 		this.editFiledset = options.editFiledset;
+		this.formSelectionContainer = document.querySelector(options.selectionContainer)
 		this.container.addEventListener(this.eventType, (event) => { this.changingForm(event) });
 		document.addEventListener(this.eventType, (event) => { this.showForm(event) });
 
@@ -35,20 +36,23 @@ export class FormContainer {
 
 
 	showForm(event) {
+		// debugger;
 		if ((event.target.closest(this.registrationFieldset))) {
-			this.container.forms[0].classList.toggle(this.classes[1]);
+			this.container.forms[1].classList.toggle(this.classes[1]);
 			this.container.buttons[0].classList.toggle(this.classes[0]);
-			console.log(event.target);
 			popup.open(event);
 		} else if ((event.target.closest(this.enterFiledset))) {
 			this.container.forms[0].classList.toggle(this.classes[1]);
 			this.container.buttons[1].classList.toggle(this.classes[0]);
-			console.log(event.target);
 			popup.open(event);
-		} else if ((event.target.closest(this.editFiledset))) {
+		}
+		else if ((event.target.closest(this.editFiledset))) {
 			this.container.forms[0].classList.add(this.classes[2]);
 			this.container.forms[1].classList.add(this.classes[2]);
+			this.formSelectionContainer.classList.add(this.classes[2]);
 			this.container.forms[2].classList.remove(this.classes[2]);
+
+
 			popup.open(event);
 			console.log(event.target);
 		}
@@ -61,7 +65,10 @@ export class FormContainer {
 		this.container.buttons.forEach(item => {
 			item.classList.remove(this.classes[0]);
 		});
-
+		this.container.forms[0].classList.remove(this.classes[2]);
+		this.container.forms[1].classList.remove(this.classes[2]);
+		this.formSelectionContainer.classList.remove(this.classes[2]);
+		this.container.forms[2].classList.add(this.classes[2]);
 	}
 }
 
@@ -76,6 +83,7 @@ export const formContainer = new FormContainer({
 	enterFiledset: '.enter__fieldset',
 	editFiledset: '.btn__controls--edit',
 	classes: ['btn--active', 'form--active', 'form--hide'],
+	selectionContainer: '.form__selection',
 });
 
 

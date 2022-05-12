@@ -22,6 +22,10 @@ export class UsersDataLayer extends DataLayer {
 		return super.getUsers(this.dataTableName);
 	}
 
+	curentUser(key) {
+		return this.allUsers()[key];
+	}
+
 }
 
 export const usersDataLayer = new UsersDataLayer({

@@ -92,7 +92,7 @@ export class UserCard {
 		let btnControlsDelete = button.cloneNode();
 		btnControlsDelete.classList.add(this.userUserBtn, this.userUserBtnDelete);
 		btnControlsDelete.textContent = this.btnTextDelete;
-		btnControlsDelete.addEventListener('click', this.calback);
+		// btnControlsDelete.addEventListener('click', this.calback);
 		userControls.append(btnControlsEdit);
 		userControls.append(btnControlsDelete);
 
@@ -102,7 +102,7 @@ export class UserCard {
 		return user;
 	}
 
-	
+
 }
 
 

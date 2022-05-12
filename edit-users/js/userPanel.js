@@ -1,5 +1,6 @@
-import { UsersCards } from "./usersCards.js";
+import { usersCards } from "./usersCards.js";
 import { MainContent } from "./mainContent.js";
+import { FormEdit } from "./formEdit.js"
 export class UserPanel {
 	constructor(options) {
 
@@ -23,10 +24,10 @@ export class UserPanel {
 			columnHideClass: 'section__column--hide',
 		});
 
-		this.usersCards = new UsersCards({
-			main: '.page__main',
-			users: 'users',
-		});
+		// this.usersCards = new UsersCards({
+		// 	main: '.page__main',
+		// 	users: 'users',
+		// });
 
 
 		this.userPanel.addEventListener(this.eventType, (event) => { this.exit(event) });
@@ -37,10 +38,15 @@ export class UserPanel {
 	showPanel(mail) {
 		this.initialForm.classList.remove(this.initialFormActiveClass);
 		this.userPanel.classList.add(this.userPanelActiveCLass);
-		this.userPanel.prepend(this.usersCards.currentUser(mail));
+		this.userPanel.prepend(usersCards.currentUser(mail));
+		const formEdit = new FormEdit({
+			id: 'editForm',
+		});
+
 	}
 
 	exit(event) {
+
 		if (event.target === this.btnExit) {
 			this.initialForm.classList.toggle(this.initialFormActiveClass);
 			this.userPanel.classList.toggle(this.userPanelActiveCLass);
@@ -49,8 +55,9 @@ export class UserPanel {
 			this.btnEdit.classList.remove(this.btnHideClass);
 			this.btnBack.classList.add(this.btnHideClass);
 
-			let users = document.querySelector(`.${this.usersCards.usersClass}`);
-			let currentUser = this.mainContent.leftColumn.querySelector(`.${this.usersCards.userCard.classUser}`);
+			let users = document.querySelector(`.${usersCards.usersClass}`);
+			let currentUser = this.mainContent.leftColumn.querySelector(`.${usersCards.userCard.classUser}`);
+			console.log(currentUser);
 			if (users) {
 				users.remove();
 			}
@@ -60,7 +67,7 @@ export class UserPanel {
 
 	edit(event) {
 		if (event.target === this.btnEdit) {
-			this.mainContent.leftMiddle(this.usersCards.showUsers());
+			this.mainContent.leftMiddle(usersCards.showUsers());
 			this.btnEdit.classList.add(this.btnHideClass);
 			this.btnBack.classList.remove(this.btnHideClass);
 		}
@@ -71,7 +78,7 @@ export class UserPanel {
 
 			this.btnEdit.classList.toggle(this.btnHideClass);
 			this.btnBack.classList.toggle(this.btnHideClass);
-			let users = document.querySelector(`.${this.usersCards.usersClass}`);
+			let users = document.querySelector(`.${usersCards.usersClass}`);
 			if (users) {
 				users.remove();
 			}
