@@ -87,7 +87,7 @@ export class UserCard {
 		let btnControlsEdit = button.cloneNode();
 		btnControlsEdit.classList.add(this.userUserBtn, this.userUserBtnEdit, this.popupOpen);
 		btnControlsEdit.textContent = this.btnTextEdit;
-		btnControlsEdit.addEventListener('click', this.calback);
+		// btnControlsEdit.addEventListener('click', this.calback);
 
 		let btnControlsDelete = button.cloneNode();
 		btnControlsDelete.classList.add(this.userUserBtn, this.userUserBtnDelete);

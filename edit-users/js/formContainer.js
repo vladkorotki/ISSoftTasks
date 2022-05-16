@@ -36,7 +36,7 @@ export class FormContainer {
 
 
 	showForm(event) {
-		// debugger;
+		
 		if ((event.target.closest(this.registrationFieldset))) {
 			this.container.forms[1].classList.toggle(this.classes[1]);
 			this.container.buttons[0].classList.toggle(this.classes[0]);
@@ -53,10 +53,9 @@ export class FormContainer {
 			this.container.forms[2].classList.remove(this.classes[2]);
 
 
-			popup.open(event);
-			console.log(event.target);
 		}
 	}
+
 
 	hideForm() {
 		this.container.forms.forEach(item => {
@@ -70,6 +69,10 @@ export class FormContainer {
 		this.formSelectionContainer.classList.remove(this.classes[2]);
 		this.container.forms[2].classList.add(this.classes[2]);
 	}
+
+
+
+	
 }
 
 export const formContainer = new FormContainer({

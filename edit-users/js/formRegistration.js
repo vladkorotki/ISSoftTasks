@@ -9,18 +9,33 @@ export class FormRegistration extends Form {
 		super(id);
 	}
 
+	//old MEthod
+	// onFormSubmit(event) {
+	// 	const submited = super.onFormSubmit(event);
+	// 	if (submited) {
+	// 		this.createUser();
+	// 		const dataLayer = usersDataLayer.add(this.createUser(), 'e-mail');
+
+	// 		if (dataLayer) {
+	// 			formContainer.changeForm();
+	// 		}
+	// 	}
+	// }
+
+
 	onFormSubmit(event) {
 		const submited = super.onFormSubmit(event);
 		if (submited) {
-			this.createUser();
-			const dataLayer = usersDataLayer.add(this.createUser(), 'e-mail');
+			if (usersDataLayer.allUsers() != null && usersDataLayer.allUsers().hasOwnProperty(this.createUser()['e-mail'])) {
+				alert('Пользователь с таким e-mail уже существует');
 
-			if (dataLayer) {
+			} else {
+				alert('Поздравляем вы успешно зарегистрировались')
+				const dataLayer = usersDataLayer.add(this.createUser(), 'e-mail');
 				formContainer.changeForm();
 			}
 		}
 	}
-
 
 	createUser() {
 		const user = {};

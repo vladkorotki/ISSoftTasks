@@ -33,6 +33,12 @@ export class UserPanel {
 		this.userPanel.addEventListener(this.eventType, (event) => { this.exit(event) });
 		this.userPanel.addEventListener(this.eventType, (event) => { this.edit(event) });
 		this.userPanel.addEventListener(this.eventType, (event) => { this.back(event) });
+
+		if (typeof UserPanel.instance === 'object') {
+			return UserPanel.instance;
+		}
+		UserPanel.instance = this;
+		return this;
 	}
 
 	showPanel(mail) {

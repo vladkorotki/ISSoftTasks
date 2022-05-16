@@ -1,4 +1,4 @@
-import { formContainer } from './formContainer.js';
+
 import { UserCard } from './userCard.js';
 import { UsersDataLayer } from './usersDataLayer.js';
 export class UsersCards {
@@ -40,8 +40,7 @@ export class UsersCards {
 				btnTextDelete: 'delete',
 			},
 			popupOpen: 'popup--open',
-			// calback: formContainer.showForm,
-			calback: this.userKey,
+
 		});
 
 		if (typeof UsersCards.instance === 'object') {
@@ -52,17 +51,8 @@ export class UsersCards {
 	}
 
 
-	userKey(event) {
-		console.log(event.target.dataset.key);
-		return event.target.dataset.key;
-	}
 
-	getKey(event) {
-		if (event.target.closest(this.userCard.userUserBtnEdit)) {
-			console.log(event.target.dataset.key);
-			return event.target.dataset.key;
-		}
-	}
+
 
 	showUsers() {
 		let div = document.createElement('div');

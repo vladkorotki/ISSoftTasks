@@ -14,6 +14,10 @@ export class UsersDataLayer extends DataLayer {
 		return super.add(this.dataTableName, userObject, keyProperty);
 	}
 
+	delete(userObject) {
+		return super.delete(this.dataTableName, userObject);
+	}
+
 	compareUsers(userMail, userPassword) {
 		return super.compareUsers(this.dataTableName, userMail, userPassword);
 	}
