@@ -1,7 +1,7 @@
 import { Form } from './form.js';
 import { usersDataLayer } from './usersDataLayer.js';
 import { usersCards } from './usersCards.js';
-import { UserPanel } from './userPanel.js';
+import { popup } from './popUp.js';
 
 
 export class FormEdit extends Form {
@@ -11,6 +11,11 @@ export class FormEdit extends Form {
 		this.buttonsEdit = this.usersCards.querySelectorAll(`.${usersCards.userCard.userUserBtnEdit}`);
 		document.addEventListener('click', (event) => { this.findKeyButton(event) });
 		this.key;
+		if (typeof FormEdit.instance === 'object') {
+			return FormEdit.instance;
+		}
+		FormEdit.instance = this;
+		return this;
 	}
 
 	onFormSubmit(event) {
@@ -18,29 +23,13 @@ export class FormEdit extends Form {
 		if (submited) {
 			if (usersDataLayer.allUsers() != null && usersDataLayer.allUsers().hasOwnProperty([this.key])) {
 				alert('Данные добавлены');
-				console.log(this.key);
 				const users = document.querySelector('.users');
 				// users.remove()
-
 				usersDataLayer.delete(usersDataLayer.allUsers(), this.key);
 				const dataLayer = usersDataLayer.add(this.userData(), ['e-mail']);
-				// this.userPanel = new UserPanel({
-				// 	userPanel: '.user__panel',
-				// 	initialForm: '.initial__form',
-				// 	btnExit: '.btn--exit',
-				// 	btnEdit: '.btn--edit',
-				// 	btnBack: '.btn--back',
-				// 	btnHideClass: 'btn--hide',
-				// 	initialFormActiveClass: 'initial__form--active',
-				// 	userPanelActiveCLass: 'user__panel--active',
-				// 	eventType: 'click',
-				// });
-				// this.userPanel.edit(event);
-				// this.userPanel.back(event);
-				// this.userPanel.edit(event);
-
-
-
+				popup.close(event);
+				usersCards.currentUser(this.key);
+				usersCards.showUsers()
 			} else {
 				alert('Пользователь с таким e-mail не существует');
 			}
@@ -85,3 +74,6 @@ export class FormEdit extends Form {
 
 }
 
+export const editForm = new FormEdit({
+	id: 'editForm',
+});

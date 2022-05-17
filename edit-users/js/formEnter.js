@@ -1,24 +1,27 @@
 import { Form } from './form.js';
 import { popup } from './popUp.js';
 import { usersDataLayer } from './usersDataLayer.js';
-import { UserPanel } from './userPanel.js';
+// import { UserPanel } from './userPanel.js';
+import { panelUser } from './userPanel.js';
 
 
 export class FormSignIn extends Form {
 	constructor(options) {
 		super(options.id);
 		this.starterForm = document.querySelector(options.starterForm);
-		this.userPanel = new UserPanel({
-			userPanel: '.user__panel',
-			initialForm: '.initial__form',
-			btnExit: '.btn--exit',
-			btnEdit: '.btn--edit',
-			btnBack: '.btn--back',
-			btnHideClass: 'btn--hide',
-			initialFormActiveClass: 'initial__form--active',
-			userPanelActiveCLass: 'user__panel--active',
-			eventType: 'click',
-		});
+		this.userPanel = panelUser;
+
+		// this.userPanel = new UserPanel({
+		// 	userPanel: '.user__panel',
+		// 	initialForm: '.initial__form',
+		// 	btnExit: '.btn--exit',
+		// 	btnEdit: '.btn--edit',
+		// 	btnBack: '.btn--back',
+		// 	btnHideClass: 'btn--hide',
+		// 	initialFormActiveClass: 'initial__form--active',
+		// 	userPanelActiveCLass: 'user__panel--active',
+		// 	eventType: 'click',
+		// });
 
 	}
 

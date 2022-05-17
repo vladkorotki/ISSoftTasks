@@ -1,6 +1,6 @@
 import { usersCards } from "./usersCards.js";
 import { MainContent } from "./mainContent.js";
-import { FormEdit } from "./formEdit.js"
+import { editForm } from "./formEdit.js";
 export class UserPanel {
 	constructor(options) {
 
@@ -45,9 +45,10 @@ export class UserPanel {
 		this.initialForm.classList.remove(this.initialFormActiveClass);
 		this.userPanel.classList.add(this.userPanelActiveCLass);
 		this.userPanel.prepend(usersCards.currentUser(mail));
-		const formEdit = new FormEdit({
-			id: 'editForm',
-		});
+		// const formEdit = new FormEdit({
+		// 	id: 'editForm',
+		// });
+		const formEdit = editForm;
 
 	}
 
@@ -91,4 +92,16 @@ export class UserPanel {
 		}
 	}
 }
+
+export const panelUser = new UserPanel({
+	userPanel: '.user__panel',
+	initialForm: '.initial__form',
+	btnExit: '.btn--exit',
+	btnEdit: '.btn--edit',
+	btnBack: '.btn--back',
+	btnHideClass: 'btn--hide',
+	initialFormActiveClass: 'initial__form--active',
+	userPanelActiveCLass: 'user__panel--active',
+	eventType: 'click',
+});
 
