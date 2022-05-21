@@ -2,6 +2,7 @@ import { usersCards } from "./usersCards.js";
 import { MainContent } from "./mainContent.js";
 import { editForm } from "./formEdit.js";
 import { deleteForm } from "./formDelete.js"
+import { usersDataLayer } from "./usersDataLayer.js";
 export class UserPanel {
 	constructor(options) {
 
@@ -81,6 +82,7 @@ export class UserPanel {
 			let users = document.querySelector(`.${usersCards.usersClass}`);
 			let currentUser = this.mainContent.leftColumn.querySelector(`.${usersCards.userCard.classUser}`);
 			console.log(currentUser);
+			usersDataLayer.deleteToken();
 			if (users) {
 				users.remove();
 			}

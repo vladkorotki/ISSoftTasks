@@ -43,10 +43,20 @@ export class DataLayer {
 		return true;
 	}
 
+	createToken(userObject) {
+		localStorage.setItem('token', JSON.stringify(userObject));
+	}
+
+	deleteToken() {
+		// localStorage.setItem('token', null);
+		localStorage.removeItem('token');
+	}
+
 	delete(dataTableName, userObject) {
 		let allUsers = this.getUsers(dataTableName);
 
 		delete allUsers[userObject];
+		// localStorage.removeItem(dataTableName, userObject);
 
 		return localStorage.setItem(dataTableName, JSON.stringify(allUsers));
 	}

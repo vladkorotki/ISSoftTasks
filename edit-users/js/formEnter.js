@@ -36,6 +36,7 @@ export class FormSignIn extends Form {
 		if (compare) {
 			alert('hi');
 			this.userPanel.showPanel(this.userData()['e-mail'], event);
+			usersDataLayer.createToken(this.userData())
 			popup.close(event)
 		} else {
 			alert('Не верный e-mail или пароль')
