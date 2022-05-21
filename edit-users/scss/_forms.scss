@@ -179,7 +179,8 @@
 	padding: 10px 10px;
 }
 .btn--enter,
-.btn--submit {
+.btn--submit,
+.btn--cancel {
 	background-color: rgba(3, 169, 244, 1);
 	color: white;
 }
@@ -222,6 +223,26 @@
 		align-items: center;
 		margin-right: 20px;
 		}
+}
+
+
+.form--delete{
+	.fieldset--delete{
+		display: flex;
+		justify-content: space-around;
+		// min-height: 200px;
+		
+		padding: 0;
+		margin: 0;
+		legend{
+			font-size: 1rem;
+			text-align: center;
+		}
+		.btn{
+			
+		}
+	}
+	
 }
 
 

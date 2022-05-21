@@ -12,7 +12,8 @@ export class FormContainer {
 		this.registrationFieldset = options.registrationFieldset;
 		this.enterFiledset = options.enterFiledset;
 		this.editFiledset = options.editFiledset;
-		this.formSelectionContainer = document.querySelector(options.selectionContainer)
+		this.deleteFiledset = options.deleteFiledset;
+		this.formSelectionContainer = document.querySelector(options.selectionContainer);
 		this.container.addEventListener(this.eventType, (event) => { this.changingForm(event) });
 		document.addEventListener(this.eventType, (event) => { this.showForm(event) });
 
@@ -36,7 +37,7 @@ export class FormContainer {
 
 
 	showForm(event) {
-		
+
 		if ((event.target.closest(this.registrationFieldset))) {
 			this.container.forms[1].classList.toggle(this.classes[1]);
 			this.container.buttons[0].classList.toggle(this.classes[0]);
@@ -51,8 +52,14 @@ export class FormContainer {
 			this.container.forms[1].classList.add(this.classes[2]);
 			this.formSelectionContainer.classList.add(this.classes[2]);
 			this.container.forms[2].classList.remove(this.classes[2]);
+		}
 
-
+		else if ((event.target.closest(this.deleteFiledset))) {
+			this.container.forms[0].classList.add(this.classes[2]);
+			this.container.forms[1].classList.add(this.classes[2]);
+			this.formSelectionContainer.classList.add(this.classes[2]);
+			this.container.forms[2].classList.add(this.classes[2]);
+			this.container.forms[3].classList.remove(this.classes[2]);
 		}
 	}
 
@@ -68,11 +75,12 @@ export class FormContainer {
 		this.container.forms[1].classList.remove(this.classes[2]);
 		this.formSelectionContainer.classList.remove(this.classes[2]);
 		this.container.forms[2].classList.add(this.classes[2]);
+		this.container.forms[3].classList.add(this.classes[2]);
 	}
 
 
 
-	
+
 }
 
 export const formContainer = new FormContainer({
@@ -85,6 +93,7 @@ export const formContainer = new FormContainer({
 	registrationFieldset: '.registration__fieldset',
 	enterFiledset: '.enter__fieldset',
 	editFiledset: '.btn__controls--edit',
+	deleteFiledset: '.btn__controls--delete',
 	classes: ['btn--active', 'form--active', 'form--hide'],
 	selectionContainer: '.form__selection',
 });

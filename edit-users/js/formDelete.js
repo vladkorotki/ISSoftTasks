@@ -4,33 +4,34 @@ import { usersCards } from './usersCards.js';
 import { popup } from './popUp.js';
 import { panelUser } from './userPanel.js';
 
+export class FormDelete extends Form {
 
-export class FormEdit extends Form {
 	constructor(options) {
 		super(options.id);
 		this.usersCards = usersCards.showUsers();
 		this.submitBtn = this.form.querySelector(options.submitBtn);
+		this.cancelBtn = this.form.querySelector(options.cancelBtn);
 
-		// this.buttonsEdit = this.usersCards.querySelectorAll(`.${usersCards.userCard.userUserBtnEdit}`);
 		this.editOk;
 
 		document.addEventListener('click', (event) => { this.findKeyButton(event) });
 		this.key;
-		if (typeof FormEdit.instance === 'object') {
-			return FormEdit.instance;
+		if (typeof FormDelete.instance === 'object') {
+			return FormDelete.instance;
 		}
-		FormEdit.instance = this;
+		FormDelete.instance = this;
 		return this;
 	}
+
 
 	onFormSubmit(event) {
 		const submited = super.onFormSubmit(event);
 		if (submited) {
 			this.editOk = true;
 			if (usersDataLayer.allUsers() != null && usersDataLayer.allUsers().hasOwnProperty([this.key])) {
-				alert('Данные добавлены');
-				const users = document.querySelector('.users');
-				const dataLayer = usersDataLayer.add(this.userData(), ['e-mail']);
+				alert('Пользователь удален');
+				usersDataLayer.delete(this.key);
+
 
 				if (this.submitBtn.classList.contains('currentBtn')) {
 					panelUser.updateCurrentCard(this.key);
@@ -55,44 +56,23 @@ export class FormEdit extends Form {
 
 
 
-
 	findKeyButton(event) {
 		if (event.target.hasAttribute('data-key')) {
 			this.key = event.target.dataset.key;
-
+			
 			return this.key;
 		}
 
 	}
 
-	userData() {
-		let mail = this.key;
-
-		let currentUser = usersDataLayer.currentUser(mail);
-		let user = this.updateUser();
-
-		user = Object.assign(currentUser, user);
-
-		return user;
-	}
 
 
-
-
-	updateUser() {
-		const user = {};
-		const inputs = this.inputs;
-		for (let index = 0; index < inputs.length; index++) {
-			if ([inputs[index].name] == 'gender' && !inputs[index].checked) continue;
-			else user[inputs[index].name] = inputs[index].value;
-		}
-		return user;
-	}
 
 
 }
 
-export const editForm = new FormEdit({
-	id: 'editForm',
-	submitBtn: '.btn--change',
+export const deleteForm = new FormDelete({
+	id: 'deleteForm',
+	submitBtn: '.btn--submit',
+	cancelBtn: '.btn--cancel',
 });

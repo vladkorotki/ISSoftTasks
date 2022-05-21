@@ -1,6 +1,7 @@
 import { usersCards } from "./usersCards.js";
 import { MainContent } from "./mainContent.js";
 import { editForm } from "./formEdit.js";
+import { deleteForm } from "./formDelete.js"
 export class UserPanel {
 	constructor(options) {
 
@@ -34,6 +35,7 @@ export class UserPanel {
 		this.userPanel.addEventListener(this.eventType, (event) => { this.edit(event) });
 		this.userPanel.addEventListener(this.eventType, (event) => { this.back(event) });
 
+
 		if (typeof UserPanel.instance === 'object') {
 			return UserPanel.instance;
 		}
@@ -41,16 +43,30 @@ export class UserPanel {
 		return this;
 	}
 
-	showPanel(mail) {
+	showPanel(mail, event) {
 		this.initialForm.classList.remove(this.initialFormActiveClass);
 		this.userPanel.classList.add(this.userPanelActiveCLass);
 		this.userPanel.prepend(usersCards.currentUser(mail));
 		// const formEdit = new FormEdit({
 		// 	id: 'editForm',
 		// });
-		const formEdit = editForm;
 
+		const formEdit = editForm;
+		const formDelete = deleteForm;
+		console.log(event.target);
+		if (event.target.closest('.form--enter')) {
+			formEdit.submitBtn.classList.add('currentBtn');
+
+			let removeClass = function () {
+				if (formEdit.editOk) {
+					formEdit.submitBtn.classList.remove('currentBtn');
+				}
+			};
+			formEdit.form.addEventListener('submit', removeClass);
+		}
 	}
+
+
 
 	exit(event) {
 
@@ -82,7 +98,6 @@ export class UserPanel {
 
 	back(event) {
 		if (event.target === this.btnBack) {
-
 			this.btnEdit.classList.toggle(this.btnHideClass);
 			this.btnBack.classList.toggle(this.btnHideClass);
 			let users = document.querySelector(`.${usersCards.usersClass}`);
@@ -91,7 +106,31 @@ export class UserPanel {
 			}
 		}
 	}
+
+	updateCards() {
+		let users = document.querySelector(`.${usersCards.usersClass}`);
+		if (users) {
+			users.remove();
+			this.mainContent.leftMiddle(usersCards.showUsers());
+		}
+
+	}
+
+
+
+	updateCurrentCard(mail) {
+		let currentUser = this.mainContent.leftColumn.querySelector(`.${usersCards.userCard.classUser}`);
+		if (currentUser.dataset.key == mail) {
+			currentUser.remove();
+			this.userPanel.prepend(usersCards.currentUser(mail));
+		}
+	}
+
+
+
+
 }
+
 
 export const panelUser = new UserPanel({
 	userPanel: '.user__panel',

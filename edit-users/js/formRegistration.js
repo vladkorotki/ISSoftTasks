@@ -7,6 +7,12 @@ import { formContainer } from './formContainer.js';
 export class FormRegistration extends Form {
 	constructor(id) {
 		super(id);
+		if (typeof FormRegistration.instance === 'object') {
+			return FormRegistration.instance;
+		}
+		FormRegistration.instance = this;
+		return this;
+
 	}
 
 	//old MEthod

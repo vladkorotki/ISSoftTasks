@@ -15,6 +15,7 @@ export class UserCard {
 		this.userUserEmail = options.userData.classUserEmail;
 		this.userUserAddress = options.userData.classUserAddress;
 		this.userUserGender = options.userData.classUserGender;
+		this.userUserBirth = options.userData.classUserBirth;
 
 		this.userUserControls = options.userControls.classUserControls;
 
@@ -74,11 +75,16 @@ export class UserCard {
 		userGender.classList.add(this.userUserGender);
 		userGender.setAttribute('data-field', 'gender');
 
+		let userBirth = span.cloneNode();
+		userBirth.classList.add(this.userUserBirth);
+		userBirth.setAttribute('data-field', 'birth');
+
 		userData.append(userName);
 		userData.append(userEmail);
 		userData.append(userPhone);
 		userData.append(userAddress);
 		userData.append(userGender);
+		userData.append(userBirth);
 
 
 		let userControls = div.cloneNode();
@@ -90,7 +96,7 @@ export class UserCard {
 		// btnControlsEdit.addEventListener('click', this.calback);
 
 		let btnControlsDelete = button.cloneNode();
-		btnControlsDelete.classList.add(this.userUserBtn, this.userUserBtnDelete);
+		btnControlsDelete.classList.add(this.userUserBtn, this.userUserBtnDelete, this.popupOpen);
 		btnControlsDelete.textContent = this.btnTextDelete;
 		// btnControlsDelete.addEventListener('click', this.calback);
 		userControls.append(btnControlsEdit);

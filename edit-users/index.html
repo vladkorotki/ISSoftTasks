@@ -170,15 +170,7 @@
 												}' data-i="0">
 											<span class="input__error"></span>
 										</p>
-										<!-- <p>
-											<input class="input" type="email" name="e-mail" placeholder="e-mail"
-												data-validators='{ 
-												"requiered": "Это поле обязательно",
-												"regexp": "^([A-Za-z0-9_\\-\\.])+\\@([A-Za-z0-9_\\-\\.])+\\.([A-Za-z]{2,4})$",
-												"errorMessage": ["не верный формат email"]
-											}' data-i="1">
-											<span class="input__error"></span>
-										</p> -->
+
 										<p>
 											<input class="input" type="tel" name="phone" placeholder="phone"
 												data-validators='{ 
@@ -187,17 +179,7 @@
 											}' data-i="1">
 											<span class="input__error"></span>
 										</p>
-										<!-- <p>
-											<input class="input input-password pass" type="password" name="password"
-												placeholder="Password" data-validators='{
-													"requiered": "Это поле обязательно",
-													"minLength": 5,
-													"maxLength": 30,
-													"regexp": ".*([a-z]+[A-Z]+[0-9]+|[a-z]+[0-9]+[A-Z]+|[A-Z]+[a-z]+[0-9]+|[A-Z]+[0-9]+[a-z]+|[0-9]+[a-z]+[A-Z]+|[0-9]+[A-Z]+[a-z]+).*",
-													"errorMessage": ["Введите от 5 до 30 символов", "В пароле должны присутствовать цифры и заглавные буквы"]
-												}' data-i="3">
-											<span class="input__error"></span>
-										</p> -->
+
 
 										<p>
 											<input class="input address" type="text" name="address"
@@ -217,6 +199,22 @@
 										</p>
 									</fieldset>
 								</form>
+
+								<form class="form form--delete form--hide " action="#" id="deleteForm" novalidate>
+									<fieldset class="fieldset fieldset--delete">
+										<legend>Вы действительно хотите удалить Пользователя?</legend>
+
+										<p>
+											<button class="btn btn--submit hide--forms "
+												type="submit">Да</button>
+										</p>
+										<p>
+											<button class="btn btn--cancel hide--forms "
+												type="button">Нет</button>
+										</p>
+									</fieldset>
+								</form>
+
 							</div>
 						</div>
 

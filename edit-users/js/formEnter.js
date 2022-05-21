@@ -23,13 +23,19 @@ export class FormSignIn extends Form {
 		// 	eventType: 'click',
 		// });
 
+		if (typeof FormSignIn.instance === 'object') {
+			return FormSignIn.instance;
+		}
+		FormSignIn.instance = this;
+		return this;
+
 	}
 
 	signIn(event) {
 		const compare = usersDataLayer.compareUsers(this.userData()['e-mail'], this.userData().password);
 		if (compare) {
 			alert('hi');
-			this.userPanel.showPanel(this.userData()['e-mail']);
+			this.userPanel.showPanel(this.userData()['e-mail'], event);
 			popup.close(event)
 		} else {
 			alert('Не верный e-mail или пароль')

@@ -27,6 +27,7 @@ export class UsersCards {
 				classUserEmail: 'user__email',
 				classUserAddress: 'user__address',
 				classUserGender: 'user__gender',
+				classUserBirth: 'user__birth',
 			},
 
 			userControls: {
@@ -64,26 +65,30 @@ export class UsersCards {
 		});
 
 		let usersData = usersStrorage.allUsers();
+		if (usersData != null) {
+			for (let [key, value] of Object.entries(usersData)) {
+				currentCard = this.userCard.createUserCard();
+				let currentCardInputs = currentCard.querySelectorAll('span');
+				let buttonEdit = currentCard.querySelector(`.${this.userCard.userUserBtnEdit}`);
+				let buttonDelete = currentCard.querySelector(`.${this.userCard.userUserBtnDelete}`);
 
-		for (let [key, value] of Object.entries(usersData)) {
-			currentCard = this.userCard.createUserCard();
-			let currentCardInputs = currentCard.querySelectorAll('span');
-			let buttonEdit = currentCard.querySelector(`.${this.userCard.userUserBtnEdit}`)
-
-			currentCardInputs.forEach(item => {
-				if (value[item.dataset.field]) {
-					item.textContent = `${item.dataset.field}: ${value[item.dataset.field]}`;
-					if (item.dataset.field == 'e-mail') {
-						item.setAttribute('data-key', key);
-						currentCard.setAttribute('data-key', key);
-						buttonEdit.setAttribute('data-key', key);
+				currentCardInputs.forEach(item => {
+					if (value[item.dataset.field]) {
+						item.textContent = `${item.dataset.field}: ${value[item.dataset.field]}`;
+						if (item.dataset.field == 'e-mail') {
+							item.setAttribute('data-key', key);
+							currentCard.setAttribute('data-key', key);
+							buttonEdit.setAttribute('data-key', key);
+							buttonDelete.setAttribute('data-key', key);
+						}
+					} else {
+						item.textContent = `${item.dataset.field}: --`;
 					}
-				} else {
-					item.textContent = `${item.dataset.field}: --`;
-				}
-			});
-			users.append(currentCard);
+				});
+				users.append(currentCard);
+			}
 		}
+
 		return users;
 	}
 
@@ -93,7 +98,9 @@ export class UsersCards {
 		console.log(mail);
 		let currentCard = this.userCard.createUserCard();
 		let currentCardInputs = currentCard.querySelectorAll('span');
-		let buttonEdit = currentCard.querySelector(`.${this.userCard.userUserBtnEdit}`)
+		let buttonEdit = currentCard.querySelector(`.${this.userCard.userUserBtnEdit}`);
+		let buttonDelete = currentCard.querySelector(`.${this.userCard.userUserBtnDelete}`);
+
 		let usersStrorage = new UsersDataLayer({
 			dataTableName: 'Users'
 		});
@@ -108,6 +115,7 @@ export class UsersCards {
 					item.setAttribute('data-key', currentUserData[item.dataset.field]);
 					currentCard.setAttribute('data-key', currentUserData[item.dataset.field]);
 					buttonEdit.setAttribute('data-key', currentUserData[item.dataset.field]);
+					buttonDelete.setAttribute('data-key', currentUserData[item.dataset.field]);
 				}
 
 			} else {

@@ -13,15 +13,17 @@ export class MainContent {
 		this.rightColumn.classList.add(this.columnHideClass);
 		this.middleColumn.style.flexGrow = '2';
 		this.middleColumn.append(content);
-
 	}
 
 	standart() {
 		this.cols.forEach(item => {
 			item.classList.remove(this.columnHideClass);
 		});
-
 		this.middleColumn.style.flexGrow = '1';
+	}
+
+	left(content) {
+		this.leftColumn.append(content);
 	}
 
 }

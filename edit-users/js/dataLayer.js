@@ -43,11 +43,11 @@ export class DataLayer {
 		return true;
 	}
 
-	delete(dataTableName, key) {
+	delete(dataTableName, userObject) {
 		let allUsers = this.getUsers(dataTableName);
-		let user = this.curentUser(key);
-		delete allUsers[user];
-		console.log(allUsers);
+
+		delete allUsers[userObject];
+
 		return localStorage.setItem(dataTableName, JSON.stringify(allUsers));
 	}
 
