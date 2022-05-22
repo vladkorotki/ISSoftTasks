@@ -15,6 +15,7 @@ export class FormDelete extends Form {
 		this.editOk;
 
 		document.addEventListener('click', (event) => { this.findKeyButton(event) });
+		this.cancelBtn.addEventListener('click', (event) => { popup.close(event) });
 		this.key;
 		if (typeof FormDelete.instance === 'object') {
 			return FormDelete.instance;
@@ -59,7 +60,7 @@ export class FormDelete extends Form {
 	findKeyButton(event) {
 		if (event.target.hasAttribute('data-key')) {
 			this.key = event.target.dataset.key;
-			
+
 			return this.key;
 		}
 

@@ -95,7 +95,7 @@ export class UsersCards {
 
 
 	currentUser(mail) {
-		console.log(mail);
+
 		let currentCard = this.userCard.createUserCard();
 		let currentCardInputs = currentCard.querySelectorAll('span');
 		let buttonEdit = currentCard.querySelector(`.${this.userCard.userUserBtnEdit}`);

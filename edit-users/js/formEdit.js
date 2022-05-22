@@ -11,11 +11,11 @@ export class FormEdit extends Form {
 		this.usersCards = usersCards.showUsers();
 		this.submitBtn = this.form.querySelector(options.submitBtn);
 
-		// this.buttonsEdit = this.usersCards.querySelectorAll(`.${usersCards.userCard.userUserBtnEdit}`);
 		this.editOk;
 
 		document.addEventListener('click', (event) => { this.findKeyButton(event) });
 		this.key;
+
 		if (typeof FormEdit.instance === 'object') {
 			return FormEdit.instance;
 		}
@@ -25,8 +25,10 @@ export class FormEdit extends Form {
 
 	onFormSubmit(event) {
 		const submited = super.onFormSubmit(event);
+
 		if (submited) {
 			this.editOk = true;
+
 			if (usersDataLayer.allUsers() != null && usersDataLayer.allUsers().hasOwnProperty([this.key])) {
 				alert('Данные добавлены');
 				const users = document.querySelector('.users');
@@ -74,6 +76,24 @@ export class FormEdit extends Form {
 		user = Object.assign(currentUser, user);
 
 		return user;
+	}
+
+	inputsValues() {
+		let mail = this.key;
+		let user = usersDataLayer.currentUser(mail);
+
+		this.inputs.forEach(input => {
+			if (input.type != 'radio') {
+				for (let [key, value] of Object.entries(user)) {
+					if (input.name == key) {
+						input.value = value;
+						break;
+					} else {
+						input.value = '';
+					}
+				}
+			}
+		});
 	}
 
 

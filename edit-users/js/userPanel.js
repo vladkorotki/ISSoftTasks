@@ -26,10 +26,7 @@ export class UserPanel {
 			columnHideClass: 'section__column--hide',
 		});
 
-		// this.usersCards = new UsersCards({
-		// 	main: '.page__main',
-		// 	users: 'users',
-		// });
+
 
 
 		this.userPanel.addEventListener(this.eventType, (event) => { this.exit(event) });
@@ -48,13 +45,11 @@ export class UserPanel {
 		this.initialForm.classList.remove(this.initialFormActiveClass);
 		this.userPanel.classList.add(this.userPanelActiveCLass);
 		this.userPanel.prepend(usersCards.currentUser(mail));
-		// const formEdit = new FormEdit({
-		// 	id: 'editForm',
-		// });
+
 
 		const formEdit = editForm;
 		const formDelete = deleteForm;
-		console.log(event.target);
+
 		if (event.target.closest('.form--enter')) {
 			formEdit.submitBtn.classList.add('currentBtn');
 

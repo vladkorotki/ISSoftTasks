@@ -1,4 +1,5 @@
 import { popup } from "./popUp.js";
+import { editForm } from "./formEdit.js";
 
 export class FormContainer {
 	constructor(options) {
@@ -13,6 +14,7 @@ export class FormContainer {
 		this.enterFiledset = options.enterFiledset;
 		this.editFiledset = options.editFiledset;
 		this.deleteFiledset = options.deleteFiledset;
+
 		this.formSelectionContainer = document.querySelector(options.selectionContainer);
 		this.container.addEventListener(this.eventType, (event) => { this.changingForm(event) });
 		document.addEventListener(this.eventType, (event) => { this.showForm(event) });
@@ -48,10 +50,12 @@ export class FormContainer {
 			popup.open(event);
 		}
 		else if ((event.target.closest(this.editFiledset))) {
+
 			this.container.forms[0].classList.add(this.classes[2]);
 			this.container.forms[1].classList.add(this.classes[2]);
 			this.formSelectionContainer.classList.add(this.classes[2]);
 			this.container.forms[2].classList.remove(this.classes[2]);
+			editForm.inputsValues();
 		}
 
 		else if ((event.target.closest(this.deleteFiledset))) {
