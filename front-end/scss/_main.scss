@@ -1,0 +1,53 @@
+// .page__main {
+// 	display: flex;
+// 	justify-content: space-between;
+// 	flex: 1 1 auto;
+// 	padding-top: 1.5%;
+// 	padding-bottom: 1.5%;
+// }
+
+.page__main{
+	min-height: calc(100vh - 25vh);
+}
+
+.main__content {
+	display: flex;
+	justify-content: space-between;
+	flex: 1 1 auto;
+	min-height: calc(100vh - 25vh);
+	// padding-top: 1.5%;
+	// padding-bottom: 1.5%;
+}
+
+.section__column {
+	background-color: aqua;
+	min-height: calc(100vh - 25vh);
+	// height: 100%;
+	flex-basis: calc(100% / 3);
+	box-shadow: 0 5px 45px rgba(0, 0, 0, 0.2);
+}
+
+.section__column:first-child {
+	background-color: rgba(3, 169, 244, 1);
+}
+.section__column:nth-child(2) {
+	background-color: rgba(51, 210, 30, 0.5);
+}
+.section__column:last-child {
+	background-color: rgba(30, 129, 210, 0.5);
+}
+
+.invalid__input{
+	border-color: red;
+	color: red;
+}
+
+// .btn--hide{
+// 	display: none;
+// }
+
+
+@import "_leftColumn";
+@import "_middleColumn";
+@import "_rightColumn";
+@import "_userCard";
