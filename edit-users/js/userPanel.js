@@ -26,13 +26,11 @@ export class UserPanel {
 			columnHideClass: 'section__column--hide',
 		});
 
+		window.addEventListener('DOMContentLoaded', () => { this.showCurrentToken() });
 
-
-
-		this.userPanel.addEventListener(this.eventType, (event) => { this.exit(event) });
+		this.btnExit.addEventListener(this.eventType, (event) => { this.exit(event) });
 		this.userPanel.addEventListener(this.eventType, (event) => { this.edit(event) });
 		this.userPanel.addEventListener(this.eventType, (event) => { this.back(event) });
-
 
 		if (typeof UserPanel.instance === 'object') {
 			return UserPanel.instance;
@@ -41,48 +39,48 @@ export class UserPanel {
 		return this;
 	}
 
-	showPanel(mail, event) {
+
+
+	showPanel(mail) {
+		let currentUser = usersCards.currentUser(mail);
+		currentUser.classList.add('currentUser');
 		this.initialForm.classList.remove(this.initialFormActiveClass);
 		this.userPanel.classList.add(this.userPanelActiveCLass);
-		this.userPanel.prepend(usersCards.currentUser(mail));
+		this.userPanel.prepend(currentUser);
 
 
 		const formEdit = editForm;
 		const formDelete = deleteForm;
 
-		if (event.target.closest('.form--enter')) {
-			formEdit.submitBtn.classList.add('currentBtn');
+	}
 
-			let removeClass = function () {
-				if (formEdit.editOk) {
-					formEdit.submitBtn.classList.remove('currentBtn');
-				}
-			};
-			formEdit.form.addEventListener('submit', removeClass);
+	showCurrentToken() {
+		if (localStorage.getItem('token')) {
+			let tokenKey = JSON.parse(localStorage.getItem('token'))['e-mail'];
+			this.showPanel(tokenKey);
+		} else {
+			return;
 		}
 	}
 
+	exit() {
 
+		this.initialForm.classList.toggle(this.initialFormActiveClass);
+		this.userPanel.classList.toggle(this.userPanelActiveCLass);
 
-	exit(event) {
+		this.mainContent.standart();
+		this.btnEdit.classList.remove(this.btnHideClass);
+		this.btnBack.classList.add(this.btnHideClass);
 
-		if (event.target === this.btnExit) {
-			this.initialForm.classList.toggle(this.initialFormActiveClass);
-			this.userPanel.classList.toggle(this.userPanelActiveCLass);
+		let users = document.querySelector(`.${usersCards.usersClass}`);
+		let currentUser = this.mainContent.leftColumn.querySelector(`.${usersCards.userCard.classUser}`);
 
-			this.mainContent.standart();
-			this.btnEdit.classList.remove(this.btnHideClass);
-			this.btnBack.classList.add(this.btnHideClass);
-
-			let users = document.querySelector(`.${usersCards.usersClass}`);
-			let currentUser = this.mainContent.leftColumn.querySelector(`.${usersCards.userCard.classUser}`);
-			console.log(currentUser);
-			usersDataLayer.deleteToken();
-			if (users) {
-				users.remove();
-			}
-			currentUser.remove();
+		usersDataLayer.deleteToken();
+		if (users) {
+			users.remove();
 		}
+		currentUser.remove();
+
 	}
 
 	edit(event) {
@@ -122,8 +120,6 @@ export class UserPanel {
 			this.userPanel.prepend(usersCards.currentUser(mail));
 		}
 	}
-
-
 
 
 }

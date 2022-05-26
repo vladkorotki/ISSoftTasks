@@ -12,8 +12,6 @@ export class FormDelete extends Form {
 		this.submitBtn = this.form.querySelector(options.submitBtn);
 		this.cancelBtn = this.form.querySelector(options.cancelBtn);
 
-		this.editOk;
-
 		document.addEventListener('click', (event) => { this.findKeyButton(event) });
 		this.cancelBtn.addEventListener('click', (event) => { popup.close(event) });
 		this.key;
@@ -28,27 +26,23 @@ export class FormDelete extends Form {
 	onFormSubmit(event) {
 		const submited = super.onFormSubmit(event);
 		if (submited) {
-			this.editOk = true;
+
 			if (usersDataLayer.allUsers() != null && usersDataLayer.allUsers().hasOwnProperty([this.key])) {
+				let tokenKey = JSON.parse(localStorage.getItem('token'))['e-mail'];
+
+				if (this.key == tokenKey) {
+					usersDataLayer.delete(this.key);
+					panelUser.exit();
+					popup.close(event);
+					return;
+				}
 				alert('Пользователь удален');
 				usersDataLayer.delete(this.key);
-
-
-				if (this.submitBtn.classList.contains('currentBtn')) {
-					panelUser.updateCurrentCard(this.key);
-					panelUser.updateCards();
-					popup.close(event);
-				}
-				else {
-					panelUser.updateCards();
-					panelUser.updateCurrentCard(this.key);
-					popup.close(event);
-				}
-
-
+				panelUser.updateCards(this.key);
+				panelUser.updateCurrentCard(this.key);
+				popup.close(event);
 
 			} else {
-				this.editOk = false;
 				alert('Пользователь с таким e-mail не существует');
 			}
 		}
@@ -77,3 +71,5 @@ export const deleteForm = new FormDelete({
 	submitBtn: '.btn--submit',
 	cancelBtn: '.btn--cancel',
 });
+
+

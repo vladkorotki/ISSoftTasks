@@ -11,8 +11,6 @@ export class FormEdit extends Form {
 		this.usersCards = usersCards.showUsers();
 		this.submitBtn = this.form.querySelector(options.submitBtn);
 
-		this.editOk;
-
 		document.addEventListener('click', (event) => { this.findKeyButton(event) });
 		this.key;
 
@@ -27,28 +25,17 @@ export class FormEdit extends Form {
 		const submited = super.onFormSubmit(event);
 
 		if (submited) {
-			this.editOk = true;
 
 			if (usersDataLayer.allUsers() != null && usersDataLayer.allUsers().hasOwnProperty([this.key])) {
 				alert('Данные добавлены');
 				const users = document.querySelector('.users');
 				const dataLayer = usersDataLayer.add(this.userData(), ['e-mail']);
 
-				if (this.submitBtn.classList.contains('currentBtn')) {
-					panelUser.updateCurrentCard(this.key);
-					panelUser.updateCards();
-					popup.close(event);
-				}
-				else {
-					panelUser.updateCards();
-					panelUser.updateCurrentCard(this.key);
-					popup.close(event);
-				}
-
-
+				panelUser.updateCards();
+				panelUser.updateCurrentCard(this.key);
+				popup.close(event);
 
 			} else {
-				this.editOk = false;
 				alert('Пользователь с таким e-mail не существует');
 			}
 		}

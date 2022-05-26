@@ -127,22 +127,6 @@ export class UsersCards {
 
 	}
 
-
-
-	// usersData = Object.entries(usersData);
-	// for (let i = 0; i < usersData.length; i++) {
-	// 	currentCard = this.userCard.createUserCard();
-	// 	let currentCardInputs = currentCard.querySelectorAll('span');
-	// 	let currentUserData = usersData[i];
-	// 	currentCardInputs.forEach(item => {
-	// 		if (currentUserData[1][item.dataset.field]) {
-	// 			item.textContent = `${item.dataset.field}: ${currentUserData[1][item.dataset.field]}`
-	// 		} else {
-	// 			item.textContent = `${item.dataset.field}: --`
-	// 		}
-	// 	});
-	// 	users.appendChild(currentCard);
-	// }
 }
 
 
