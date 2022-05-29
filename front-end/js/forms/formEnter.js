@@ -11,18 +11,6 @@ export class FormSignIn extends Form {
 		this.starterForm = document.querySelector(options.starterForm);
 		this.userPanel = panelUser;
 
-		// this.userPanel = new UserPanel({
-		// 	userPanel: '.user__panel',
-		// 	initialForm: '.initial__form',
-		// 	btnExit: '.btn--exit',
-		// 	btnEdit: '.btn--edit',
-		// 	btnBack: '.btn--back',
-		// 	btnHideClass: 'btn--hide',
-		// 	initialFormActiveClass: 'initial__form--active',
-		// 	userPanelActiveCLass: 'user__panel--active',
-		// 	eventType: 'click',
-		// });
-
 		if (typeof FormSignIn.instance === 'object') {
 			return FormSignIn.instance;
 		}

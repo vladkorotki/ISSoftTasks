@@ -226,10 +226,31 @@
 				<section class="section__column section__column--right">
 
 				</section>
+
+				<!-- templates -->
 				<template id="template">
 					<div class="users__wrapper">
 						<div class="users">
 							<div class="users__item"></div>
+						</div>
+					</div>
+				</template>
+
+				<template id="userComponent">
+					<div class="users__user">
+						<div class="user__avatar"><img class="avatar" alt="avatar" src="#url"></div>
+						<div class="user__data">
+							<span class="user__name" data-field="username"></span>
+							<span class="user__email" data-field="e-mail"></span>
+							<span class="user__phone" data-field="phone"></span>
+							<span class="user__address" data-field="address"></span>
+							<span class="user__gender" data-field="gender"></span>
+							<span class="user__birth" data-field="birth"></span>
+						</div>
+						<div class="user__controls">
+							<button class="btn btn__controls--edit popup--open" data-key="yana@mail.ru">edit</button>
+							<button class="btn btn__controls--delete popup--open"
+								data-key="yana@mail.ru">delete</button>
 						</div>
 					</div>
 				</template>

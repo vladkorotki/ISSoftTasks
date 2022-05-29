@@ -26,7 +26,7 @@ export class UserPanel {
 			columnHideClass: 'section__column--hide',
 		});
 
-		window.addEventListener('DOMContentLoaded', () => { this.showCurrentToken() });
+		window.addEventListener('load', () => { this.showCurrentToken() });
 
 		this.btnExit.addEventListener(this.eventType, (event) => { this.exit(event) });
 		this.userPanel.addEventListener(this.eventType, (event) => { this.edit(event) });
@@ -47,7 +47,6 @@ export class UserPanel {
 		this.initialForm.classList.remove(this.initialFormActiveClass);
 		this.userPanel.classList.add(this.userPanelActiveCLass);
 		this.userPanel.prepend(currentUser);
-
 
 		const formEdit = editForm;
 		const formDelete = deleteForm;
