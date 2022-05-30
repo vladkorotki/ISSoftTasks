@@ -1,9 +1,33 @@
+import { panelUser } from "../usersBuild/userPanel.js";
+import { formSignIn } from "../forms/formEnter.js";
 export class Router {
-	constructor(options) {
-		this.routes = options.routes;
+	constructor() {
+		// this.routes = options.routes;
+		this.routes = {
+			// '/': panelUser.back(),
+			'/user': '',
+			'/users': '',
+			'/error': '',
+		};
+
+
+
 		this.location = window.location;
 		window.addEventListener('load', () => { window.location.hash = this.routes.currentUser });
+		// window.addEventListener('load', () => { this.pageTitle() });
 		window.addEventListener('hashchange', () => { this.changeRoute() });
+	}
+
+	pageTitle() {
+		let title = document.querySelector('title');
+		console.log((title));
+		title.textContent = window.location.hash;
+	}
+
+
+	setLocation(hash) {
+		window.location.hash = hash;
+		this.pageTitle();
 	}
 
 	parseLcation() {
@@ -13,9 +37,15 @@ export class Router {
 
 	changeRoute() {
 		let cuurentLocation = this.parseLcation();
+		// formSignIn.render();
 		for (let [key, value] of Object.entries(this.routes)) {
-			if (cuurentLocation == value) {
-				console.log(value);
+			if (cuurentLocation == key) {
+				formSignIn.render()
+				break;
+				// console.log(value);
+				// return value;
+			} else {
+				continue;
 			}
 		}
 	}
@@ -24,3 +54,5 @@ export class Router {
 
 	}
 }
+
+export const router = new Router();

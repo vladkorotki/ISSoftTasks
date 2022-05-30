@@ -3,6 +3,7 @@ import { Form } from './form.js';
 import { popup } from '../pageTools/popUp.js';
 import { usersDataLayer } from '../dataLayer/usersDataLayer.js';
 import { panelUser } from '../usersBuild/userPanel.js';
+import { router } from '../pageTools/router.js';
 
 
 export class FormSignIn extends Form {
@@ -25,19 +26,28 @@ export class FormSignIn extends Form {
 			alert('hi');
 			this.userPanel.showPanel(this.userData()['e-mail'], event);
 			usersDataLayer.createToken(this.userData());
-			popup.close(event)
+			// popup.close(event)
 		} else {
 			alert('Не верный e-mail или пароль')
 		}
 	}
 
 	onFormSubmit(event) {
+
 		const submited = super.onFormSubmit(event);
 		if (submited) {
-			usersDataLayer.addTable(this.dataTableName);
-			this.userData();
-			this.signIn(event);
+			router.setLocation('/user');
+			popup.close(event)
+			// usersDataLayer.addTable(this.dataTableName);
+			// this.userData();
+			// this.signIn(event);
 		}
+	}
+
+	render(event) {
+		usersDataLayer.addTable(this.dataTableName);
+		this.userData();
+		this.signIn(event);
 	}
 
 	userData() {
@@ -52,4 +62,9 @@ export class FormSignIn extends Form {
 
 
 }
-
+export const formSignIn = new FormSignIn({
+	id: 'enterForm',
+	starterForm: '.initial__form',
+	userPanel: '.user__panel',
+	exitUserPanel: '.btn--exit',
+});

@@ -3,6 +3,8 @@ import { MainContent } from "../pageTools/mainContent.js";
 import { editForm } from "../forms/formEdit.js";
 import { deleteForm } from "../forms/formDelete.js"
 import { usersDataLayer } from "../dataLayer/usersDataLayer.js";
+import { router } from "../pageTools/router.js";
+
 export class UserPanel {
 	constructor(options) {
 
@@ -42,6 +44,8 @@ export class UserPanel {
 
 
 	showPanel(mail) {
+		// router.setLocation(`/${mail}`);
+		// router.pageTitle()
 		let currentUser = usersCards.currentUser(mail);
 		currentUser.classList.add('currentUser');
 		this.initialForm.classList.remove(this.initialFormActiveClass);
@@ -58,12 +62,13 @@ export class UserPanel {
 			let tokenKey = JSON.parse(localStorage.getItem('token'))['e-mail'];
 			this.showPanel(tokenKey);
 		} else {
+			router.setLocation('/home');
 			return;
 		}
 	}
 
 	exit() {
-
+		router.setLocation('/home');
 		this.initialForm.classList.toggle(this.initialFormActiveClass);
 		this.userPanel.classList.toggle(this.userPanelActiveCLass);
 
@@ -71,9 +76,9 @@ export class UserPanel {
 		this.btnEdit.classList.remove(this.btnHideClass);
 		this.btnBack.classList.add(this.btnHideClass);
 
-		let users = document.querySelector(`.${usersCards.usersClass}`);
-		let currentUser = this.mainContent.leftColumn.querySelector(`.${usersCards.userCard.classUser}`);
-
+		let users = document.querySelector('.users');
+		let currentUser = this.mainContent.leftColumn.querySelector('.users__user');
+		console.log(currentUser);
 		usersDataLayer.deleteToken();
 		if (users) {
 			users.remove();
@@ -94,7 +99,7 @@ export class UserPanel {
 		if (event.target === this.btnBack) {
 			this.btnEdit.classList.toggle(this.btnHideClass);
 			this.btnBack.classList.toggle(this.btnHideClass);
-			let users = document.querySelector(`.${usersCards.usersClass}`);
+			let users = document.querySelector('.users');
 			if (users) {
 				users.remove();
 			}
@@ -102,7 +107,7 @@ export class UserPanel {
 	}
 
 	updateCards() {
-		let users = document.querySelector(`.${usersCards.usersClass}`);
+		let users = document.querySelector('.users');
 		if (users) {
 			users.remove();
 			this.mainContent.leftMiddle(usersCards.showUsers());
@@ -113,7 +118,7 @@ export class UserPanel {
 
 
 	updateCurrentCard(mail) {
-		let currentUser = this.mainContent.leftColumn.querySelector(`.${usersCards.userCard.classUser}`);
+		let currentUser = this.mainContent.leftColumn.querySelector('.users__user');
 		if (currentUser.dataset.key == mail) {
 			currentUser.remove();
 			this.userPanel.prepend(usersCards.currentUser(mail));
