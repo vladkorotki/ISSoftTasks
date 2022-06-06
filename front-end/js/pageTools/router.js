@@ -32,7 +32,7 @@ export class Router {
 
 		window.addEventListener('load', () => { this.mainContent.panelUser.showCurrentToken() });
 
-		window.addEventListener('load', () => { this.pageTitle() });
+		window.addEventListener('hashchange', () => { this.pageTitle() });
 		window.addEventListener('hashchange', () => { this.changeRoute() });
 		if (typeof Router.instance === 'object') {
 			return Router.instance;
