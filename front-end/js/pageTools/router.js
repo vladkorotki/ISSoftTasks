@@ -61,12 +61,15 @@ export class Router {
 	}
 
 	changeRoute() {
-
+		let users = document.querySelector('.users');
+		if (users) {
+			users.remove();
+		}
 		let cuurentLocation = this.parseLcation();
 		if (!this.routes.hasOwnProperty(cuurentLocation)) {
 			alert('error');
 			router.setLocation(this.location);
-			return;
+			return this.routes[this.location]();
 		}
 		return this.routes[cuurentLocation]();
 	}
@@ -86,7 +89,7 @@ export class Router {
 			formContainer.enter()
 		}
 
-
+		this.location = this.parseLcation();
 
 	}
 
@@ -109,7 +112,7 @@ export class Router {
 		if (currentUser) {
 			currentUser.remove();
 		}
-
+		this.location = this.parseLcation();
 	}
 
 	users(event) {
@@ -120,7 +123,7 @@ export class Router {
 
 		this.mainContent.leftMiddle(this.mainContent.usersCards.showUsers());
 		this.mainContent.panelUser.showButtonBack();
-
+		this.location = this.parseLcation();
 	}
 
 }
