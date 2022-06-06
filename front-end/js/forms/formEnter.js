@@ -2,7 +2,7 @@ import { Form } from './form.js';
 
 import { popup } from '../pageTools/popUp.js';
 import { usersDataLayer } from '../dataLayer/usersDataLayer.js';
-import { panelUser } from '../usersBuild/userPanel.js';
+// import { panelUser } from '../usersBuild/userPanel.js';
 import { router } from '../pageTools/router.js';
 
 
@@ -10,7 +10,8 @@ export class FormSignIn extends Form {
 	constructor(options) {
 		super(options.id);
 		this.starterForm = document.querySelector(options.starterForm);
-		this.userPanel = panelUser;
+		// this.userPanel = panelUser;
+		this.checkSubmit = false;
 
 		if (typeof FormSignIn.instance === 'object') {
 			return FormSignIn.instance;
@@ -24,31 +25,32 @@ export class FormSignIn extends Form {
 		const compare = usersDataLayer.compareUsers(this.userData()['e-mail'], this.userData().password);
 		if (compare) {
 			alert('hi');
-			this.userPanel.showPanel(this.userData()['e-mail'], event);
-			usersDataLayer.createToken(this.userData());
-			// popup.close(event)
+			// this.userPanel.showPanel(this.userData()['e-mail'], event);
+			// usersDataLayer.createToken(this.userData());
+			popup.close(event)
+			return true;
 		} else {
-			alert('Не верный e-mail или пароль')
+			alert('Не верный e-mail или пароль');
+			return false;
 		}
 	}
 
 	onFormSubmit(event) {
-
 		const submited = super.onFormSubmit(event);
+		let sign = this.signIn(event);
 		if (submited) {
-			router.setLocation('/user');
-			popup.close(event)
-			// usersDataLayer.addTable(this.dataTableName);
-			// this.userData();
-			// this.signIn(event);
+			if (!sign) {
+				return
+			} else {
+				usersDataLayer.addTable(this.dataTableName);
+				this.userData();
+				router.setLocation('/user');
+				this.checkSubmit = true;
+			}
 		}
 	}
 
-	render(event) {
-		usersDataLayer.addTable(this.dataTableName);
-		this.userData();
-		this.signIn(event);
-	}
+
 
 	userData() {
 		let user = {};
@@ -62,7 +64,13 @@ export class FormSignIn extends Form {
 
 
 }
-export const formSignIn = new FormSignIn({
+// export const formSignIn = new FormSignIn({
+// 	id: 'enterForm',
+// 	starterForm: '.initial__form',
+// 	userPanel: '.user__panel',
+// 	exitUserPanel: '.btn--exit',
+// });
+export const formEnter = new FormSignIn({
 	id: 'enterForm',
 	starterForm: '.initial__form',
 	userPanel: '.user__panel',

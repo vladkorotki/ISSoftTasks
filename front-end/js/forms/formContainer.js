@@ -1,6 +1,7 @@
 import { popup } from "../pageTools/popUp.js";
 import { editForm } from "./formEdit.js";
 
+
 export class FormContainer {
 	constructor(options) {
 		this.container = document.getElementById(options.id);
@@ -37,6 +38,11 @@ export class FormContainer {
 		});
 	}
 
+	enter() {
+		this.container.forms[0].classList.add(this.classes[1]);
+		this.container.buttons[1].classList.add(this.classes[0]);
+		popup.openOnHashChange();
+	}
 
 	showForm(event) {
 

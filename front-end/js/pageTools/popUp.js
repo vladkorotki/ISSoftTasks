@@ -36,6 +36,10 @@ export class Popup {
 		}
 	}
 
+	openOnHashChange() {
+		this.popUp.classList.add(this.classForActivePopup);
+	}
+
 }
 
 export const popup = new Popup({

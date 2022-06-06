@@ -2,7 +2,9 @@ import { Form } from './form.js';
 import { usersDataLayer } from '../dataLayer/usersDataLayer.js';
 import { usersCards } from '../usersBuild/usersCards.js';
 import { popup } from '../pageTools/popUp.js';
-import { panelUser } from '../usersBuild/userPanel.js';
+import { router } from '../pageTools/router.js';
+// import { panelUser } from '../usersBuild/userPanel.js';
+import { mainContent } from '../pageTools/mainContent.js';
 
 
 export class FormEdit extends Form {
@@ -31,8 +33,8 @@ export class FormEdit extends Form {
 				const users = document.querySelector('.users');
 				const dataLayer = usersDataLayer.add(this.userData(), ['e-mail']);
 
-				panelUser.updateCards();
-				panelUser.updateCurrentCard(this.key);
+				mainContent.updateCards();
+				mainContent.updateCurrentCard(this.key);
 				popup.close(event);
 
 			} else {
