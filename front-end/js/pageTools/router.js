@@ -23,6 +23,7 @@ export class Router {
 			'/home': () => this.home(),
 			'/user': () => this.user(),
 			'/users': () => this.users(),
+			// '/vlad': { callback: () => this.users(), guards: [guard1, guard2] },
 			'/error': '',
 		};
 
@@ -40,6 +41,13 @@ export class Router {
 		Router.instance = this;
 		return this;
 	}
+
+	// guard1() {
+	// 	if (token) {
+	// 		return true;
+	// 	}
+	// 	return false;
+	// }
 
 	pageTitle() {
 		let title = document.querySelector('title');
