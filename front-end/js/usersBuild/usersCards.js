@@ -4,13 +4,17 @@ import { UsersDataLayer } from '../dataLayer/usersDataLayer.js';
 export class UsersCards {
 
 	constructor(options) {
+		this.options = options;
 		this.main = document.querySelector(options.main);
 		this.usersTemplate = document.getElementById(options.id);
 		this.users = this.usersTemplate.content.querySelector(options.users);
 
+		// this.users = this.getTemplate();
+		this.usersUrl = options.usersUrl;
 		this.user = new UserCard({
 			id: "userComponent",
 			userClass: ".users__user",
+			userUrl: '../templates/user.html',
 		});
 
 
@@ -27,12 +31,23 @@ export class UsersCards {
 	// 	return users;
 	// }
 
+	async getTemplate() {
+		let response = await fetch(this.usersUrl);
+		const template = await response.text();
+		const newUsers = new DOMParser().parseFromString(template, "text/html");
+		const usersTemplate = newUsers.querySelector(this.options.users);
 
+		// console.dir(usersTemplate);
+		// console.log(usersTemplate);
+
+		return usersTemplate;
+	}
 
 
 	showUsers() {
 		const users = this.users.cloneNode();
-
+		// const users = this.getTemplate();
+		console.log(this.getTemplate());
 		let currentCard;
 		let usersStrorage = new UsersDataLayer({
 			dataTableName: 'Users'
@@ -101,7 +116,7 @@ export class UsersCards {
 
 	}
 
-	
+
 
 }
 
@@ -109,7 +124,10 @@ export const usersCards = new UsersCards({
 	main: '.page__main',
 	id: "usersComponent",
 	users: ".users",
+	usersUrl: '../templates/users.html',
 })
+
+// console.log(usersCards.getTemplate());
 
 
 

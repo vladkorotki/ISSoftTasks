@@ -12,8 +12,12 @@ export class UserCard {
 	async getTemplate() {
 		let response = await fetch(this.userUrl);
 		const template = await response.text();
-		console.log(template);
-		return template;
+		const newUser = new DOMParser().parseFromString(template, "text/html");
+		const user = newUser.querySelector(this.options.userClass);
+
+		// console.dir(newUser);
+		// console.log(user);
+		return user;
 	}
 
 	createUserCard() {
@@ -22,8 +26,8 @@ export class UserCard {
 	}
 
 	loger() {
-		console.log(this.userUrl);
-		console.log(this.getTemplate());
+		// console.log(this.userUrl);
+		// console.log(this.getTemplate());
 	}
 
 
