@@ -6,30 +6,20 @@ export class UsersCards {
 	constructor(options) {
 		this.options = options;
 		this.main = document.querySelector(options.main);
-		this.usersTemplate = document.getElementById(options.id);
-		this.users = this.usersTemplate.content.querySelector(options.users);
 
-		// this.users = this.getTemplate();
+		this.users;
 		this.usersUrl = options.usersUrl;
 		this.user = new UserCard({
-			id: "userComponent",
 			userClass: ".users__user",
 			userUrl: '../templates/user.html',
 		});
-
 
 		if (typeof UsersCards.instance === 'object') {
 			return UsersCards.instance;
 		}
 		UsersCards.instance = this;
 		return this;
-
 	}
-
-	// render() {
-	// 	const users = this.users.cloneNode();
-	// 	return users;
-	// }
 
 	async getTemplate() {
 		let response = await fetch(this.usersUrl);
@@ -37,17 +27,13 @@ export class UsersCards {
 		const newUsers = new DOMParser().parseFromString(template, "text/html");
 		const usersTemplate = newUsers.querySelector(this.options.users);
 
-		// console.dir(usersTemplate);
-		// console.log(usersTemplate);
-
-		return usersTemplate;
+		return await usersTemplate;
 	}
 
-
-	showUsers() {
-		const users = this.users.cloneNode();
-		// const users = this.getTemplate();
-		console.log(this.getTemplate());
+	async showUsers() {
+		const usersTemplate = await this.getTemplate();
+		const users = await usersTemplate.cloneNode();
+		this.users = users;
 		let currentCard;
 		let usersStrorage = new UsersDataLayer({
 			dataTableName: 'Users'
@@ -56,7 +42,7 @@ export class UsersCards {
 		let usersData = usersStrorage.allUsers();
 		if (usersData != null) {
 			for (let [key, value] of Object.entries(usersData)) {
-				currentCard = this.user.createUserCard();
+				currentCard = await this.user.createUserCard();
 				let currentCardInputs = currentCard.querySelectorAll('span');
 				let buttonEdit = currentCard.querySelector('.btn__controls--edit');
 				let buttonDelete = currentCard.querySelector('.btn__controls--delete');
@@ -74,18 +60,15 @@ export class UsersCards {
 						item.textContent = `${item.dataset.field}: --`;
 					}
 				});
-				users.append(currentCard);
+				this.users.append(currentCard);
 			}
 		}
-		// console.log(users);
-		return users;
+
+		return await this.users;
 	}
 
-
-
-	currentUser(mail) {
-
-		let currentCard = this.user.createUserCard();
+	async currentUser(mail) {
+		let currentCard = await this.user.createUserCard();
 		let currentCardInputs = currentCard.querySelectorAll('span');
 		let buttonEdit = currentCard.querySelector('.btn__controls--edit');
 		let buttonDelete = currentCard.querySelector('.btn__controls--delete');
@@ -112,12 +95,8 @@ export class UsersCards {
 			}
 		});
 
-		return currentCard;
-
+		return await currentCard;
 	}
-
-
-
 }
 
 export const usersCards = new UsersCards({
@@ -125,13 +104,4 @@ export const usersCards = new UsersCards({
 	id: "usersComponent",
 	users: ".users",
 	usersUrl: '../templates/users.html',
-})
-
-// console.log(usersCards.getTemplate());
-
-
-
-// export const usersCards = new UsersCards({
-// 	main: '.page__main',
-// 	users: 'users',
-// });
+});

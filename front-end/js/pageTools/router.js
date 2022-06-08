@@ -8,7 +8,6 @@ import { popup } from "./popUp.js";
 export class Router {
 	constructor(options) {
 
-
 		this.mainContent = new MainContent({
 			main: '.page__main',
 			cols: '.section__column',
@@ -18,7 +17,6 @@ export class Router {
 			columnHideClass: 'section__column--hide',
 		});
 
-
 		this.routes = {
 			'/home': () => this.home(),
 			'/user': () => this.user(),
@@ -27,14 +25,12 @@ export class Router {
 			'/error': '',
 		};
 
-
-
 		this.location = this.parseLcation();
 
 		window.addEventListener('load', () => { this.mainContent.panelUser.showCurrentToken() });
-
 		window.addEventListener('hashchange', () => { this.pageTitle() });
 		window.addEventListener('hashchange', () => { this.changeRoute() });
+
 		if (typeof Router.instance === 'object') {
 			return Router.instance;
 		}
@@ -54,14 +50,10 @@ export class Router {
 		title.textContent = this.parseLcation().slice(1);
 	}
 
-
 	setLocation(hash) {
-
 		window.location.hash = hash;
 		this.pageTitle();
 	}
-
-
 
 	parseLcation() {
 		const location = window.location.hash.slice(1) || '/';
@@ -83,9 +75,6 @@ export class Router {
 	}
 
 	user() {
-		console.log('user');
-
-
 		let users = document.querySelector('.users');
 		if (users) {
 			users.remove();
@@ -96,13 +85,10 @@ export class Router {
 			this.home();
 			formContainer.enter()
 		}
-
 		this.location = this.parseLcation();
-
 	}
 
 	home() {
-		console.log('home');
 		this.mainContent.panelUser.initialForm.classList.add(this.mainContent.panelUser.initialFormActiveClass);
 		this.mainContent.panelUser.userPanel.classList.remove(this.mainContent.panelUser.userPanelActiveCLass);
 
@@ -123,17 +109,15 @@ export class Router {
 		this.location = this.parseLcation();
 	}
 
-	users(event) {
+	async users() {
 		if (!(localStorage.getItem('token'))) {
 			this.home();
-			formContainer.enter()
+			formContainer.enter();
 		}
-
-		this.mainContent.leftMiddle(this.mainContent.usersCards.showUsers());
+		this.mainContent.leftMiddle(await this.mainContent.usersCards.showUsers());
 		this.mainContent.panelUser.showButtonBack();
 		this.location = this.parseLcation();
 	}
-
 }
 
 export const router = new Router();

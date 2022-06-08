@@ -1,34 +1,29 @@
-import { formContainer } from "../forms/formContainer.js";
 export class UserCard {
 
 	constructor(options) {
 		this.options = options;
-		this.userTemplate = document.getElementById(options.id);
-		this.user = this.userTemplate.content.querySelector(options.userClass);
+		this.user;
 		this.userUrl = options.userUrl;
-
 	}
 
 	async getTemplate() {
 		let response = await fetch(this.userUrl);
 		const template = await response.text();
 		const newUser = new DOMParser().parseFromString(template, "text/html");
-		const user = newUser.querySelector(this.options.userClass);
+		const userTemplate = newUser.querySelector(this.options.userClass);
 
-		// console.dir(newUser);
-		// console.log(user);
-		return user;
+		return await userTemplate;
 	}
 
-	createUserCard() {
-		const newUser = this.user.cloneNode(true);
-		return newUser;
+	async createUserCard() {
+		const userTemplate = await this.getTemplate();
+		const user = await userTemplate.cloneNode(true);
+		this.user = user;
+
+		return await this.user;
 	}
 
-	loger() {
-		// console.log(this.userUrl);
-		// console.log(this.getTemplate());
-	}
+
 
 
 
@@ -142,13 +137,3 @@ export class UserCard {
 
 
 }
-
-
-
-let a = new UserCard({
-	id: "userComponent",
-	userClass: ".users__user",
-	userUrl: '../templates/user.html',
-});
-
-a.loger()

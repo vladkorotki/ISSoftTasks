@@ -1,8 +1,6 @@
 
-// import { Home } from "../pageComponents/home.js";
 import { UserPanel } from "../usersBuild/userPanel.js";
 import { usersCards } from "../usersBuild/usersCards.js";
-
 
 export class MainContent {
 	constructor(options) {
@@ -12,14 +10,6 @@ export class MainContent {
 		this.middleColumn = document.querySelector(options.middleColumn);
 		this.rightColumn = document.querySelector(options.rightColumn);
 		this.columnHideClass = options.columnHideClass;
-
-
-
-
-		// this.home = new Home({
-		// 	id: "initialPopup",
-		// 	initPopup: ".initial__popup"
-		// });
 
 		this.panelUser = new UserPanel(
 			{
@@ -39,35 +29,23 @@ export class MainContent {
 		);
 
 		this.usersCards = usersCards;
-
 	}
 
-
-
-
-	updateCards() {
+	async updateCards() {
 		let users = document.querySelector('.users');
 		if (users) {
 			users.remove();
-			this.leftMiddle(usersCards.showUsers());
+			this.leftMiddle(await usersCards.showUsers());
 		}
-
 	}
 
-
-
-	updateCurrentCard(mail) {
+	async updateCurrentCard(mail) {
 		let currentUser = this.leftColumn.querySelector('.users__user');
 		if (currentUser.dataset.key == mail) {
 			currentUser.remove();
-			this.panelUser.userPanel.prepend(usersCards.currentUser(mail));
+			this.panelUser.userPanel.prepend(await usersCards.currentUser(mail));
 		}
 	}
-
-
-
-
-
 
 	leftMiddle(content) {
 		this.rightColumn.classList.add(this.columnHideClass);
@@ -76,7 +54,6 @@ export class MainContent {
 	}
 
 	standart() {
-
 		this.cols.forEach(item => {
 			item.classList.remove(this.columnHideClass);
 		});
@@ -86,10 +63,6 @@ export class MainContent {
 	left(content) {
 		this.leftColumn.append(content);
 	}
-
-
-
-
 }
 
 
