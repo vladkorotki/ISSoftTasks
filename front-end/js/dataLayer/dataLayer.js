@@ -64,7 +64,7 @@ export class DataLayer {
 		// let allUsers = JSON.parse(localStorage.getItem(dataTableName));
 		let allUsers = this.getUsers(dataTableName);
 		let isCompareUsers;
-		if (allUsers.hasOwnProperty(userMail) && allUsers[userMail]['e-mail'] == userMail && allUsers[userMail].password == userPassword) {
+		if (allUsers != null && allUsers.hasOwnProperty(userMail) && allUsers[userMail]['e-mail'] == userMail && allUsers[userMail].password == userPassword) {
 			isCompareUsers = true;
 		} else {
 			isCompareUsers = false;
