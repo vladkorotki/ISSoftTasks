@@ -2,7 +2,8 @@ import { Form } from './form.js';
 import { usersDataLayer } from '../dataLayer/usersDataLayer.js';
 import { usersCards } from '../usersBuild/usersCards.js';
 import { popup } from '../pageTools/popUp.js';
-import { panelUser } from '../usersBuild/userPanel.js';
+// import { panelUser } from '../usersBuild/userPanel.js';
+import { mainContent } from '../pageTools/mainContent.js';
 
 export class FormDelete extends Form {
 
@@ -32,14 +33,14 @@ export class FormDelete extends Form {
 
 				if (this.key == tokenKey) {
 					usersDataLayer.delete(this.key);
-					panelUser.exit();
+					mainContent.panelUser.exit();
 					popup.close(event);
 					return;
 				}
 				alert('Пользователь удален');
 				usersDataLayer.delete(this.key);
-				panelUser.updateCards(this.key);
-				panelUser.updateCurrentCard(this.key);
+				mainContent.updateCards(this.key);
+				mainContent.updateCurrentCard(this.key);
 				popup.close(event);
 
 			} else {

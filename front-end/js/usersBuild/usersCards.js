@@ -1,46 +1,17 @@
 import { UserCard } from './userCard.js';
 import { UsersDataLayer } from '../dataLayer/usersDataLayer.js';
+
 export class UsersCards {
+
 	constructor(options) {
-
+		this.options = options;
 		this.main = document.querySelector(options.main);
-		this.usersClass = options.users;
 
-
-
-		this.userCard = new UserCard({
-			classUser: 'users__user',
-
-
-			avatar: {
-				classBlock: 'user__avatar',
-				classImg: 'avatar',
-				srcAttribute: '#url',
-				altAttribute: 'avatar',
-			},
-
-			userData: {
-				classUserData: 'user__data',
-
-				classUserName: 'user__name',
-				classUserPhone: 'user__phone',
-				classUserEmail: 'user__email',
-				classUserAddress: 'user__address',
-				classUserGender: 'user__gender',
-				classUserBirth: 'user__birth',
-			},
-
-			userControls: {
-				classUserControls: 'user__controls',
-
-				classUserBtn: 'btn',
-				classUserBtnEdit: 'btn__controls--edit',
-				classUserBtnDelete: 'btn__controls--delete',
-				btnTextEdit: 'edit',
-				btnTextDelete: 'delete',
-			},
-			popupOpen: 'popup--open',
-
+		this.users;
+		this.usersUrl = options.usersUrl;
+		this.user = new UserCard({
+			userClass: ".users__user",
+			userUrl: '../templates/user.html',
 		});
 
 		if (typeof UsersCards.instance === 'object') {
@@ -50,15 +21,19 @@ export class UsersCards {
 		return this;
 	}
 
+	async getTemplate() {
+		let response = await fetch(this.usersUrl);
+		const template = await response.text();
+		const newUsers = new DOMParser().parseFromString(template, "text/html");
+		const usersTemplate = newUsers.querySelector(this.options.users);
 
+		return await usersTemplate;
+	}
 
-
-
-	showUsers() {
-		let div = document.createElement('div');
-		let users = div.cloneNode();
-		users.classList.add(this.usersClass);
-
+	async showUsers() {
+		const usersTemplate = await this.getTemplate();
+		const users = await usersTemplate.cloneNode();
+		this.users = users;
 		let currentCard;
 		let usersStrorage = new UsersDataLayer({
 			dataTableName: 'Users'
@@ -67,10 +42,10 @@ export class UsersCards {
 		let usersData = usersStrorage.allUsers();
 		if (usersData != null) {
 			for (let [key, value] of Object.entries(usersData)) {
-				currentCard = this.userCard.createUserCard();
+				currentCard = await this.user.createUserCard();
 				let currentCardInputs = currentCard.querySelectorAll('span');
-				let buttonEdit = currentCard.querySelector(`.${this.userCard.userUserBtnEdit}`);
-				let buttonDelete = currentCard.querySelector(`.${this.userCard.userUserBtnDelete}`);
+				let buttonEdit = currentCard.querySelector('.btn__controls--edit');
+				let buttonDelete = currentCard.querySelector('.btn__controls--delete');
 
 				currentCardInputs.forEach(item => {
 					if (value[item.dataset.field]) {
@@ -85,21 +60,18 @@ export class UsersCards {
 						item.textContent = `${item.dataset.field}: --`;
 					}
 				});
-				users.append(currentCard);
+				this.users.append(currentCard);
 			}
 		}
 
-		return users;
+		return await this.users;
 	}
 
-
-
-	currentUser(mail) {
-
-		let currentCard = this.userCard.createUserCard();
+	async currentUser(mail) {
+		let currentCard = await this.user.createUserCard();
 		let currentCardInputs = currentCard.querySelectorAll('span');
-		let buttonEdit = currentCard.querySelector(`.${this.userCard.userUserBtnEdit}`);
-		let buttonDelete = currentCard.querySelector(`.${this.userCard.userUserBtnDelete}`);
+		let buttonEdit = currentCard.querySelector('.btn__controls--edit');
+		let buttonDelete = currentCard.querySelector('.btn__controls--delete');
 
 		let usersStrorage = new UsersDataLayer({
 			dataTableName: 'Users'
@@ -123,15 +95,13 @@ export class UsersCards {
 			}
 		});
 
-		return currentCard;
-
+		return await currentCard;
 	}
-
 }
-
-
 
 export const usersCards = new UsersCards({
 	main: '.page__main',
-	users: 'users',
+	id: "usersComponent",
+	users: ".users",
+	usersUrl: '../templates/users.html',
 });

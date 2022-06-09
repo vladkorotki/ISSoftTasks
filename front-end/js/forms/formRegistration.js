@@ -15,19 +15,6 @@ export class FormRegistration extends Form {
 
 	}
 
-	//old MEthod
-	// onFormSubmit(event) {
-	// 	const submited = super.onFormSubmit(event);
-	// 	if (submited) {
-	// 		this.createUser();
-	// 		const dataLayer = usersDataLayer.add(this.createUser(), 'e-mail');
-
-	// 		if (dataLayer) {
-	// 			formContainer.changeForm();
-	// 		}
-	// 	}
-	// }
-
 
 	onFormSubmit(event) {
 		const submited = super.onFormSubmit(event);
