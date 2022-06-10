@@ -1,22 +1,26 @@
-export class UserCard {
+import { Component } from './component.js';
+export class UserCard extends Component {
 
 	constructor(options) {
+		super(options);
 		this.options = options;
 		this.user;
 		this.userUrl = options.userUrl;
 	}
 
-	async getTemplate() {
-		let response = await fetch(this.userUrl);
-		const template = await response.text();
-		const newUser = new DOMParser().parseFromString(template, "text/html");
-		const userTemplate = newUser.querySelector(this.options.userClass);
+	// async getTemplate() {
+	// 	let response = await fetch(this.userUrl);
+	// 	const template = await response.text();
+	// 	const newUser = new DOMParser().parseFromString(template, "text/html");
+	// 	const userTemplate = newUser.querySelector(this.options.userClass);
 
-		return await userTemplate;
-	}
+	// 	return await userTemplate;
+	// }
 
 	async createUserCard() {
-		const userTemplate = await this.getTemplate();
+		const url = this.userUrl;
+		const selector = this.options.userClass
+		const userTemplate = await this.getTemplate(url, selector);
 		const user = await userTemplate.cloneNode(true);
 		this.user = user;
 

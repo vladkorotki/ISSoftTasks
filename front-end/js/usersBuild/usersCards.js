@@ -1,9 +1,11 @@
 import { UserCard } from './userCard.js';
 import { UsersDataLayer } from '../dataLayer/usersDataLayer.js';
+import { Component } from './component.js';
 
-export class UsersCards {
+export class UsersCards extends Component {
 
 	constructor(options) {
+		super(options);
 		this.options = options;
 		this.main = document.querySelector(options.main);
 
@@ -21,17 +23,19 @@ export class UsersCards {
 		return this;
 	}
 
-	async getTemplate() {
-		let response = await fetch(this.usersUrl);
-		const template = await response.text();
-		const newUsers = new DOMParser().parseFromString(template, "text/html");
-		const usersTemplate = newUsers.querySelector(this.options.users);
+	// async getTemplate() {
+	// 	let response = await fetch(this.usersUrl);
+	// 	const template = await response.text();
+	// 	const newUsers = new DOMParser().parseFromString(template, "text/html");
+	// 	const usersTemplate = newUsers.querySelector(this.options.users);
 
-		return await usersTemplate;
-	}
+	// 	return await usersTemplate;
+	// }
 
 	async showUsers() {
-		const usersTemplate = await this.getTemplate();
+		const url = this.usersUrl;
+		const selector = this.options.users
+		const usersTemplate = await this.getTemplate(url, selector);
 		const users = await usersTemplate.cloneNode();
 		this.users = users;
 		let currentCard;
