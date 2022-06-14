@@ -35,7 +35,7 @@ export class FormSignIn extends Form {
 		}
 	}
 
-	onFormSubmit(event) {
+	async onFormSubmit(event) {
 		const submited = super.onFormSubmit(event);
 		let sign = this.signIn(event);
 		if (submited) {
@@ -46,6 +46,7 @@ export class FormSignIn extends Form {
 				this.userData();
 				router.setLocation('/user');
 				this.checkSubmit = true;
+				// await fetch('http://localhost:5501/');
 			}
 		}
 	}

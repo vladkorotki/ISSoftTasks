@@ -47,7 +47,7 @@ export class UsersCards extends Component {
 		if (usersData != null) {
 			for (let [key, value] of Object.entries(usersData)) {
 				currentCard = await this.user.createUserCard();
-				let currentCardInputs = currentCard.querySelectorAll('span');
+				let currentCardInputs = currentCard.querySelectorAll('.span');
 				let buttonEdit = currentCard.querySelector('.btn__controls--edit');
 				let buttonDelete = currentCard.querySelector('.btn__controls--delete');
 
@@ -73,7 +73,7 @@ export class UsersCards extends Component {
 
 	async currentUser(mail) {
 		let currentCard = await this.user.createUserCard();
-		let currentCardInputs = currentCard.querySelectorAll('span');
+		let currentCardInputs = currentCard.querySelectorAll('.span');
 		let buttonEdit = currentCard.querySelector('.btn__controls--edit');
 		let buttonDelete = currentCard.querySelector('.btn__controls--delete');
 
