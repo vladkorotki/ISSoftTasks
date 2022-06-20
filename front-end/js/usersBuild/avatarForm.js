@@ -9,8 +9,6 @@ export class AvatarForm extends Component {
 		this.selector = options.selector;
 	}
 
-
-
 	async createFormAvatar() {
 		const url = this.formUrl;
 		const selector = this.selector;
@@ -19,7 +17,6 @@ export class AvatarForm extends Component {
 		this.form = form;
 		return await this.form;
 	}
-
 }
 
 

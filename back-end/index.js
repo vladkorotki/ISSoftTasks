@@ -19,11 +19,13 @@ app.post("/", function (req, res, next) {
 
 	let filedata = req.file;
 	console.log(filedata);
+	// console.log(res);
 	if (!filedata)
 		console.log(("Ошибка при загрузке файла"));
 	else
-		res.send("Файл загружен");
-
+		// res.send("Файл загружен");
+		console.log("Файл загружен");
+	next();
 });
 
 app.use(function (request, response) {
