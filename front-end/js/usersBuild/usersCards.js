@@ -2,6 +2,7 @@ import { UserCard } from './userCard.js';
 import { UsersDataLayer } from '../dataLayer/usersDataLayer.js';
 import { Component } from './component.js';
 
+import { AvatarForm } from './avatarForm.js';
 export class UsersCards extends Component {
 
 	constructor(options) {
@@ -14,6 +15,11 @@ export class UsersCards extends Component {
 		this.user = new UserCard({
 			userClass: ".users__user",
 			userUrl: '../templates/user.html',
+		});
+
+		this.avatarForm = new AvatarForm({
+			selector: ".input__wrapper",
+			formUrl: '../templates/avatarForm.html',
 		});
 
 		if (typeof UsersCards.instance === 'object') {
@@ -72,17 +78,19 @@ export class UsersCards extends Component {
 	}
 
 	async currentUser(mail) {
-		let currentCard = await this.user.createUserCard();
-		let currentCardInputs = currentCard.querySelectorAll('.span');
-		let buttonEdit = currentCard.querySelector('.btn__controls--edit');
-		let buttonDelete = currentCard.querySelector('.btn__controls--delete');
+		const currentCard = await this.user.createUserCard();
+		const avatarForm = await this.avatarForm.createFormAvatar();
+		const avatar = currentCard.querySelector('.user__avatar');
+		const currentCardInputs = currentCard.querySelectorAll('.span');
+		const buttonEdit = currentCard.querySelector('.btn__controls--edit');
+		const buttonDelete = currentCard.querySelector('.btn__controls--delete');
 
-		let usersStrorage = new UsersDataLayer({
+		const usersStrorage = new UsersDataLayer({
 			dataTableName: 'Users'
 		});
 
-		let usersData = usersStrorage.allUsers();
-		let currentUserData = usersData[mail];
+		const usersData = usersStrorage.allUsers();
+		const currentUserData = usersData[mail];
 
 		currentCardInputs.forEach(item => {
 			if (currentUserData[item.dataset.field]) {
@@ -98,7 +106,7 @@ export class UsersCards extends Component {
 				item.textContent = `${item.dataset.field}: --`
 			}
 		});
-
+		avatar.prepend(avatarForm);
 		return await currentCard;
 	}
 }

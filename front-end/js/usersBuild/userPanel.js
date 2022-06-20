@@ -5,6 +5,7 @@ import { deleteForm } from "../forms/formDelete.js"
 import { usersDataLayer } from "../dataLayer/usersDataLayer.js";
 import { router } from "../pageTools/router.js";
 import { formContainer } from "../forms/formContainer.js";
+import { FormAvatar } from '../forms/formAvatar.js';
 
 export class UserPanel {
 	constructor(options) {
@@ -49,6 +50,9 @@ export class UserPanel {
 		currentUser.classList.add('currentUser');
 
 		this.userPanel.prepend(currentUser);
+		let formAvatar = new FormAvatar(
+			'avatarForm',
+		);
 		const formEdit = editForm;
 		const formDelete = deleteForm;
 	}
@@ -94,50 +98,6 @@ export class UserPanel {
 		this.btnEdit.classList.add(this.btnHideClass);
 		this.btnBack.classList.remove(this.btnHideClass);
 	}
-
-
-
-
-
-
-
-
-	// updateCards() {
-	// 	let users = document.querySelector('.users');
-	// 	if (users) {
-	// 		users.remove();
-	// 		this.mainContent.leftMiddle(usersCards.showUsers());
-	// 	}
-
-	// }
-
-
-
-	// updateCurrentCard(mail) {
-	// 	let currentUser = this.mainContent.leftColumn.querySelector('.users__user');
-	// 	if (currentUser.dataset.key == mail) {
-	// 		currentUser.remove();
-	// 		this.userPanel.prepend(usersCards.currentUser(mail));
-	// 	}
-	// }
-
-
 }
 
 
-// export const panelUser = new UserPanel(
-// 	{
-// 		id: 'userPanel',
-// 		panel: '.user__panel',
-
-// 		userPanel: '.user__panel',
-// 		initialForm: '.initial__form',
-// 		btnExit: '.btn--exit',
-// 		btnEdit: '.btn--edit',
-// 		btnBack: '.btn--back',
-// 		btnHideClass: 'btn--hide',
-// 		initialFormActiveClass: 'initial__form--active',
-// 		userPanelActiveCLass: 'user__panel--active',
-// 		eventType: 'click',
-// 	}
-// );

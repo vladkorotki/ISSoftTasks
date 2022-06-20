@@ -99,15 +99,15 @@
 	bottom: -60px;
 	left: 0;
 	transition: all ease .6s;
-  }
-   
-  .input__file {
+}
+
+.input__file {
 	opacity: 0;
 	visibility: hidden;
 	position: absolute;
-  }
-   
-  .input__file-icon-wrapper {
+}
+
+.input__file-icon-wrapper {
 	height: 60px;
 	width: 60px;
 	margin-right: 15px;
@@ -121,14 +121,14 @@
 		-ms-flex-pack: center;
 			justify-content: center;
 	border-right: 1px solid #fff;
-  }
-   
-  .input__file-button-text {
+}
+
+.input__file-button-text {
 	line-height: 1;
 	margin-top: 1px;
-  }
-   
-  .input__file-button {
+}
+
+.input__file-button {
 	width: 100%;
 	max-width: 290px;
 	height: 60px;
@@ -149,4 +149,9 @@
 	border-radius: 3px;
 	cursor: pointer;
 	margin: 0 auto;
-  }
+}
+
+.btn--avatar{
+	height: 60px;
+	width: 60px;
+}

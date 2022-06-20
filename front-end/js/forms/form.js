@@ -21,12 +21,7 @@ export class Form {
 		const form = event.target;
 		const isFormValid = this.checkFormValid(form);
 		return isFormValid;
-
 	}
-
-
-
-
 
 	checkInputValid(input) {
 		let validators = false;

@@ -451,6 +451,7 @@ body {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
+  z-index: 5;
 }
 
 .popup--close {
@@ -929,6 +930,11 @@ body {
   border-radius: 3px;
   cursor: pointer;
   margin: 0 auto;
+}
+
+.btn--avatar {
+  height: 60px;
+  width: 60px;
 }
 
 .page__footer {

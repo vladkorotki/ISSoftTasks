@@ -46,7 +46,6 @@ export class FormSignIn extends Form {
 				this.userData();
 				router.setLocation('/user');
 				this.checkSubmit = true;
-				// await fetch('http://localhost:5501/');
 			}
 		}
 	}

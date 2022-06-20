@@ -7,7 +7,14 @@ import { MainContent } from './pageTools/mainContent.js';
 
 
 
+
+
 const formRegistration = new FormRegistration('regForm');
+
+
+
+
+
 // const formEnter = new FormSignIn({
 // 	id: 'enterForm',
 // 	starterForm: '.initial__form',
