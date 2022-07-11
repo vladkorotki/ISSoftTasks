@@ -3,19 +3,15 @@ import { usersDataLayer } from '../dataLayer/usersDataLayer.js';
 import { usersCards } from '../usersBuild/usersCards.js';
 import { popup } from '../pageTools/popUp.js';
 import { router } from '../pageTools/router.js';
-// import { panelUser } from '../usersBuild/userPanel.js';
 import { mainContent } from '../pageTools/mainContent.js';
-
 
 export class FormEdit extends Form {
 	constructor(options) {
 		super(options.id);
 		this.usersCards = usersCards.showUsers();
 		this.submitBtn = this.form.querySelector(options.submitBtn);
-
 		document.addEventListener('click', (event) => { this.findKeyButton(event) });
 		this.key;
-
 		if (typeof FormEdit.instance === 'object') {
 			return FormEdit.instance;
 		}
@@ -23,15 +19,17 @@ export class FormEdit extends Form {
 		return this;
 	}
 
-	onFormSubmit(event) {
+	async onFormSubmit(event) {
 		const submited = super.onFormSubmit(event);
-
 		if (submited) {
+			const allUsers = await usersDataLayer.allNewUsers();
+			if (allUsers != null && allUsers.hasOwnProperty([this.key])) {
+				const user = await this.userData()
+				await usersDataLayer.updateUser(user);
 
-			if (usersDataLayer.allUsers() != null && usersDataLayer.allUsers().hasOwnProperty([this.key])) {
 				alert('Данные добавлены');
 				const users = document.querySelector('.users');
-				const dataLayer = usersDataLayer.add(this.userData(), ['e-mail']);
+				const dataLayer = usersDataLayer.add(this.userData(), ['email']);
 
 				mainContent.updateCards();
 				mainContent.updateCurrentCard(this.key);
@@ -43,34 +41,28 @@ export class FormEdit extends Form {
 		}
 	}
 
-
-
-
-
 	findKeyButton(event) {
 		if (event.target.hasAttribute('data-key')) {
 			this.key = event.target.dataset.key;
-
+			console.log(this.key);
 			return this.key;
 		}
-
 	}
 
-	userData() {
+	async userData() {
 		let mail = this.key;
-
-		let currentUser = usersDataLayer.currentUser(mail);
+		// let currentUser = usersDataLayer.currentUser(mail);
+		let currentUser = await usersDataLayer.currentNewUser(mail);
 		let user = this.updateUser();
-
+		const id = currentUser.id;
 		user = Object.assign(currentUser, user);
-
 		return user;
 	}
 
-	inputsValues() {
+	async inputsValues() {
 		let mail = this.key;
-		let user = usersDataLayer.currentUser(mail);
-
+		// let user = usersDataLayer.currentUser(mail);
+		let user = await usersDataLayer.currentNewUser(mail);
 		this.inputs.forEach(input => {
 			if (input.type != 'radio') {
 				for (let [key, value] of Object.entries(user)) {
@@ -85,9 +77,6 @@ export class FormEdit extends Form {
 		});
 	}
 
-
-
-
 	updateUser() {
 		const user = {};
 		const inputs = this.inputs;
@@ -97,8 +86,6 @@ export class FormEdit extends Form {
 		}
 		return user;
 	}
-
-
 }
 
 export const editForm = new FormEdit({

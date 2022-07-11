@@ -38,7 +38,7 @@ export class MainContent {
 			this.leftMiddle(await usersCards.showUsers());
 		}
 	}
-
+ 
 	async updateCurrentCard(mail) {
 		let currentUser = this.leftColumn.querySelector('.users__user');
 		if (currentUser.dataset.key == mail) {

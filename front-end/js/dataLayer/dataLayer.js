@@ -6,35 +6,15 @@ export class DataLayer {
 		DataLayer.instance = this;
 		return this;
 	}
-
+	//Old methods for localStoage
 	addTable(dataTableName) {
 		if (!localStorage.getItem(dataTableName)) {
 			return localStorage.setItem(dataTableName, JSON.stringify({}));
 		}
 	}
 
-	//old METHOD
-	// add(dataTableName, userObject, keyProperty) {
-	// 	this.addTable(dataTableName);
-	// 	// let allUsers = JSON.parse(localStorage.getItem(dataTableName));
-	// 	let allUsers = this.getUsers(dataTableName);
-	// 	const mail = userObject[keyProperty];
-	// 	if (allUsers.hasOwnProperty(mail)) {
-	// 		alert('Пользователь с таким e-mail уже существует');
-	// 		return false;
-
-	// 	} else {
-	// 		allUsers[mail] = userObject;
-	// 		alert('Поздравляем вы успешно зарегистрировались')
-	// 		localStorage.setItem(dataTableName, JSON.stringify(allUsers));
-	// 		return true;
-	// 	}
-	// }
-
-
 	add(dataTableName, userObject, keyProperty) {
 		this.addTable(dataTableName);
-		// let allUsers = JSON.parse(localStorage.getItem(dataTableName));
 		let allUsers = this.getUsers(dataTableName);
 		const mail = userObject[keyProperty];
 		allUsers[mail] = userObject;
@@ -47,24 +27,19 @@ export class DataLayer {
 	}
 
 	deleteToken() {
-		// localStorage.setItem('token', null);
 		localStorage.removeItem('token');
 	}
 
 	delete(dataTableName, userObject) {
 		let allUsers = this.getUsers(dataTableName);
-
 		delete allUsers[userObject];
-		// localStorage.removeItem(dataTableName, userObject);
-
 		return localStorage.setItem(dataTableName, JSON.stringify(allUsers));
 	}
 
 	compareUsers(dataTableName, userMail, userPassword) {
-		// let allUsers = JSON.parse(localStorage.getItem(dataTableName));
 		let allUsers = this.getUsers(dataTableName);
 		let isCompareUsers;
-		if (allUsers != null && allUsers.hasOwnProperty(userMail) && allUsers[userMail]['e-mail'] == userMail && allUsers[userMail].password == userPassword) {
+		if (allUsers != null && allUsers.hasOwnProperty(userMail) && allUsers[userMail]['email'] == userMail && allUsers[userMail].password == userPassword) {
 			isCompareUsers = true;
 		} else {
 			isCompareUsers = false;
@@ -77,4 +52,67 @@ export class DataLayer {
 		return users;
 	}
 
+	//New methods for database
+	async addUser(user) {
+		console.log(JSON.stringify(user));
+		await fetch('http://localhost:5501/api/user', {
+			headers: {
+				"Content-Type": "application/json",
+			},
+			method: 'POST',
+			body: JSON.stringify(user),
+		});
+	}
+
+	async getNewUsers() {
+		const response = await fetch(`http://localhost:5501/api/users`);
+		const users = await response.json();
+		async function formatUsers(arr) {
+			let users = {};
+			for (let i = 0; i < arr.length; i++) {
+				for (let [key, value] of Object.entries(arr[i])) {
+					if (key == ['email']) {
+						users[value] = arr[i];
+						break;
+					} else {
+						continue;
+					}
+				}
+			}
+			return users
+		}
+		const allUsers = await formatUsers(users);
+		return allUsers;
+	}
+
+	async newDelete(id) {
+		const deleteUser = await fetch('http://localhost:5501/api', {
+			headers: {
+				"Content-Type": "application/json",
+			},
+			method: 'DELETE',
+			body: JSON.stringify({ id }),
+		});
+	}
+
+	async updateUser(user) {
+		await fetch('http://localhost:5501/api', {
+			headers: {
+				"Content-Type": "application/json",
+			},
+			method: 'PUT',
+			body: JSON.stringify(user),
+		});
+	}
+
+	async compareNewUsers(userMail, userPassword) {
+		let allUsers = await this.getNewUsers();
+		let isCompareUsers;
+		if (allUsers != null && allUsers.hasOwnProperty(userMail) && allUsers[userMail]['email'] == userMail && allUsers[userMail].password == userPassword) {
+			isCompareUsers = true;
+		} else {
+			isCompareUsers = false;
+		}
+		return isCompareUsers;
+	}
 }

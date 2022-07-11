@@ -39,7 +39,7 @@ export class UserPanel {
 		} else {
 			return;
 		}
-		this.showPanel(formEnter.userData()['e-mail']);
+		this.showPanel(formEnter.userData()['email']);
 	}
 
 	async showPanel(mail) {
@@ -60,7 +60,7 @@ export class UserPanel {
 	showCurrentToken() {
 		if (localStorage.getItem('token')) {
 			router.setLocation('/user');
-			let tokenKey = JSON.parse(localStorage.getItem('token'))['e-mail'];
+			let tokenKey = JSON.parse(localStorage.getItem('token'))['email'];
 			this.showPanel(tokenKey);
 		} else {
 			return;

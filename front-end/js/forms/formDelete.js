@@ -23,14 +23,15 @@ export class FormDelete extends Form {
 		return this;
 	}
 
-
-	onFormSubmit(event) {
+	async onFormSubmit(event) {
 		const submited = super.onFormSubmit(event);
 		if (submited) {
-
-			if (usersDataLayer.allUsers() != null && usersDataLayer.allUsers().hasOwnProperty([this.key])) {
-				let tokenKey = JSON.parse(localStorage.getItem('token'))['e-mail'];
-
+			const allUsers = await usersDataLayer.allNewUsers();
+			if (allUsers != null && allUsers.hasOwnProperty([this.key])) {
+				let tokenKey = JSON.parse(localStorage.getItem('token'))['email'];
+				let currentUser = await usersDataLayer.currentNewUser(this.key);
+				let id = currentUser.id;
+				await usersDataLayer.newDelete(id);
 				if (this.key == tokenKey) {
 					usersDataLayer.delete(this.key);
 					mainContent.panelUser.exit();
@@ -43,28 +44,19 @@ export class FormDelete extends Form {
 				mainContent.updateCurrentCard(this.key);
 				popup.close(event);
 
+
 			} else {
 				alert('Пользователь с таким e-mail не существует');
 			}
 		}
 	}
 
-
-
-
 	findKeyButton(event) {
 		if (event.target.hasAttribute('data-key')) {
 			this.key = event.target.dataset.key;
-
 			return this.key;
 		}
-
 	}
-
-
-
-
-
 }
 
 export const deleteForm = new FormDelete({

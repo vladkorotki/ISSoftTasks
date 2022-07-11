@@ -2,8 +2,6 @@ import { Form } from './form.js';
 import { usersDataLayer } from '../dataLayer/usersDataLayer.js';
 import { formContainer } from './formContainer.js';
 
-
-
 export class FormRegistration extends Form {
 	constructor(id) {
 		super(id);
@@ -12,25 +10,25 @@ export class FormRegistration extends Form {
 		}
 		FormRegistration.instance = this;
 		return this;
-
 	}
-
-
-	onFormSubmit(event) {
+	async onFormSubmit(event) {
 		const submited = super.onFormSubmit(event);
+		const user = await this.createUser();
+		// (usersDataLayer.allUsers() != null && usersDataLayer.allUsers().hasOwnProperty(user['email']))
 		if (submited) {
-			if (usersDataLayer.allUsers() != null && usersDataLayer.allUsers().hasOwnProperty(this.createUser()['e-mail'])) {
+			const allUsers = await usersDataLayer.allNewUsers();
+			if (allUsers != null && allUsers.hasOwnProperty(user['email'])) {
 				alert('Пользователь с таким e-mail уже существует');
-
 			} else {
+				await usersDataLayer.addUser(user);
 				alert('Поздравляем вы успешно зарегистрировались')
-				const dataLayer = usersDataLayer.add(this.createUser(), 'e-mail');
+				const dataLayer = usersDataLayer.add(user, 'email');
 				formContainer.changeForm();
 			}
 		}
 	}
 
-	createUser() {
+	async createUser() {
 		const user = {};
 		const inputs = this.inputs;
 		for (let index = 0; index < inputs.length; index++) {

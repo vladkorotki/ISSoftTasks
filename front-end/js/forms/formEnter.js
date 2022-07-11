@@ -21,11 +21,12 @@ export class FormSignIn extends Form {
 
 	}
 
-	signIn(event) {
-		const compare = usersDataLayer.compareUsers(this.userData()['e-mail'], this.userData().password);
+	async signIn(event) {
+
+		const compare = await usersDataLayer.compareNewUsers(this.userData().email, this.userData().password);
 		if (compare) {
 			alert('hi');
-			// this.userPanel.showPanel(this.userData()['e-mail'], event);
+			// this.userPanel.showPanel(this.userData()['email'], event);
 			// usersDataLayer.createToken(this.userData());
 			popup.close(event)
 			return true;
@@ -37,10 +38,10 @@ export class FormSignIn extends Form {
 
 	async onFormSubmit(event) {
 		const submited = super.onFormSubmit(event);
-		let sign = this.signIn(event);
+		let sign = await this.signIn(event);
 		if (submited) {
 			if (!sign) {
-				return
+				return;
 			} else {
 				usersDataLayer.addTable(this.dataTableName);
 				this.userData();

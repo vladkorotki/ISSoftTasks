@@ -29,15 +29,6 @@ export class UsersCards extends Component {
 		return this;
 	}
 
-	// async getTemplate() {
-	// 	let response = await fetch(this.usersUrl);
-	// 	const template = await response.text();
-	// 	const newUsers = new DOMParser().parseFromString(template, "text/html");
-	// 	const usersTemplate = newUsers.querySelector(this.options.users);
-
-	// 	return await usersTemplate;
-	// }
-
 	async showUsers() {
 		const url = this.usersUrl;
 		const selector = this.options.users
@@ -49,7 +40,8 @@ export class UsersCards extends Component {
 			dataTableName: 'Users'
 		});
 
-		let usersData = usersStrorage.allUsers();
+		// let usersData = usersStrorage.allUsers();
+		const usersData = await usersStrorage.allNewUsers();
 		if (usersData != null) {
 			for (let [key, value] of Object.entries(usersData)) {
 				currentCard = await this.user.createUserCard();
@@ -60,7 +52,7 @@ export class UsersCards extends Component {
 				currentCardInputs.forEach(item => {
 					if (value[item.dataset.field]) {
 						item.textContent = `${item.dataset.field}: ${value[item.dataset.field]}`;
-						if (item.dataset.field == 'e-mail') {
+						if (item.dataset.field == 'email') {
 							item.setAttribute('data-key', key);
 							currentCard.setAttribute('data-key', key);
 							buttonEdit.setAttribute('data-key', key);
@@ -88,18 +80,18 @@ export class UsersCards extends Component {
 		const usersStrorage = new UsersDataLayer({
 			dataTableName: 'Users'
 		});
-
-		const usersData = usersStrorage.allUsers();
-		const currentUserData = usersData[mail];
-
+		// const usersData = usersStrorage.allUsers();
+		// const currentUserData = usersData[mail];
+		const testusersData = await usersStrorage.allNewUsers();
+		const currentNewUserData = testusersData[mail];
 		currentCardInputs.forEach(item => {
-			if (currentUserData[item.dataset.field]) {
-				item.textContent = `${item.dataset.field}: ${currentUserData[item.dataset.field]}`;
-				if (item.dataset.field == 'e-mail') {
-					item.setAttribute('data-key', currentUserData[item.dataset.field]);
-					currentCard.setAttribute('data-key', currentUserData[item.dataset.field]);
-					buttonEdit.setAttribute('data-key', currentUserData[item.dataset.field]);
-					buttonDelete.setAttribute('data-key', currentUserData[item.dataset.field]);
+			if (currentNewUserData[item.dataset.field]) {
+				item.textContent = `${item.dataset.field}: ${currentNewUserData[item.dataset.field]}`;
+				if (item.dataset.field == 'email') {
+					item.setAttribute('data-key', currentNewUserData[item.dataset.field]);
+					currentCard.setAttribute('data-key', currentNewUserData[item.dataset.field]);
+					buttonEdit.setAttribute('data-key', currentNewUserData[item.dataset.field]);
+					buttonDelete.setAttribute('data-key', currentNewUserData[item.dataset.field]);
 				}
 
 			} else {

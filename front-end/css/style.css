@@ -791,6 +791,10 @@ body {
   margin: 10px 0 10px 0;
 }
 
+.users__user.currentUser {
+  height: 230px;
+}
+
 .user__avatar {
   width: 100%;
   max-width: 200px;

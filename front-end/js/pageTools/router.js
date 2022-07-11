@@ -74,7 +74,7 @@ export class Router {
 		return this.routes[cuurentLocation]();
 	}
 
-	user() {
+	async user() {
 		let users = document.querySelector('.users');
 		if (users) {
 			users.remove();
