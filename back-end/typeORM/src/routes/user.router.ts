@@ -9,6 +9,7 @@ import userController from '../controllers/user.controller';;
 const routerUser = express.Router();
 
 routerUser.post('/user', userController.createUser);
+routerUser.post('/', userController.login);
 routerUser.get('/user/:id', userController.getUser);
 routerUser.get('/users', userController.getUsers);
 routerUser.put('/', userController.updateUser);

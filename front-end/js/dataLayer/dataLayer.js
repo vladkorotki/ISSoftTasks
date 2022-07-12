@@ -55,14 +55,28 @@ export class DataLayer {
 	//New methods for database
 	async addUser(user) {
 		console.log(JSON.stringify(user));
-		await fetch('http://localhost:5501/api/user', {
+		const response = await fetch('http://localhost:5501/api/user', {
 			headers: {
 				"Content-Type": "application/json",
 			},
 			method: 'POST',
 			body: JSON.stringify(user),
 		});
+		return response;
 	}
+
+	async login(user) {
+		console.log(JSON.stringify(user));
+		const response = await fetch('http://localhost:5501/api', {
+			headers: {
+				"Content-Type": "application/json",
+			},
+			method: 'POST',
+			body: JSON.stringify(user),
+		});
+		return response;
+	}
+
 
 	async getNewUsers() {
 		const response = await fetch(`http://localhost:5501/api/users`);
@@ -96,23 +110,25 @@ export class DataLayer {
 	}
 
 	async updateUser(user) {
-		await fetch('http://localhost:5501/api', {
+		const response = await fetch('http://localhost:5501/api', {
 			headers: {
 				"Content-Type": "application/json",
 			},
 			method: 'PUT',
 			body: JSON.stringify(user),
 		});
+		return response;
 	}
 
-	async compareNewUsers(userMail, userPassword) {
-		let allUsers = await this.getNewUsers();
-		let isCompareUsers;
-		if (allUsers != null && allUsers.hasOwnProperty(userMail) && allUsers[userMail]['email'] == userMail && allUsers[userMail].password == userPassword) {
-			isCompareUsers = true;
-		} else {
-			isCompareUsers = false;
-		}
-		return isCompareUsers;
-	}
+	//OLD METHOD
+	// async compareNewUsers(userMail, userPassword) {
+	// 	let allUsers = await this.getNewUsers();
+	// 	let isCompareUsers;
+	// 	if (allUsers != null && allUsers.hasOwnProperty(userMail) && allUsers[userMail]['email'] == userMail && allUsers[userMail].password == userPassword) {
+	// 		isCompareUsers = true;
+	// 	} else {
+	// 		isCompareUsers = false;
+	// 	}
+	// 	return isCompareUsers;
+	// }
 }

@@ -1,10 +1,11 @@
-import { Pool } from "pg";
+import { Pool } from 'postgres-pool';
+
 const pool = new Pool({
 	user: 'postgres',
 	password: 'admin',
 	host: 'localhost',
 	port: 5432,
-	database: 'issoft_task'
+	database: 'test_base2'
 });
 
-module.exports = pool; 
+export default pool;

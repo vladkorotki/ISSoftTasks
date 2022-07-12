@@ -11,20 +11,21 @@ export class FormRegistration extends Form {
 		FormRegistration.instance = this;
 		return this;
 	}
+
 	async onFormSubmit(event) {
 		const submited = super.onFormSubmit(event);
-		const user = await this.createUser();
-		// (usersDataLayer.allUsers() != null && usersDataLayer.allUsers().hasOwnProperty(user['email']))
 		if (submited) {
-			const allUsers = await usersDataLayer.allNewUsers();
-			if (allUsers != null && allUsers.hasOwnProperty(user['email'])) {
-				alert('Пользователь с таким e-mail уже существует');
-			} else {
-				await usersDataLayer.addUser(user);
-				alert('Поздравляем вы успешно зарегистрировались')
-				const dataLayer = usersDataLayer.add(user, 'email');
-				formContainer.changeForm();
+			const user = await this.createUser();
+			const response = await usersDataLayer.addUser(user);
+			const json = await response.json();
+			const status = response.status;
+			if (status == 400) {
+				alert(json.message);
+				return;
 			}
+			alert(json.message);
+			const dataLayer = usersDataLayer.add(user, 'email');
+			formContainer.changeForm();
 		}
 	}
 
@@ -37,6 +38,24 @@ export class FormRegistration extends Form {
 		}
 		return user;
 	}
+
+
+	// OLD METHOD
+	// async onFormSubmit(event) {
+	// 	const submited = super.onFormSubmit(event);
+	// 	const user = await this.createUser();
+	// 	if (submited) {
+	// 		const allUsers = await usersDataLayer.allNewUsers();
+	// 		if (allUsers != null && allUsers.hasOwnProperty(user['email'])) {
+	// 			alert('Пользователь с таким e-mail уже существует');
+	// 		} else {
+	// 			await usersDataLayer.addUser(user);
+	// 			alert('Поздравляем вы успешно зарегистрировались')
+	// 			const dataLayer = usersDataLayer.add(user, 'email');
+	// 			formContainer.changeForm();
+	// 		}
+	// 	}
+	// }
 
 }
 

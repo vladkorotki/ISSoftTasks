@@ -34,7 +34,11 @@ export class UsersDataLayer extends DataLayer {
 
 	//New methods for database
 	async addUser(user) {
-		await super.addUser(user)
+		return await super.addUser(user);
+	}
+
+	async login(user) {
+		return await super.login(user)
 	}
 
 	async currentNewUser(key) {
@@ -52,7 +56,7 @@ export class UsersDataLayer extends DataLayer {
 	}
 
 	async updateUser(user) {
-		await super.updateUser(user);
+		return await super.updateUser(user);
 	}
 
 	async compareNewUsers(userMail, userPassword) {

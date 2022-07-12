@@ -1,20 +1,22 @@
 import express from 'express';
 import path from 'path';
 import cors from 'cors';
-import router from './router.js';
+import routerAvatar from './routes/avatar.router.js';
+import routerUser from './routes/user.router.js';
 
 const __dirname = path.resolve();
 const PORT = 5501;
 const app = express();
-
-app.use(express.json());
-app.use('/', router);
-
 app.use(cors({
 	// origin: 'http://127.0.0.1:5500',
 	// origin: ['http://localhost:5500/', 'http://localhost:5500/user'],
 	// credentials: true,
 }));
+
+app.use(express.json());
+app.use('/api', routerUser);
+app.use('/', routerAvatar);
+
 
 app.use(express.static(path.resolve(__dirname, 'uploads')));
 

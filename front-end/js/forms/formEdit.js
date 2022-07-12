@@ -22,22 +22,14 @@ export class FormEdit extends Form {
 	async onFormSubmit(event) {
 		const submited = super.onFormSubmit(event);
 		if (submited) {
-			const allUsers = await usersDataLayer.allNewUsers();
-			if (allUsers != null && allUsers.hasOwnProperty([this.key])) {
-				const user = await this.userData()
-				await usersDataLayer.updateUser(user);
-
-				alert('Данные добавлены');
-				const users = document.querySelector('.users');
-				const dataLayer = usersDataLayer.add(this.userData(), ['email']);
-
-				mainContent.updateCards();
-				mainContent.updateCurrentCard(this.key);
-				popup.close(event);
-
-			} else {
-				alert('Пользователь с таким e-mail не существует');
-			}
+			const user = await this.userData()
+			const response = await usersDataLayer.updateUser(user);
+			const message = await response.json();
+			alert(message.message);
+			const dataLayer = usersDataLayer.add(this.userData(), ['email']);
+			mainContent.updateCards();
+			mainContent.updateCurrentCard(this.key);
+			popup.close(event);
 		}
 	}
 
@@ -86,6 +78,30 @@ export class FormEdit extends Form {
 		}
 		return user;
 	}
+
+
+	//OLD METHOD
+	// async onFormSubmit(event) {
+	// 	const submited = super.onFormSubmit(event);
+	// 	if (submited) {
+	// 		const allUsers = await usersDataLayer.allNewUsers();
+	// 		if (allUsers != null && allUsers.hasOwnProperty([this.key])) {
+	// 			const user = await this.userData()
+	// 			await usersDataLayer.updateUser(user);
+
+	// 			alert('Данные добавлены');
+	// 			const users = document.querySelector('.users');
+	// 			const dataLayer = usersDataLayer.add(this.userData(), ['email']);
+
+	// 			mainContent.updateCards();
+	// 			mainContent.updateCurrentCard(this.key);
+	// 			popup.close(event);
+
+	// 		} else {
+	// 			alert('Пользователь с таким e-mail не существует');
+	// 		}
+	// 	}
+	// }
 }
 
 export const editForm = new FormEdit({

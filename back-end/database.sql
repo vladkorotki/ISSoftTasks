@@ -1,8 +1,10 @@
 create TABLE person(
+	id INTEGER NOT NULL GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
 	username VARCHAR(255),
-	email VARCHAR(255),
-	phone INTEGER,
-	addr VARCHAR(255),
+	password VARCHAR(255),
+	email VARCHAR(255) UNIQUE,
+	phone VARCHAR(255),
+	address VARCHAR(255),
 	gender VARCHAR(64),
-	birth DATETIME
+	birth DATE
 );
