@@ -39,6 +39,11 @@ export class Persona extends BaseEntity {
     })
     birth: string
 
+    @Column({
+        nullable: true,
+    })
+    token: string
+
 
     // create TABLE person(
     //     id INTEGER NOT NULL GENERATED ALWAYS AS IDENTITY PRIMARY KEY,

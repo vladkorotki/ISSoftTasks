@@ -31,15 +31,30 @@ export class UserPanel {
 		return this;
 	}
 
-	render() {
-		if (!localStorage.getItem('token') && formEnter.checkSubmit) {
-			usersDataLayer.createToken(formEnter.userData());
-			this.initialForm.classList.remove(this.initialFormActiveClass);
-			this.userPanel.classList.add(this.userPanelActiveCLass);
-		} else {
+	async render() {
+		const user = formEnter.userData();
+		const response = await usersDataLayer.login(user);
+		const result = await response.json();
+		const status = response.status;
+		if (status == 401) {
+			alert(result.message);
 			return;
 		}
-		this.showPanel(formEnter.userData()['email']);
+		// await usersDataLayer.createToken(result.token)
+		if (!localStorage.getItem('token') && formEnter.checkSubmit) {
+			// usersDataLayer.createToken(formEnter.userData());
+			const jwt = {};
+			jwt.token = result.token;
+			jwt.email = result.email
+			const token = await usersDataLayer.createToken(jwt)
+			this.initialForm.classList.remove(this.initialFormActiveClass);
+			this.userPanel.classList.add(this.userPanelActiveCLass);
+			// await this.showPanel(formEnter.userData()['email']);
+		}
+		else {
+			return;
+		}
+		await this.showPanel(formEnter.userData()['email']);
 	}
 
 	async showPanel(mail) {
@@ -57,11 +72,11 @@ export class UserPanel {
 		const formDelete = deleteForm;
 	}
 
-	showCurrentToken() {
+	async showCurrentToken() {
 		if (localStorage.getItem('token')) {
 			router.setLocation('/user');
 			let tokenKey = JSON.parse(localStorage.getItem('token'))['email'];
-			this.showPanel(tokenKey);
+			await this.showPanel(tokenKey);
 		} else {
 			return;
 		}

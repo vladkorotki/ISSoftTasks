@@ -22,7 +22,7 @@ export class DataLayer {
 		return true;
 	}
 
-	createToken(userObject) {
+	async createToken(userObject) {
 		localStorage.setItem('token', JSON.stringify(userObject));
 	}
 
@@ -79,7 +79,19 @@ export class DataLayer {
 
 
 	async getNewUsers() {
-		const response = await fetch(`http://localhost:5501/api/users`);
+		const token = JSON.parse(localStorage.getItem('token'));
+		console.log(token);
+		if (!token) return;
+		const response = await fetch(`http://localhost:5501/api/users`, {
+			headers: {
+				Authorization: 'Bearer ' + token.token,
+			}
+		});
+
+		const status = await response.status;
+		if (status == 401) {
+			return response;
+		}
 		const users = await response.json();
 		async function formatUsers(arr) {
 			let users = {};

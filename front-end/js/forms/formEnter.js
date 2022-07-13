@@ -20,23 +20,28 @@ export class FormSignIn extends Form {
 		const submited = super.onFormSubmit(event);
 
 		if (submited) {
-			const user = this.userData();
-			const response = await usersDataLayer.login(user);
-			const json = await response.json();
-			const status = response.status;
-			if (status == 400) {
-				alert(json.message);
-				return;
-			}
-			console.log(json.token);
+			// debugger
+			// const user = this.userData();
+			// const response = await usersDataLayer.login(user);
+			// const result = await response.json();
+			// const status = response.status;
+			// if (status == 401) {
+			// 	alert(result.message);
+			// 	return;
+			// }
+			// await usersDataLayer.createToken(result.token)
+			// // localStorage.setItem("JWT", JSON.stringify(result.token))
+			// console.log(result.token);
+
 			usersDataLayer.addTable(this.dataTableName);
 			this.userData();
 			router.setLocation('/user');
 			this.checkSubmit = true;
 			popup.close(event)
-
 		}
 	}
+
+
 
 	userData() {
 		let user = {};

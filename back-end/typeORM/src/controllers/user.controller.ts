@@ -5,9 +5,10 @@ import { json } from "body-parser";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import { jwtconfig, generateJwt } from "../jwtconfig"
+import { Request, Response } from "express";
 
 class UserController {
-	async createUser(req, res) {
+	async createUser(req: Request, res: Response) {
 		try {
 			const { username, password, email, phone, address, gender, birth } = req.body;
 			const personRepository = AppDataSource.getRepository(Persona);
@@ -28,7 +29,7 @@ class UserController {
 
 	}
 
-	async login(req, res) {
+	async login(req: Request, res: Response) {
 		try {
 			const { email, password } = req.body;
 			const personRepository = AppDataSource.getRepository(Persona);
@@ -41,14 +42,20 @@ class UserController {
 				return res.status(400).json({ message: "Не верный пароль" });
 			}
 			const token = generateJwt(person.id)
-			// console.log("user from the db: ", person);
-			res.json({ token });
-		} catch (error) {
 
+			personRepository.merge(person, { token });
+			await personRepository.save(person);
+			console.log("user from the db: ", person);
+			res.json({
+				token,
+				email,
+			});
+		} catch (error) {
+			console.error(error);
 		}
 	}
 
-	async updateUser(req, res) {
+	async updateUser(req: Request, res: Response) {
 		try {
 			const personRepository = AppDataSource.getRepository(Persona)
 			const user = req.body;
@@ -56,44 +63,44 @@ class UserController {
 			return res.json({ message: "Данные добавлены" })
 		}
 		catch (error) {
-			console.error(console.error());
+			console.error(error);
 		}
 	}
 
-	async getUsers(req, res) {
+	async getUsers(req: Request, res: Response) {
 		try {
 			const personRepository = AppDataSource.getRepository(Persona)
 			const allPerson = await personRepository.find()
-			console.log("All users from the db: ", allPerson)
+			// console.log("All users from the db: ", allPerson)
 			res.json(allPerson);
 		}
 		catch (error) {
-			console.error(console.error());
+			console.error(error);
 		}
 
 	}
 
-	async getUser(req, res, id: any) {
+	async getUser(req: Request, res: Response, email: any) {
 		try {
 			const personRepository = AppDataSource.getRepository(Persona)
-			const person = await personRepository.findOneBy({ id: id })
-			console.log("user from the db: ", person)
+			const person = await personRepository.findOneBy({ email })
+			// console.log("user from the db: ", person)
 			res.json(person);
 		}
 		catch (error) {
-			console.error(console.error());
+			console.error(error);
 		}
 
 	}
 
 	async deleteUser(req, res) {
 		let id = req.body;
-		console.log(id);
-		console.log(typeof id);
+		// console.log(id);
+		// console.log(typeof id);
 		try {
 			const personRepository = AppDataSource.getRepository(Persona)
 			const user = await personRepository.findOneBy(id)
-			console.log(user);
+			// console.log(user);
 			await personRepository.remove(user);
 			res.json(user)
 		}

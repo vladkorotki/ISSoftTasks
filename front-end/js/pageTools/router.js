@@ -79,7 +79,7 @@ export class Router {
 		if (users) {
 			users.remove();
 		}
-		this.mainContent.panelUser.render();
+		await this.mainContent.panelUser.render();
 		this.mainContent.panelUser.showButtonUsers();
 		if (!(localStorage.getItem('token'))) {
 			this.home();
@@ -113,8 +113,15 @@ export class Router {
 		if (!(localStorage.getItem('token'))) {
 			this.home();
 			formContainer.enter();
+			return
 		}
-		this.mainContent.leftMiddle(await this.mainContent.usersCards.showUsers());
+		const response = await this.mainContent.usersCards.showUsers();
+		if (response == 401) {
+			this.mainContent.panelUser.exit();
+			return;
+		}
+		// this.mainContent.leftMiddle(await this.mainContent.usersCards.showUsers());
+		this.mainContent.leftMiddle(response);
 		this.mainContent.panelUser.showButtonBack();
 		this.location = this.parseLcation();
 	}

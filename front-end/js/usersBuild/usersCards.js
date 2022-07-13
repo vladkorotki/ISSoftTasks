@@ -42,6 +42,14 @@ export class UsersCards extends Component {
 
 		// let usersData = usersStrorage.allUsers();
 		const usersData = await usersStrorage.allNewUsers();
+
+		// const status = await usersData.status;
+		// if (status == 401) {
+		// 	const result = await usersData.json();
+		// 	alert(result.message);
+		// 	return;
+		// }
+		console.log(usersData);
 		if (usersData != null) {
 			for (let [key, value] of Object.entries(usersData)) {
 				currentCard = await this.user.createUserCard();
@@ -83,7 +91,7 @@ export class UsersCards extends Component {
 		// const usersData = usersStrorage.allUsers();
 		// const currentUserData = usersData[mail];
 		const testusersData = await usersStrorage.allNewUsers();
-		const currentNewUserData = testusersData[mail];
+		const currentNewUserData = await testusersData[mail];
 		currentCardInputs.forEach(item => {
 			if (currentNewUserData[item.dataset.field]) {
 				item.textContent = `${item.dataset.field}: ${currentNewUserData[item.dataset.field]}`;
