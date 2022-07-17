@@ -8,7 +8,8 @@ import { mainContent } from '../pageTools/mainContent.js';
 export class FormEdit extends Form {
 	constructor(options) {
 		super(options.id);
-		this.usersCards = usersCards.showUsers();
+		// debugger
+		// this.usersCards = usersCards.showUsers();
 		this.submitBtn = this.form.querySelector(options.submitBtn);
 		document.addEventListener('click', (event) => { this.findKeyButton(event) });
 		this.key;
@@ -22,7 +23,12 @@ export class FormEdit extends Form {
 	async onFormSubmit(event) {
 		const submited = super.onFormSubmit(event);
 		if (submited) {
-			const user = await this.userData()
+			const user = await this.userData();
+			if (user.status == 401) {
+				alert('истекло время токена');
+				popup.close();
+				return;
+			}
 			const response = await usersDataLayer.updateUser(user);
 			const message = await response.json();
 			alert(message.message);
@@ -44,7 +50,14 @@ export class FormEdit extends Form {
 	async userData() {
 		let mail = this.key;
 		// let currentUser = usersDataLayer.currentUser(mail);
-		let currentUser = await usersDataLayer.currentNewUser(mail);
+		const currentUser = await usersDataLayer.getUser(mail);
+		console.log(currentUser);
+
+		console.log(currentUser.status);
+		if (currentUser.status == 401) {
+			return currentUser;
+		}
+
 		let user = this.updateUser();
 		const id = currentUser.id;
 		user = Object.assign(currentUser, user);

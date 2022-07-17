@@ -1,5 +1,8 @@
 import { popup } from "../pageTools/popUp.js";
 import { editForm } from "./formEdit.js";
+import { usersDataLayer } from "../dataLayer/usersDataLayer.js";
+import { mainContent } from "../pageTools/mainContent.js";
+
 
 
 export class FormContainer {
@@ -44,7 +47,7 @@ export class FormContainer {
 		popup.openOnHashChange();
 	}
 
-	showForm(event) {
+	async showForm(event) {
 
 		if ((event.target.closest(this.registrationFieldset))) {
 			this.container.forms[1].classList.toggle(this.classes[1]);
@@ -56,7 +59,15 @@ export class FormContainer {
 			popup.open(event);
 		}
 		else if ((event.target.closest(this.editFiledset))) {
-
+			const email = event.target.dataset.key;
+			console.log(email);
+			const response = await usersDataLayer.getUser(email);
+			if (response.status == 401) {
+				alert('Ваш токен просрочен');
+				mainContent.panelUser.exit();
+				popup.close();
+				return;
+			}
 			this.container.forms[0].classList.add(this.classes[2]);
 			this.container.forms[1].classList.add(this.classes[2]);
 			this.formSelectionContainer.classList.add(this.classes[2]);
@@ -65,6 +76,15 @@ export class FormContainer {
 		}
 
 		else if ((event.target.closest(this.deleteFiledset))) {
+			const email = event.target.dataset.key;
+			console.log(email);
+			const response = await usersDataLayer.getUser(email);
+			if (response.status == 401) {
+				alert('Ваш токен просрочен')
+				mainContent.panelUser.exit();
+				popup.close();
+				return;
+			}
 			this.container.forms[0].classList.add(this.classes[2]);
 			this.container.forms[1].classList.add(this.classes[2]);
 			this.formSelectionContainer.classList.add(this.classes[2]);

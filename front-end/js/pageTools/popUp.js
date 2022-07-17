@@ -19,15 +19,18 @@ export class Popup {
 
 
 
+	// close(event) {
+	// 	if (event.target.closest(this.popUpClose)) {
+	// 		this.popUp.classList.remove(this.classForActivePopup);
+	// 		formContainer.hideForm(event);
+	// 	} else {
+	// 		this.popUp.classList.remove(this.classForActivePopup);
+	// 		formContainer.hideForm(event);
+	// 	}
+	// }
 	close(event) {
-		if (event.target.closest(this.popUpClose)) {
-			this.popUp.classList.remove(this.classForActivePopup);
-			formContainer.hideForm(event);
-		} else {
-			this.popUp.classList.remove(this.classForActivePopup);
-			formContainer.hideForm(event);
-		}
-
+		this.popUp.classList.remove(this.classForActivePopup);
+		formContainer.hideForm(event);
 	}
 
 	open(event) {

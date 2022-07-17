@@ -46,7 +46,6 @@ export class DataLayer {
 		}
 		return isCompareUsers;
 	}
-
 	getUsers(dataTableName) {
 		let users = JSON.parse(localStorage.getItem(dataTableName));
 		return users;
@@ -54,7 +53,6 @@ export class DataLayer {
 
 	//New methods for database
 	async addUser(user) {
-		console.log(JSON.stringify(user));
 		const response = await fetch('http://localhost:5501/api/user', {
 			headers: {
 				"Content-Type": "application/json",
@@ -66,10 +64,10 @@ export class DataLayer {
 	}
 
 	async login(user) {
-		console.log(JSON.stringify(user));
 		const response = await fetch('http://localhost:5501/api', {
 			headers: {
 				"Content-Type": "application/json",
+
 			},
 			method: 'POST',
 			body: JSON.stringify(user),
@@ -87,12 +85,13 @@ export class DataLayer {
 				Authorization: 'Bearer ' + token.token,
 			}
 		});
+		const users = await response.json();
+		const status = response.status;
 
-		const status = await response.status;
 		if (status == 401) {
+			console.log(users.message);
 			return response;
 		}
-		const users = await response.json();
 		async function formatUsers(arr) {
 			let users = {};
 			for (let i = 0; i < arr.length; i++) {
@@ -111,10 +110,31 @@ export class DataLayer {
 		return allUsers;
 	}
 
+	async getUser(email) {
+		const token = JSON.parse(localStorage.getItem('token'));
+		if (!token) return;
+		const response = await fetch(`http://localhost:5501/api/user`, {
+			headers: {
+				Authorization: 'Bearer ' + token.token,
+				email: email,
+			}
+		});
+
+		const user = await response.json();
+		const status = response.status;
+		if (status == 401) {
+			console.log(user.message);
+			return response;
+		}
+		return user;
+	}
+
 	async newDelete(id) {
+		const token = JSON.parse(localStorage.getItem('token'));
 		const deleteUser = await fetch('http://localhost:5501/api', {
 			headers: {
 				"Content-Type": "application/json",
+				Authorization: 'Bearer ' + token.token,
 			},
 			method: 'DELETE',
 			body: JSON.stringify({ id }),
@@ -122,9 +142,11 @@ export class DataLayer {
 	}
 
 	async updateUser(user) {
+		const token = JSON.parse(localStorage.getItem('token'));
 		const response = await fetch('http://localhost:5501/api', {
 			headers: {
 				"Content-Type": "application/json",
+				Authorization: 'Bearer ' + token.token,
 			},
 			method: 'PUT',
 			body: JSON.stringify(user),

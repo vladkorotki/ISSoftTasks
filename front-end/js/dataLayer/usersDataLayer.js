@@ -51,6 +51,10 @@ export class UsersDataLayer extends DataLayer {
 		return await super.getNewUsers();
 	}
 
+	async getUser(email) {
+		return await super.getUser(email);
+	}
+
 	async newDelete(id) {
 		return await super.newDelete(id);
 	}

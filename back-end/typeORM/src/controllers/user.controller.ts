@@ -34,6 +34,9 @@ class UserController {
 			const { email, password } = req.body;
 			const personRepository = AppDataSource.getRepository(Persona);
 			const person = await personRepository.findOneBy({ email });
+			if (!email) {
+				return res.status(400).json();
+			}
 			if (!person) {
 				return res.status(400).json({ message: "Не верный email" });
 			}
@@ -41,7 +44,7 @@ class UserController {
 			if (!decodePassword) {
 				return res.status(400).json({ message: "Не верный пароль" });
 			}
-			const token = generateJwt(person.id)
+			const token = generateJwt(person.id);
 
 			personRepository.merge(person, { token });
 			await personRepository.save(person);
@@ -57,10 +60,10 @@ class UserController {
 
 	async updateUser(req: Request, res: Response) {
 		try {
-			const personRepository = AppDataSource.getRepository(Persona)
+			const personRepository = AppDataSource.getRepository(Persona);
 			const user = req.body;
-			await personRepository.save(user)
-			return res.json({ message: "Данные добавлены" })
+			await personRepository.save(user);
+			return res.json({ message: "Данные добавлены" });
 		}
 		catch (error) {
 			console.error(error);
@@ -69,8 +72,8 @@ class UserController {
 
 	async getUsers(req: Request, res: Response) {
 		try {
-			const personRepository = AppDataSource.getRepository(Persona)
-			const allPerson = await personRepository.find()
+			const personRepository = AppDataSource.getRepository(Persona);
+			const allPerson = await personRepository.find();
 			// console.log("All users from the db: ", allPerson)
 			res.json(allPerson);
 		}
@@ -80,12 +83,13 @@ class UserController {
 
 	}
 
-	async getUser(req: Request, res: Response, email: any) {
+	async getUser(req: Request, res: Response) {
 		try {
-			const personRepository = AppDataSource.getRepository(Persona)
-			const person = await personRepository.findOneBy({ email })
-			// console.log("user from the db: ", person)
-			res.json(person);
+			const email: any = req.headers.email;
+			const personRepository = AppDataSource.getRepository(Persona);
+			const person = await personRepository.findOneBy({ email });
+			console.log("user from the db: ", email);
+			return res.json(person);
 		}
 		catch (error) {
 			console.error(error);
@@ -95,14 +99,12 @@ class UserController {
 
 	async deleteUser(req, res) {
 		let id = req.body;
-		// console.log(id);
-		// console.log(typeof id);
+
 		try {
 			const personRepository = AppDataSource.getRepository(Persona)
-			const user = await personRepository.findOneBy(id)
-			// console.log(user);
+			const user = await personRepository.findOneBy(id);
 			await personRepository.remove(user);
-			res.json(user)
+			res.json(user);
 		}
 		catch (error) {
 			console.error(console.error());

@@ -8,5 +8,5 @@ export const generateJwt = (id) => {
 	const payload = {
 		id,
 	}
-	return jwt.sign(payload, jwtconfig.secret, { expiresIn: 10 })
+	return jwt.sign(payload, jwtconfig.secret, { expiresIn: 60 })
 }

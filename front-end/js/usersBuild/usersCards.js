@@ -30,6 +30,7 @@ export class UsersCards extends Component {
 	}
 
 	async showUsers() {
+
 		const url = this.usersUrl;
 		const selector = this.options.users
 		const usersTemplate = await this.getTemplate(url, selector);
@@ -42,14 +43,15 @@ export class UsersCards extends Component {
 
 		// let usersData = usersStrorage.allUsers();
 		const usersData = await usersStrorage.allNewUsers();
-
-		// const status = await usersData.status;
-		// if (status == 401) {
-		// 	const result = await usersData.json();
-		// 	alert(result.message);
-		// 	return;
-		// }
+		if (!usersData) {
+			return;
+		}
 		console.log(usersData);
+		if (usersData.status == 401) {
+			return usersData;
+		}
+
+
 		if (usersData != null) {
 			for (let [key, value] of Object.entries(usersData)) {
 				currentCard = await this.user.createUserCard();
@@ -88,10 +90,25 @@ export class UsersCards extends Component {
 		const usersStrorage = new UsersDataLayer({
 			dataTableName: 'Users'
 		});
+
 		// const usersData = usersStrorage.allUsers();
 		// const currentUserData = usersData[mail];
-		const testusersData = await usersStrorage.allNewUsers();
-		const currentNewUserData = await testusersData[mail];
+
+
+		// const testusersData = await usersStrorage.allNewUsers();
+		// if (testusersData.status == 401) {
+		// 	return testusersData;
+		// }
+		// const currentNewUserData = await testusersData[mail];
+
+		const currentNewUserData = await usersStrorage.getUser(mail);
+		if (!currentNewUserData) {
+			return;
+		}
+
+		if (currentNewUserData.status == 401) {
+			return currentNewUserData;
+		}
 		currentCardInputs.forEach(item => {
 			if (currentNewUserData[item.dataset.field]) {
 				item.textContent = `${item.dataset.field}: ${currentNewUserData[item.dataset.field]}`;
@@ -107,6 +124,8 @@ export class UsersCards extends Component {
 			}
 		});
 		avatar.prepend(avatarForm);
+
+		console.log(currentCard);
 		return await currentCard;
 	}
 }

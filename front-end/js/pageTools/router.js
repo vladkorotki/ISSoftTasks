@@ -1,7 +1,7 @@
 import { usersCards } from "../usersBuild/usersCards.js";
 import { MainContent } from "./mainContent.js";
 import { usersDataLayer } from "../dataLayer/usersDataLayer.js";
-import { UserPanel } from "../usersBuild/userPanel.js";
+// import { UserPanel } from "../usersBuild/userPanel.js";
 import { formContainer } from "../forms/formContainer.js";
 import { popup } from "./popUp.js";
 
@@ -19,9 +19,8 @@ export class Router {
 
 		this.routes = {
 			'/home': () => this.home(),
-			'/user': () => this.user(),
-			'/users': () => this.users(),
-			// '/vlad': { callback: () => this.users(), guards: [guard1, guard2] },
+			'/user': async () => await this.user(),
+			'/users': async () => await this.users(),
 			'/error': '',
 		};
 
@@ -38,12 +37,6 @@ export class Router {
 		return this;
 	}
 
-	// guard1() {
-	// 	if (token) {
-	// 		return true;
-	// 	}
-	// 	return false;
-	// }
 
 	pageTitle() {
 		let title = document.querySelector('title');
@@ -60,7 +53,7 @@ export class Router {
 		return location;
 	}
 
-	changeRoute() {
+	async changeRoute() {
 		let users = document.querySelector('.users');
 		if (users) {
 			users.remove();
@@ -71,16 +64,23 @@ export class Router {
 			router.setLocation(this.location);
 			return this.routes[this.location]();
 		}
-		return this.routes[cuurentLocation]();
+		return await this.routes[cuurentLocation]();
 	}
 
 	async user() {
 		let users = document.querySelector('.users');
+		const user = document.querySelector('.users__user')
+
 		if (users) {
 			users.remove();
 		}
-		await this.mainContent.panelUser.render();
+		const response = await this.mainContent.panelUser.render();
+		// if (response.status == 401) {
+		// 	this.mainContent.panelUser.exit();
+		// 	return;
+		// }
 		this.mainContent.panelUser.showButtonUsers();
+
 		if (!(localStorage.getItem('token'))) {
 			this.home();
 			formContainer.enter()
@@ -106,6 +106,7 @@ export class Router {
 		if (currentUser) {
 			currentUser.remove();
 		}
+
 		this.location = this.parseLcation();
 	}
 
@@ -116,7 +117,7 @@ export class Router {
 			return
 		}
 		const response = await this.mainContent.usersCards.showUsers();
-		if (response == 401) {
+		if (response.status == 401) {
 			this.mainContent.panelUser.exit();
 			return;
 		}

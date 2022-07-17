@@ -11,10 +11,10 @@ const routerUser = express.Router();
 
 routerUser.post('/user', userController.createUser);
 routerUser.post('/', userController.login);
-routerUser.get('/user/:id', userController.getUser);
+routerUser.get('/user', checkJwt, userController.getUser);
 routerUser.get('/users', checkJwt, userController.getUsers);
-routerUser.put('/', userController.updateUser);
-routerUser.delete('/', userController.deleteUser);
+routerUser.put('/', checkJwt, userController.updateUser);
+routerUser.delete('/', checkJwt, userController.deleteUser);
 
 
 

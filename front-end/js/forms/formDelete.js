@@ -9,7 +9,7 @@ export class FormDelete extends Form {
 
 	constructor(options) {
 		super(options.id);
-		this.usersCards = usersCards.showUsers();
+		// this.usersCards = usersCards.showUsers();
 		this.submitBtn = this.form.querySelector(options.submitBtn);
 		this.cancelBtn = this.form.querySelector(options.cancelBtn);
 

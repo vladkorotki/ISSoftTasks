@@ -6,6 +6,7 @@ import { usersDataLayer } from "../dataLayer/usersDataLayer.js";
 import { router } from "../pageTools/router.js";
 import { formContainer } from "../forms/formContainer.js";
 import { FormAvatar } from '../forms/formAvatar.js';
+import { popup } from "../pageTools/popUp.js";
 
 export class UserPanel {
 	constructor(options) {
@@ -33,28 +34,34 @@ export class UserPanel {
 
 	async render() {
 		const user = formEnter.userData();
+		if (!user.email) {
+			console.log(user.email);
+			this.exit();
+			return
+		}
+
 		const response = await usersDataLayer.login(user);
 		const result = await response.json();
+
 		const status = response.status;
-		if (status == 401) {
+		if (status == 400) {
 			alert(result.message);
 			return;
 		}
-		// await usersDataLayer.createToken(result.token)
+
 		if (!localStorage.getItem('token') && formEnter.checkSubmit) {
-			// usersDataLayer.createToken(formEnter.userData());
 			const jwt = {};
 			jwt.token = result.token;
 			jwt.email = result.email
 			const token = await usersDataLayer.createToken(jwt)
 			this.initialForm.classList.remove(this.initialFormActiveClass);
 			this.userPanel.classList.add(this.userPanelActiveCLass);
-			// await this.showPanel(formEnter.userData()['email']);
 		}
 		else {
 			return;
 		}
 		await this.showPanel(formEnter.userData()['email']);
+		popup.close()
 	}
 
 	async showPanel(mail) {
@@ -62,6 +69,11 @@ export class UserPanel {
 		this.initialForm.classList.remove(this.initialFormActiveClass);
 		this.userPanel.classList.add(this.userPanelActiveCLass);
 		let currentUser = await usersCards.currentUser(mail);
+		console.log(currentUser);
+		if (currentUser.status == 401) {
+			router.setLocation('/home');
+			return;
+		}
 		currentUser.classList.add('currentUser');
 
 		this.userPanel.prepend(currentUser);
@@ -84,10 +96,10 @@ export class UserPanel {
 
 	exit() {
 		formEnter.checkSubmit = false;
-		if (router.parseLcation() == '/home') {
-			usersDataLayer.deleteToken();
-			return;
-		}
+		// if (router.parseLcation() == '/home') {
+		// 	usersDataLayer.deleteToken();
+		// 	return;
+		// }
 		usersDataLayer.deleteToken();
 		router.setLocation('/home');
 	}
