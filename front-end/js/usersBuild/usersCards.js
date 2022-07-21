@@ -91,7 +91,7 @@ export class UsersCards extends Component {
 		});
 
 		const currentNewUserData = await usersStrorage.getUser(mail);
-		avatarImg.src = await currentNewUserData.avatarUrl;
+		avatarImg.src = currentNewUserData.avatarUrl;
 
 		if (!currentNewUserData) {
 			return;

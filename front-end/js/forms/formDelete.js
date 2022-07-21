@@ -25,6 +25,7 @@ export class FormDelete extends Form {
 	}
 
 	async onFormSubmit(event) {
+
 		const submited = super.onFormSubmit(event);
 		if (submited) {
 			const allUsers = await usersDataLayer.allNewUsers();
@@ -43,7 +44,7 @@ export class FormDelete extends Form {
 
 				alert('Пользователь удален');
 				await mainContent.updateCards(this.key);
-				await mainContent.updateCurrentCard(this.key);
+				await mainContent.uptadeForDelete(this.key);
 				popup.close(event);
 
 			} else {

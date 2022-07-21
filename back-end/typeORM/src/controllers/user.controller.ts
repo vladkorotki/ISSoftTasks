@@ -31,7 +31,6 @@ class UserController {
 
 	async middleware(req, res, next) {
 		const filedata = req.file;
-		// console.log(filedata);
 		if (!filedata) {
 			console.log(("Ошибка при загрузке файла"));
 		}
@@ -43,7 +42,6 @@ class UserController {
 			const avatarUrl = filedata.path;
 			personRepository.merge(person, { avatarUrl });
 			await personRepository.save(person);
-			console.log(person);
 
 			const file = fs.readFileSync(filedata.path, { encoding: 'base64' });
 			const response = res.json(`data:image/png;base64,${file}`);
@@ -112,14 +110,8 @@ class UserController {
 			const personRepository = AppDataSource.getRepository(Persona);
 			const user = req.body;
 			const email = user.email;
-			
 			const person = await personRepository.findOneBy({ email });
-			console.log(person);
-			console.log(typeof user);
-		
 			personRepository.merge(person, { ...user });
-
-			console.log(person);
 			await personRepository.save(user);
 			return res.json({ message: "Данные добавлены" });
 		}
@@ -139,11 +131,9 @@ class UserController {
 					if (person.avatarUrl != null) {
 						file = fs.readFileSync(person.avatarUrl, { encoding: 'base64' });
 						person.avatarUrl = `data:image/png;base64, ${file}`;
-						// console.log(person.avatarUrl);
 					} else {
 						file = '../img/avatar/dafaultAvatar.png';
 						person.avatarUrl = file;
-						// console.log(person.avatarUrl);
 					}
 				} catch (error) {
 					file = '../img/avatar/dafaultAvatar.png';
@@ -176,14 +166,12 @@ class UserController {
 				person.avatarUrl = file;
 			}
 
-
 			console.log("user from the db: ", email);
 			return res.json(person);
 		}
 		catch (error) {
 			console.error(error);
 		}
-
 	}
 
 	async deleteUser(req, res) {
@@ -198,13 +186,10 @@ class UserController {
 		catch (error) {
 			console.error(console.error());
 		}
-
 	}
 
 	async deleteUsers(req, res) {
-
 	}
-
 }
 
 export default new UserController();

@@ -77,7 +77,6 @@ export class FormContainer {
 
 		else if ((event.target.closest(this.deleteFiledset))) {
 			const email = event.target.dataset.key;
-			console.log(email);
 			const response = await usersDataLayer.getUser(email);
 			if (response.status == 401) {
 				alert('Ваш токен просрочен')
