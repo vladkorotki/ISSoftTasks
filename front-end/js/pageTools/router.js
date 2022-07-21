@@ -1,7 +1,6 @@
 import { usersCards } from "../usersBuild/usersCards.js";
 import { MainContent } from "./mainContent.js";
 import { usersDataLayer } from "../dataLayer/usersDataLayer.js";
-// import { UserPanel } from "../usersBuild/userPanel.js";
 import { formContainer } from "../forms/formContainer.js";
 import { popup } from "./popUp.js";
 
@@ -25,14 +24,13 @@ export class Router {
 		};
 
 		this.location = this.parseLcation();
-
 		window.addEventListener('load', () => { this.mainContent.panelUser.showCurrentToken() });
 		window.addEventListener('hashchange', () => { this.pageTitle() });
 		window.addEventListener('hashchange', () => { this.changeRoute() });
-
 		if (typeof Router.instance === 'object') {
 			return Router.instance;
 		}
+
 		Router.instance = this;
 		return this;
 	}
@@ -55,46 +53,46 @@ export class Router {
 
 	async changeRoute() {
 		let users = document.querySelector('.users');
+
 		if (users) {
 			users.remove();
 		}
+
 		let cuurentLocation = this.parseLcation();
+
 		if (!this.routes.hasOwnProperty(cuurentLocation)) {
 			alert('error');
 			router.setLocation(this.location);
 			return this.routes[this.location]();
 		}
+
 		return await this.routes[cuurentLocation]();
 	}
 
 	async user() {
 		let users = document.querySelector('.users');
-		const user = document.querySelector('.users__user')
+		const user = document.querySelector('.users__user');
 
 		if (users) {
 			users.remove();
 		}
+
 		const response = await this.mainContent.panelUser.render();
-		// if (response.status == 401) {
-		// 	this.mainContent.panelUser.exit();
-		// 	return;
-		// }
 		this.mainContent.panelUser.showButtonUsers();
 
 		if (!(localStorage.getItem('token'))) {
 			this.home();
 			formContainer.enter()
 		}
+
 		this.location = this.parseLcation();
 	}
 
 	home() {
 		this.mainContent.panelUser.initialForm.classList.add(this.mainContent.panelUser.initialFormActiveClass);
 		this.mainContent.panelUser.userPanel.classList.remove(this.mainContent.panelUser.userPanelActiveCLass);
-
 		this.mainContent.panelUser.btnEdit.classList.remove(this.mainContent.panelUser.btnHideClass);
 		this.mainContent.panelUser.btnBack.classList.add(this.mainContent.panelUser.btnHideClass);
-
 		this.mainContent.panelUser.exit()
 		this.mainContent.standart();
 		let users = document.querySelector('.users');
@@ -103,6 +101,7 @@ export class Router {
 		if (users) {
 			users.remove();
 		}
+
 		if (currentUser) {
 			currentUser.remove();
 		}
@@ -116,12 +115,13 @@ export class Router {
 			formContainer.enter();
 			return
 		}
+
 		const response = await this.mainContent.usersCards.showUsers();
 		if (response.status == 401) {
 			this.mainContent.panelUser.exit();
 			return;
 		}
-		// this.mainContent.leftMiddle(await this.mainContent.usersCards.showUsers());
+
 		this.mainContent.leftMiddle(response);
 		this.mainContent.panelUser.showButtonBack();
 		this.location = this.parseLcation();

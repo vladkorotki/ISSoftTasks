@@ -1,9 +1,10 @@
 import { AppDataSource } from "./data-source";
 import express from "express";
 import path from 'path';
-import routerAvatar from "./routes/avatar.router";
+// import routerAvatar from "./routes/avatar.router";
 import routerUser from './routes/user.router';
 import cors from "cors";
+import fs from 'fs';
 
 // const __dirname = path.resolve();
 const PORT = 5501;
@@ -21,32 +22,9 @@ app.use(cors({
 async function main() {
     try {
         let initialize = await AppDataSource.initialize();
-        // console.log("Inserting a new user into the database...");
-        // const persona = new Persona();
-        // persona.username = "vlad";
-        // persona.password = "rdvuiewPRO92";
-        // persona.email = "stas_korotki@mail.ru";
-        // persona.phone = "2223344";
-        // persona.address = "Minsk";
-        // persona.gender = "male";
-        // persona.birth = "1992-05-13";
-
-        // await AppDataSource.manager.save(persona);
-
-        // console.log("Saved a new user with id: " + persona.id);
-
-
-        // console.log("Loading users from the database...");
-        // const users = await AppDataSource.manager.find(Persona);
-
-
-        // console.log("Loaded users: ", persona);
-
-        // console.log("Here you can setup and run express / fastify / any other framework.");
-        // app.use(express.static(path.resolve(__dirname, 'uploads')));
-        // app.use(express.json());
+        
         app.use('/api', routerUser);
-        app.use('/', routerAvatar);
+        // app.use('/', routerAvatar);
 
         app.use(function (request, response) {
             response.send("<h2>Hello</h2>");

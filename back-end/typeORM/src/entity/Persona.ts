@@ -3,6 +3,11 @@ import { Entity, PrimaryGeneratedColumn, Column, BaseEntity } from "typeorm";
 @Entity()
 export class Persona extends BaseEntity {
 
+    @Column({
+        nullable: true,
+    })
+    avatarUrl: string
+
     @PrimaryGeneratedColumn()
     id: number
 

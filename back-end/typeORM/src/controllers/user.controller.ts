@@ -1,3 +1,8 @@
+import Router from 'express';
+import multer from 'multer';
+import path from 'path';
+import crypto from 'crypto';
+
 import { AppDataSource } from "../data-source";
 import { Persona } from "../entity/Persona";
 import "reflect-metadata";
@@ -6,8 +11,51 @@ import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import { jwtconfig, generateJwt } from "../jwtconfig"
 import { Request, Response } from "express";
+import fs from 'fs';
+import { Unique } from 'typeorm';
 
 class UserController {
+
+	storage() {
+		const storage = multer.diskStorage({
+			destination: function (req, file, cb) {
+				cb(null, 'uploads');
+			},
+			filename: function (req, file, cb) {
+				const name = crypto.randomUUID();
+				cb(null, name + path.extname(file.originalname));
+			}
+		});
+		return multer({ storage: storage }).single("NAME");
+	}
+
+	async middleware(req, res, next) {
+		const filedata = req.file;
+		// console.log(filedata);
+		if (!filedata) {
+			console.log(("Ошибка при загрузке файла"));
+		}
+		else {
+			console.log("Файл загружен");
+			const email: string = req.headers.key;
+			const personRepository = AppDataSource.getRepository(Persona);
+			const person = await personRepository.findOneBy({ email });
+			const avatarUrl = filedata.path;
+			personRepository.merge(person, { avatarUrl });
+			await personRepository.save(person);
+			console.log(person);
+
+			const file = fs.readFileSync(filedata.path, { encoding: 'base64' });
+			const response = res.json(`data:image/png;base64,${file}`);
+			return response;
+		}
+		next();
+	}
+	async getAvatar(filedataPath: string) {
+		const file = fs.readFileSync(filedataPath, { encoding: 'base64' });
+		return file;
+	}
+
 	async createUser(req: Request, res: Response) {
 		try {
 			const { username, password, email, phone, address, gender, birth } = req.body;
@@ -58,10 +106,20 @@ class UserController {
 		}
 	}
 
+
 	async updateUser(req: Request, res: Response) {
 		try {
 			const personRepository = AppDataSource.getRepository(Persona);
 			const user = req.body;
+			const email = user.email;
+			
+			const person = await personRepository.findOneBy({ email });
+			console.log(person);
+			console.log(typeof user);
+		
+			personRepository.merge(person, { ...user });
+
+			console.log(person);
 			await personRepository.save(user);
 			return res.json({ message: "Данные добавлены" });
 		}
@@ -71,14 +129,33 @@ class UserController {
 	}
 
 	async getUsers(req: Request, res: Response) {
+		const personRepository = AppDataSource.getRepository(Persona);
+		const allPerson = await personRepository.find();
 		try {
-			const personRepository = AppDataSource.getRepository(Persona);
-			const allPerson = await personRepository.find();
-			// console.log("All users from the db: ", allPerson)
-			res.json(allPerson);
+			for (let i = 0; i < allPerson.length; i++) {
+				let file = undefined;
+				let person = allPerson[i];
+				try {
+					if (person.avatarUrl != null) {
+						file = fs.readFileSync(person.avatarUrl, { encoding: 'base64' });
+						person.avatarUrl = `data:image/png;base64, ${file}`;
+						// console.log(person.avatarUrl);
+					} else {
+						file = '../img/avatar/dafaultAvatar.png';
+						person.avatarUrl = file;
+						// console.log(person.avatarUrl);
+					}
+				} catch (error) {
+					file = '../img/avatar/dafaultAvatar.png';
+					person.avatarUrl = file;
+				}
+
+			}
+			return res.json(allPerson);
 		}
 		catch (error) {
 			console.error(error);
+			return res.json(allPerson);
 		}
 
 	}
@@ -88,6 +165,18 @@ class UserController {
 			const email: any = req.headers.email;
 			const personRepository = AppDataSource.getRepository(Persona);
 			const person = await personRepository.findOneBy({ email });
+			let file = undefined;
+
+			try {
+				file = fs.readFileSync(person.avatarUrl, { encoding: 'base64' });
+				person.avatarUrl = `data:image/png;base64, ${file}`;
+			}
+			catch (error) {
+				file = '../img/avatar/dafaultAvatar.png';
+				person.avatarUrl = file;
+			}
+
+
 			console.log("user from the db: ", email);
 			return res.json(person);
 		}
@@ -115,7 +204,6 @@ class UserController {
 	async deleteUsers(req, res) {
 
 	}
-
 
 }
 

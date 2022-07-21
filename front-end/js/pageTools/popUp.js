@@ -17,17 +17,6 @@ export class Popup {
 		return this;
 	}
 
-
-
-	// close(event) {
-	// 	if (event.target.closest(this.popUpClose)) {
-	// 		this.popUp.classList.remove(this.classForActivePopup);
-	// 		formContainer.hideForm(event);
-	// 	} else {
-	// 		this.popUp.classList.remove(this.classForActivePopup);
-	// 		formContainer.hideForm(event);
-	// 	}
-	// }
 	close(event) {
 		this.popUp.classList.remove(this.classForActivePopup);
 		formContainer.hideForm(event);
@@ -42,7 +31,6 @@ export class Popup {
 	openOnHashChange() {
 		this.popUp.classList.add(this.classForActivePopup);
 	}
-
 }
 
 export const popup = new Popup({

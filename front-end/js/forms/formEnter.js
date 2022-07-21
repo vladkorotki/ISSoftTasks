@@ -7,11 +7,12 @@ export class FormSignIn extends Form {
 	constructor(options) {
 		super(options.id);
 		this.starterForm = document.querySelector(options.starterForm);
-		// this.userPanel = panelUser;
 		this.checkSubmit = false;
+
 		if (typeof FormSignIn.instance === 'object') {
 			return FormSignIn.instance;
 		}
+
 		FormSignIn.instance = this;
 		return this;
 	}
@@ -20,15 +21,11 @@ export class FormSignIn extends Form {
 		const submited = super.onFormSubmit(event);
 
 		if (submited) {
-			usersDataLayer.addTable(this.dataTableName);
 			this.userData();
 			router.setLocation('/user');
 			this.checkSubmit = true;
-			// popup.close(event)
 		}
 	}
-
-
 
 	userData() {
 		let user = {};
@@ -38,40 +35,6 @@ export class FormSignIn extends Form {
 		}
 		return user;
 	}
-
-
-
-	// OLD METHOD
-	// async signIn(event) {
-	// 	const compare = await usersDataLayer.compareNewUsers(this.userData().email, this.userData().password);
-	// 	if (compare) {
-	// 		alert('hi');
-	// 		// this.userPanel.showPanel(this.userData()['email'], event);
-	// 		// usersDataLayer.createToken(this.userData());
-	// 		popup.close(event)
-	// 		return true;
-	// 	} else {
-	// 		alert('Не верный e-mail или пароль');
-	// 		return false;
-	// 	}
-	// }
-
-	// OLD METHOD
-	// async onFormSubmit(event) {
-	// 	const submited = super.onFormSubmit(event);
-	// 	let sign = await this.signIn(event);
-	// 	if (submited) {
-	// 		if (!sign) {
-	// 			return;
-	// 		} else {
-	// 			usersDataLayer.addTable(this.dataTableName);
-	// 			this.userData();
-	// 			router.setLocation('/user');
-	// 			this.checkSubmit = true;
-	// 		}
-	// 	}
-	// }
-
 }
 
 export const formEnter = new FormSignIn({

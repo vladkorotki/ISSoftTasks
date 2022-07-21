@@ -28,6 +28,7 @@ export class UserPanel {
 		if (typeof UserPanel.instance === 'object') {
 			return UserPanel.instance;
 		}
+
 		UserPanel.instance = this;
 		return this;
 	}
@@ -37,7 +38,7 @@ export class UserPanel {
 		if (!user.email) {
 			console.log(user.email);
 			this.exit();
-			return
+			return;
 		}
 
 		const response = await usersDataLayer.login(user);
@@ -52,54 +53,62 @@ export class UserPanel {
 		if (!localStorage.getItem('token') && formEnter.checkSubmit) {
 			const jwt = {};
 			jwt.token = result.token;
-			jwt.email = result.email
-			const token = await usersDataLayer.createToken(jwt)
+			jwt.email = result.email;
+			const token = await usersDataLayer.createToken(jwt);
 			this.initialForm.classList.remove(this.initialFormActiveClass);
 			this.userPanel.classList.add(this.userPanelActiveCLass);
 		}
+
 		else {
 			return;
 		}
+
 		await this.showPanel(formEnter.userData()['email']);
 		popup.close()
 	}
 
 	async showPanel(mail) {
+
+		const oldUser = document.querySelector('.currentUser');
+		if (oldUser) {
+			oldUser.remove();
+		}
+
 		router.pageTitle();
 		this.initialForm.classList.remove(this.initialFormActiveClass);
 		this.userPanel.classList.add(this.userPanelActiveCLass);
 		let currentUser = await usersCards.currentUser(mail);
-		console.log(currentUser);
+
 		if (currentUser.status == 401) {
 			router.setLocation('/home');
 			return;
 		}
-		currentUser.classList.add('currentUser');
 
+		currentUser.classList.add('currentUser');
 		this.userPanel.prepend(currentUser);
 		let formAvatar = new FormAvatar(
 			'avatarForm',
 		);
+
 		const formEdit = editForm;
 		const formDelete = deleteForm;
 	}
 
 	async showCurrentToken() {
+
 		if (localStorage.getItem('token')) {
 			router.setLocation('/user');
 			let tokenKey = JSON.parse(localStorage.getItem('token'))['email'];
 			await this.showPanel(tokenKey);
-		} else {
+		}
+
+		else {
 			return;
 		}
 	}
 
 	exit() {
 		formEnter.checkSubmit = false;
-		// if (router.parseLcation() == '/home') {
-		// 	usersDataLayer.deleteToken();
-		// 	return;
-		// }
 		usersDataLayer.deleteToken();
 		router.setLocation('/home');
 	}

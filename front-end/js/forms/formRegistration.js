@@ -24,7 +24,6 @@ export class FormRegistration extends Form {
 				return;
 			}
 			alert(json.message);
-			const dataLayer = usersDataLayer.add(user, 'email');
 			formContainer.changeForm();
 		}
 	}
@@ -38,24 +37,5 @@ export class FormRegistration extends Form {
 		}
 		return user;
 	}
-
-
-	// OLD METHOD
-	// async onFormSubmit(event) {
-	// 	const submited = super.onFormSubmit(event);
-	// 	const user = await this.createUser();
-	// 	if (submited) {
-	// 		const allUsers = await usersDataLayer.allNewUsers();
-	// 		if (allUsers != null && allUsers.hasOwnProperty(user['email'])) {
-	// 			alert('Пользователь с таким e-mail уже существует');
-	// 		} else {
-	// 			await usersDataLayer.addUser(user);
-	// 			alert('Поздравляем вы успешно зарегистрировались')
-	// 			const dataLayer = usersDataLayer.add(user, 'email');
-	// 			formContainer.changeForm();
-	// 		}
-	// 	}
-	// }
-
 }
 

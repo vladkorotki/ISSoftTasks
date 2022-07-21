@@ -33,18 +33,15 @@ export class MainContent {
 
 	async updateCards() {
 		let users = document.querySelector('.users');
+
 		if (users) {
 			users.remove();
 			this.leftMiddle(await usersCards.showUsers());
 		}
 	}
- 
+
 	async updateCurrentCard(mail) {
-		let currentUser = this.leftColumn.querySelector('.users__user');
-		if (currentUser.dataset.key == mail) {
-			currentUser.remove();
-			this.panelUser.userPanel.prepend(await usersCards.currentUser(mail));
-		}
+		await this.panelUser.showPanel(mail);
 	}
 
 	leftMiddle(content) {

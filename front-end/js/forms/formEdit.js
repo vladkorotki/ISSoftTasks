@@ -8,14 +8,14 @@ import { mainContent } from '../pageTools/mainContent.js';
 export class FormEdit extends Form {
 	constructor(options) {
 		super(options.id);
-		// debugger
-		// this.usersCards = usersCards.showUsers();
 		this.submitBtn = this.form.querySelector(options.submitBtn);
 		document.addEventListener('click', (event) => { this.findKeyButton(event) });
 		this.key;
+
 		if (typeof FormEdit.instance === 'object') {
 			return FormEdit.instance;
 		}
+
 		FormEdit.instance = this;
 		return this;
 	}
@@ -29,12 +29,12 @@ export class FormEdit extends Form {
 				popup.close();
 				return;
 			}
+
 			const response = await usersDataLayer.updateUser(user);
 			const message = await response.json();
 			alert(message.message);
-			const dataLayer = usersDataLayer.add(this.userData(), ['email']);
-			mainContent.updateCards();
-			mainContent.updateCurrentCard(this.key);
+			await mainContent.updateCards();
+			await mainContent.updateCurrentCard(this.key);
 			popup.close(event);
 		}
 	}
@@ -42,18 +42,15 @@ export class FormEdit extends Form {
 	findKeyButton(event) {
 		if (event.target.hasAttribute('data-key')) {
 			this.key = event.target.dataset.key;
-			console.log(this.key);
 			return this.key;
 		}
 	}
 
 	async userData() {
 		let mail = this.key;
-		// let currentUser = usersDataLayer.currentUser(mail);
 		const currentUser = await usersDataLayer.getUser(mail);
-		console.log(currentUser);
+		delete currentUser.avatarUrl;
 
-		console.log(currentUser.status);
 		if (currentUser.status == 401) {
 			return currentUser;
 		}
@@ -66,15 +63,20 @@ export class FormEdit extends Form {
 
 	async inputsValues() {
 		let mail = this.key;
-		// let user = usersDataLayer.currentUser(mail);
 		let user = await usersDataLayer.currentNewUser(mail);
+
 		this.inputs.forEach(input => {
+
 			if (input.type != 'radio') {
+
 				for (let [key, value] of Object.entries(user)) {
+
 					if (input.name == key) {
 						input.value = value;
 						break;
-					} else {
+					}
+
+					else {
 						input.value = '';
 					}
 				}
@@ -91,30 +93,6 @@ export class FormEdit extends Form {
 		}
 		return user;
 	}
-
-
-	//OLD METHOD
-	// async onFormSubmit(event) {
-	// 	const submited = super.onFormSubmit(event);
-	// 	if (submited) {
-	// 		const allUsers = await usersDataLayer.allNewUsers();
-	// 		if (allUsers != null && allUsers.hasOwnProperty([this.key])) {
-	// 			const user = await this.userData()
-	// 			await usersDataLayer.updateUser(user);
-
-	// 			alert('Данные добавлены');
-	// 			const users = document.querySelector('.users');
-	// 			const dataLayer = usersDataLayer.add(this.userData(), ['email']);
-
-	// 			mainContent.updateCards();
-	// 			mainContent.updateCurrentCard(this.key);
-	// 			popup.close(event);
-
-	// 		} else {
-	// 			alert('Пользователь с таким e-mail не существует');
-	// 		}
-	// 	}
-	// }
 }
 
 export const editForm = new FormEdit({

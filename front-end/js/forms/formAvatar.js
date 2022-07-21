@@ -1,10 +1,12 @@
+import { usersDataLayer } from '../dataLayer/usersDataLayer.js';
 import { Form } from './form.js';
+import { mainContent } from '../pageTools/mainContent.js';
 export class FormAvatar extends Form {
 	constructor(id) {
-		console.log('load formAvatar class');
 		super(id)
 		this.form = document.getElementById(id);
-		// this.inputs = this.form.querySelectorAll('.input__file');
+		this.form.addEventListener('click', (event) => { this.findKey(event) });
+		this.key;
 		this.input = this.form.querySelector('.input__file');
 		this.inputFileChoose();
 	}
@@ -14,48 +16,36 @@ export class FormAvatar extends Form {
 		const labelVal = label.querySelector('.input__file-button-text').innerText;
 		this.input.addEventListener('change', function () {
 			let countFiles = '';
-			if (this.files && this.files.length >= 1)
+			if (this.files && this.files.length >= 1) {
 				countFiles = this.files.length;
-			if (countFiles)
+			}
+
+			if (countFiles) {
 				label.querySelector('.input__file-button-text').innerText = 'Выбрано файлов: ' + countFiles;
-			else
+			}
+
+			else {
 				label.querySelector('.input__file-button-text').innerText = labelVal;
+			}
 		});
 	}
 
 	async onFormSubmit(event) {
 		event.preventDefault();
-		console.log(this.form);
-		await fetch('http://localhost:5501/', {
-			method: 'POST',
-			body: new FormData(this.form),
-		});
+		const currentCard = document.querySelector(`.currentUser`);
+		const img = currentCard.querySelector('img');
+		const avatar = await usersDataLayer.uploadAvatar(this.form, this.key);
+		img.src = avatar;
+		await mainContent.updateCurrentCard(this.key);
+		await mainContent.updateCards();
 	}
 
-	log() {
-		console.log(this.form);
+	findKey(event) {
+		if (event.target.hasAttribute('data-key')) {
+			this.key = event.target.dataset.key;
+			return this.key;
+		}
 	}
 }
-
-
-
-// inputFileChoose() {
-
-	// Array.prototype.forEach.call(this.inputs, function (input) {
-		// 	let label = input.nextElementSibling,
-		// 		labelVal = label.querySelector('.input__file-button-text').innerText;
-
-		// 	input.addEventListener('change', function (e) {
-		// 		let countFiles = '';
-		// 		if (this.files && this.files.length >= 1)
-		// 			countFiles = this.files.length;
-
-		// 		if (countFiles)
-		// 			label.querySelector('.input__file-button-text').innerText = 'Выбрано файлов: ' + countFiles;
-		// 		else
-		// 			label.querySelector('.input__file-button-text').innerText = labelVal;
-		// 	});
-		// });
-// }
 
 

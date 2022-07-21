@@ -3,12 +3,15 @@ import Router from 'express';
 import multer from 'multer';
 import path from 'path';
 import userController from '../controllers/user.controller';
-import { checkJwt } from "../middlewares/auth.middleware"
+import { checkJwt } from "../middlewares/auth.middleware";
 
+
+import crypto from 'crypto';
 
 
 const routerUser = express.Router();
 
+routerUser.post('/avatar', userController.storage(), userController.middleware);
 routerUser.post('/user', userController.createUser);
 routerUser.post('/', userController.login);
 routerUser.get('/user', checkJwt, userController.getUser);

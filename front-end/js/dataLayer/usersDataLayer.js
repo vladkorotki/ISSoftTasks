@@ -6,31 +6,6 @@ export class UsersDataLayer extends DataLayer {
 		this.dataTableName = options.dataTableName;
 	}
 
-	//Old methods for localStorage
-	add(userObject, keyProperty) {
-		return super.add(this.dataTableName, userObject, keyProperty);
-	}
-
-	addTable() {
-		super.addTable(this.dataTableName);
-	}
-
-	delete(userObject) {
-		return super.delete(this.dataTableName, userObject);
-	}
-
-	compareUsers(userMail, userPassword) {
-		return super.compareUsers(this.dataTableName, userMail, userPassword);
-	}
-
-	allUsers() {
-		return super.getUsers(this.dataTableName);
-	}
-
-	currentUser(key) {
-		console.log(this.allUsers()[key]);
-		return this.allUsers()[key];
-	}
 
 	//New methods for database
 	async addUser(user) {
@@ -65,6 +40,10 @@ export class UsersDataLayer extends DataLayer {
 
 	async compareNewUsers(userMail, userPassword) {
 		return await super.compareNewUsers(userMail, userPassword);
+	}
+
+	async uploadAvatar(form, key) {
+		return await super.uploadAvatar(form, key);
 	}
 
 }
